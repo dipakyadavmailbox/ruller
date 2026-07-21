@@ -1,0 +1,64 @@
+:root {
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* dark theme (default) */
+  --bg: #050505;
+  --canvas: #000000;
+  --ink: #f2f2f0;
+  --ink-dim: #8a8a86;
+  --ink-faint: #4a4a48;
+  --panel-bg: #141414;
+  --panel-border: #2a2a28;
+  --tick: #e8e8e4;
+  --tick-dim: #55554f;
+  --accent: #ff4433;
+  --btn-active-bg: #f2f2f0;
+  --btn-active-ink: #0a0a0a;
+  --btn-idle-bg: #1c1c1a;
+  --btn-idle-ink: #b8b8b2;
+  --divider: #2a2a28;
+}
+
+[data-theme='light'] {
+  --bg: #f4f4f0;
+  --canvas: #ffffff;
+  --ink: #101010;
+  --ink-dim: #6a6a64;
+  --ink-faint: #c8c8c2;
+  --panel-bg: #ffffff;
+  --panel-border: #d8d8d2;
+  --tick: #141414;
+  --tick-dim: #b0b0aa;
+  --accent: #d6321f;
+  --btn-active-bg: #141414;
+  --btn-active-ink: #f4f4f0;
+  --btn-idle-bg: #eeeeea;
+  --btn-idle-ink: #55554f;
+  --divider: #d8d8d2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+button, input, select {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
