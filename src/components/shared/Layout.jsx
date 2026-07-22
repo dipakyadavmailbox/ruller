@@ -29,7 +29,7 @@ export default function Layout() {
         }}
       >
         <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-          <span style={{ fontSize: 18 }} aria-hidden="true"><img src="src/images/logo-transparent-svg.svg" alt="OnlineUpkaran" /></span>
+          <span style={{ fontSize: 18 }} aria-hidden="true"></span>
           <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1, color: 'var(--ink)' }}>
             FREE Online Upkarans
           </span>
