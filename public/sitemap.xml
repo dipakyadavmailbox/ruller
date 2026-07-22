@@ -16,4 +16,28 @@
     <loc>https://YOUR-DOMAIN.com/calorie-calculator</loc>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/regex-tester</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/data-converter</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/pregnancy-calculator</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/aspect-ratio-calculator</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/dpi-calculator</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://YOUR-DOMAIN.com/image-resizer</loc>
+    <priority>0.85</priority>
+  </url>
 </urlset>

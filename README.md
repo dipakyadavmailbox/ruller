@@ -1,17 +1,23 @@
-# Free Upkaran — Ruler, Password Checker, Calorie Calculator
+# Free Tools — 8-Tool Toolkit
 
-A single Vite + React site bundling three small, single-purpose Upkaran:
+A single Vite + React site bundling eight small, single-purpose tools:
 
 | Route | Tool | SEO angle | Affiliate angle |
 |---|---|---|---|
-| `/ruler` | On-screen ruler, calibrated to true mm/cm/in scale | "online ruler", "screen ruler" — steady search volume | low direct, but drives repeat/branded traffic |
-| `/password-checker` | Password strength checker + generator, 100% client-side | "password strength checker" — huge volume | password managers pay $20-50+ per signup, some of the best payouts in SaaS affiliate |
-| `/calorie-calculator` | TDEE + macro calculator (Mifflin-St Jeor) | "calorie calculator", "tdee calculator" — very high, evergreen volume | supplements, meal kits, kitchen scales — mature, high-converting niche |
+| `/ruler` | On-screen ruler, calibrated to true mm/cm/in scale | "online ruler", "screen ruler" | low direct, drives branded/repeat traffic |
+| `/password-checker` | Password strength checker + generator, 100% client-side | "password strength checker" — huge volume | password managers, $20-50+ per signup |
+| `/calorie-calculator` | TDEE + macro calculator (Mifflin-St Jeor) | "calorie calculator", "tdee calculator" — very high volume | supplements, meal kits, kitchen scales |
+| `/regex-tester` | Live regex tester + cheatsheet | steady dev-audience search volume | IDEs, dev courses, hosting |
+| `/data-converter` | JSON ⇄ CSV ⇄ YAML converter | huge long-tail ("convert json to csv") | low direct, strong ad/upsell traffic |
+| `/pregnancy-calculator` | Due date (Naegele's rule) + ovulation/fertile window | evergreen, very high volume | prenatal vitamins, ovulation kits, baby products |
+| `/aspect-ratio-calculator` | Ratio dimensions + center-crop calculator | "4:5 vs 9:16 calculator" | camera gear, tripods, editing software |
+| `/dpi-calculator` | Print size ⇄ pixel resolution ⇄ DPI | "what resolution do I need to print 24x36" | printers, photo paper, print services |
+| `/image-resizer` | Client-side image resize + compress (Canvas API) | "resize image online", "compress image without losing quality" — very high volume | cloud storage, editing software, CDN/hosting |
 
 ## Why they're bundled together
 
 Same domain, shared nav, and a home page (`/`) that links to all three —
-this is deliberate for SEO. Internal links between related upkaran help
+this is deliberate for SEO. Internal links between related tools help
 search engines understand your site's topical breadth, and visitors who
 land on one tool via search are one click from discovering another
 (reduces bounce rate, increases pages/session — both indirectly help
@@ -39,29 +45,28 @@ toolkit/
     ├── components/
     │   ├── shared/
     │   │   ├── Layout.jsx          – header nav + footer (wraps every page except /ruler)
-    │   │   └── AffiliateCard.jsx   – reusable recommendation block
-    │   ├── ruler/                  – the ruler tool (unchanged from the standalone version)
-    │   ├── password/
-    │   │   ├── passwordStrength.js – scoring, entropy, crack-time, generator
-    │   │   └── PasswordChecker.jsx
-    │   └── calorie/
-    │       ├── calorieMath.js      – Mifflin-St Jeor + macro split
-    │       └── CalorieCalculator.jsx
+    │   │   ├── AffiliateCard.jsx   – reusable recommendation block
+    │   │   └── FormKit.jsx         – shared inputs/buttons/cards for the calculator-style tools
+    │   ├── ruler/                  – the ruler tool
+    │   ├── password/                – strength checker + generator
+    │   ├── calorie/                 – TDEE + macro calculator
+    │   ├── regex/                   – regex tester + cheatsheet
+    │   ├── converter/               – JSON/CSV/YAML converter (uses papaparse + js-yaml)
+    │   ├── pregnancy/               – due date + ovulation calculator
+    │   ├── aspect/                  – aspect ratio + crop calculator
+    │   ├── dpi/                     – DPI/PPI print size calculator
+    │   └── imagetool/               – image resizer/compressor (Canvas API, no uploads)
     └── pages/                      – thin route wrappers, one per URL
 ```
 
 ## Before you launch: plug in real affiliate links
 
-`AffiliateCard` is used on both the password checker and calorie
-calculator pages. Right now every `href` is a placeholder (`'#'`). Open:
-
-- `src/components/password/PasswordChecker.jsx` → `AFFILIATE_ITEMS`
-- `src/components/calorie/CalorieCalculator.jsx` → `AFFILIATE_ITEMS`
-
-and swap in your actual affiliate links (1Password/Dashlane/NordPass
-partner programs, Amazon Associates for kitchen scales, etc). Since both
-pages share the one `AffiliateCard` component, styling stays consistent
-automatically.
+`AffiliateCard` is reused across five of the eight tools. Each tool file
+has its own `AFFILIATE_ITEMS` array at the top with placeholder `href: '#'`
+values — search each tool's main component file for `AFFILIATE_ITEMS` and
+swap in your real links (password managers, Amazon Associates for camera
+gear/printers, prenatal vitamin brands, etc). Since they all share one
+`AffiliateCard` component, styling stays consistent automatically.
 
 ## Run it locally
 

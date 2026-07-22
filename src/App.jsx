@@ -4,6 +4,12 @@ import Home from './pages/Home.jsx'
 import PasswordCheckerPage from './pages/PasswordCheckerPage.jsx'
 import CalorieCalculatorPage from './pages/CalorieCalculatorPage.jsx'
 import RulerPage from './pages/RulerPage.jsx'
+import RegexTesterPage from './pages/RegexTesterPage.jsx'
+import DataConverterPage from './pages/DataConverterPage.jsx'
+import PregnancyCalculatorPage from './pages/PregnancyCalculatorPage.jsx'
+import AspectRatioPage from './pages/AspectRatioPage.jsx'
+import DpiCalculatorPage from './pages/DpiCalculatorPage.jsx'
+import ImageResizerPage from './pages/ImageResizerPage.jsx'
 
 export default function App() {
   return (
@@ -16,6 +22,12 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/password-checker" element={<PasswordCheckerPage />} />
         <Route path="/calorie-calculator" element={<CalorieCalculatorPage />} />
+        <Route path="/regex-tester" element={<RegexTesterPage />} />
+        <Route path="/data-converter" element={<DataConverterPage />} />
+        <Route path="/pregnancy-calculator" element={<PregnancyCalculatorPage />} />
+        <Route path="/aspect-ratio-calculator" element={<AspectRatioPage />} />
+        <Route path="/dpi-calculator" element={<DpiCalculatorPage />} />
+        <Route path="/image-resizer" element={<ImageResizerPage />} />
       </Route>
     </Routes>
   )

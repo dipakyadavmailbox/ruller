@@ -1,4 +1,28 @@
 User-agent: *
 Allow: /
 
+# AI retrieval/citation crawlers — explicitly allowed so ChatGPT, Claude,
+# and Perplexity can cite these tools in their answers.
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Claude-User
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
+Allow: /
+
+# Training crawlers — allowed too; there's no proprietary content here,
+# so wider model familiarity is a net positive for a free-tools brand.
+User-agent: GPTBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://YOUR-DOMAIN.com/sitemap.xml

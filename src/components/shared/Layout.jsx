@@ -2,10 +2,16 @@ import { NavLink, Outlet } from 'react-router-dom'
 import { useTheme } from '../../hooks/useTheme.js'
 
 const NAV_ITEMS = [
-  { to: '/', label: 'All Upkarans', end: true },
+  { to: '/', label: 'All Tools', end: true },
   { to: '/ruler', label: 'Screen Ruler' },
   { to: '/password-checker', label: 'Password Checker' },
   { to: '/calorie-calculator', label: 'Calorie Calculator' },
+  { to: '/regex-tester', label: 'Regex Tester' },
+  { to: '/data-converter', label: 'Data Converter' },
+  { to: '/pregnancy-calculator', label: 'Pregnancy Calculator' },
+  { to: '/aspect-ratio-calculator', label: 'Aspect Ratio' },
+  { to: '/dpi-calculator', label: 'DPI Calculator' },
+  { to: '/image-resizer', label: 'Image Resizer' },
 ]
 
 export default function Layout() {
@@ -29,9 +35,9 @@ export default function Layout() {
         }}
       >
         <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-          <span style={{ fontSize: 18 }} aria-hidden="true"></span>
+          <img src="/logo.svg" alt="Free Tools logo" width={20} height={20} style={{ display: 'block' }} />
           <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1, color: 'var(--ink)' }}>
-            FREE Online Upkarans
+            FREE TOOLS
           </span>
         </NavLink>
 
@@ -90,7 +96,7 @@ export default function Layout() {
           lineHeight: 1.6,
         }}
       >
-        <div>Free Upkarans — no signup, no tracking required to use any upkaran.</div>
+        <div>Free Tools — no signup, no tracking required to use any tool.</div>
         <div style={{ marginTop: 4 }}>
           Some recommendations on this site are affiliate links — if you buy
           through them we may earn a commission at no extra cost to you.

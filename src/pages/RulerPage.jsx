@@ -10,7 +10,7 @@ import { usePageMeta } from '../hooks/usePageMeta.js'
 // The ruler stays outside the shared <Layout> on purpose: any header/nav
 // chrome above it would push the "top" ruler away from the browser's true
 // physical top edge, throwing off measurements. It gets its own minimal
-// "back to upkarans" link instead. Theme still comes from the shared hook so
+// "back to tools" link instead. Theme still comes from the shared hook so
 // it stays in sync with the rest of the site.
 export default function RulerPage() {
   usePageMeta({
@@ -64,7 +64,7 @@ export default function RulerPage() {
           textDecoration: 'none',
         }}
       >
-        ← All Upkarans
+        ← All tools
       </Link>
 
       <RulerPanel

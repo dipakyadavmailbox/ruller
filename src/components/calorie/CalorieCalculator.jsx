@@ -170,7 +170,7 @@ export default function CalorieCalculator() {
         registered dietitian before making major dietary changes.
       </p>
 
-      <AffiliateCard heading="UPKARAN THAT MAKE HITTING YOUR TARGET EASIER" items={AFFILIATE_ITEMS} />
+      <AffiliateCard heading="TOOLS THAT MAKE HITTING YOUR TARGET EASIER" items={AFFILIATE_ITEMS} />
     </div>
   )
 }
