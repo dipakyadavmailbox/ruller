@@ -17,6 +17,7 @@
   --btn-idle-bg: #1c1c1a;
   --btn-idle-ink: #b8b8b2;
   --divider: #2a2a28;
+  --tick-label-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
 }
 
 [data-theme='light'] {
@@ -35,6 +36,7 @@
   --btn-idle-bg: #eeeeea;
   --btn-idle-ink: #55554f;
   --divider: #d8d8d2;
+  --tick-label-shadow: 0 0 3px rgba(255, 255, 255, 0.9);
 }
 
 * {
@@ -51,7 +53,10 @@ body {
   color: var(--ink);
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+}
+
+a {
+  color: inherit;
 }
 
 button, input, select {

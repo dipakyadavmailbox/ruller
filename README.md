@@ -1,60 +1,74 @@
-# Fixed Ruler
+# Free Upkaran — Ruler, Password Checker, Calorie Calculator
 
-A React app that pins physical-scale rulers to the edges of the browser
-viewport — measure real objects on your screen in mm, cm, or inches.
+A single Vite + React site bundling three small, single-purpose Upkaran:
 
-Built with **Vite + React** (no backend, no external APIs — deploys as a
-static site).
+| Route | Tool | SEO angle | Affiliate angle |
+|---|---|---|---|
+| `/ruler` | On-screen ruler, calibrated to true mm/cm/in scale | "online ruler", "screen ruler" — steady search volume | low direct, but drives repeat/branded traffic |
+| `/password-checker` | Password strength checker + generator, 100% client-side | "password strength checker" — huge volume | password managers pay $20-50+ per signup, some of the best payouts in SaaS affiliate |
+| `/calorie-calculator` | TDEE + macro calculator (Mifflin-St Jeor) | "calorie calculator", "tdee calculator" — very high, evergreen volume | supplements, meal kits, kitchen scales — mature, high-converting niche |
 
-## How it works
+## Why they're bundled together
 
-- **Ticks are drawn in real pixels-per-inch (PPI)**, not just CSS units.
-  Browsers don't expose a monitor's true physical DPI, so by default the
-  app assumes the common 96 DPI baseline and warns "UNCALIBRATED SCALE."
-- **Calibrate** (button in the panel footer) lets you match an on-screen
-  bar against something you actually own — a bank card, A4/Letter paper,
-  or a dollar bill — and derives your screen's true PPI from that.
-- **Zoom tracking**: once calibrated, the app snapshots
-  `window.devicePixelRatio` at that moment. Because most browsers scale
-  `devicePixelRatio` with page zoom, later zoom changes are detected as a
-  ratio against that snapshot and the tick spacing is corrected live, so
-  the ruler stays physically accurate as you zoom in or out.
-- Calibration is saved to `localStorage` so it persists across visits on
-  the same device/browser.
+Same domain, shared nav, and a home page (`/`) that links to all three —
+this is deliberate for SEO. Internal links between related upkaran help
+search engines understand your site's topical breadth, and visitors who
+land on one tool via search are one click from discovering another
+(reduces bounce rate, increases pages/session — both indirectly help
+rankings, and directly help revenue since more page views = more
+affiliate impressions).
 
 ## Project structure
 
 ```
-fixed-ruler/
+toolkit/
 ├── index.html
-├── package.json
-├── vite.config.js
-├── vercel.json
+├── package.json / vite.config.js / vercel.json
+├── public/
+│   ├── robots.txt        – points crawlers at sitemap.xml
+│   └── sitemap.xml       – replace YOUR-DOMAIN.com once you have one
 └── src/
-    ├── main.jsx
-    ├── App.jsx                 – top-level layout, hero text, state
-    ├── units.js                 – unit math + reference object list
-    ├── index.css                – design tokens (dark/light themes)
+    ├── App.jsx                     – route table
+    ├── index.css                   – shared design tokens (dark/light)
+    ├── units.js                    – ruler unit math
     ├── hooks/
-    │   ├── useCalibratedPPI.js  – calibration + live zoom tracking
-    │   └── useDraggable.js      – makes the control panel draggable
-    └── components/
-        ├── Ruler.jsx            – renders ticks along one edge
-        ├── RulerPanel.jsx       – floating control panel
-        ├── SegButton.jsx        – shared toggle-button style
-        └── CalibrationModal.jsx – "match an object" calibration flow
+    │   ├── useTheme.js             – site-wide dark/light, persisted
+    │   ├── usePageMeta.js          – sets <title>/<meta description> per page
+    │   ├── useCalibratedPPI.js     – ruler calibration + zoom compensation
+    │   └── useDraggable.js         – ruler panel dragging
+    ├── components/
+    │   ├── shared/
+    │   │   ├── Layout.jsx          – header nav + footer (wraps every page except /ruler)
+    │   │   └── AffiliateCard.jsx   – reusable recommendation block
+    │   ├── ruler/                  – the ruler tool (unchanged from the standalone version)
+    │   ├── password/
+    │   │   ├── passwordStrength.js – scoring, entropy, crack-time, generator
+    │   │   └── PasswordChecker.jsx
+    │   └── calorie/
+    │       ├── calorieMath.js      – Mifflin-St Jeor + macro split
+    │       └── CalorieCalculator.jsx
+    └── pages/                      – thin route wrappers, one per URL
 ```
 
-## Run it locally
+## Before you launch: plug in real affiliate links
 
-Requires Node.js 18+.
+`AffiliateCard` is used on both the password checker and calorie
+calculator pages. Right now every `href` is a placeholder (`'#'`). Open:
+
+- `src/components/password/PasswordChecker.jsx` → `AFFILIATE_ITEMS`
+- `src/components/calorie/CalorieCalculator.jsx` → `AFFILIATE_ITEMS`
+
+and swap in your actual affiliate links (1Password/Dashlane/NordPass
+partner programs, Amazon Associates for kitchen scales, etc). Since both
+pages share the one `AffiliateCard` component, styling stays consistent
+automatically.
+
+## Run it locally
 
 ```bash
 npm install
 npm run dev
 ```
-
-Then open the printed local URL (usually `http://localhost:5173`).
 
 ```bash
 npm run build     # production build → dist/
@@ -63,59 +77,49 @@ npm run preview   # serve the production build locally
 
 ## Deploy to Vercel
 
-You have two easy paths — pick whichever fits how you're working.
+**CLI (fastest):**
+```bash
+npm install -g vercel
+vercel          # first deploy, asks setup questions, auto-detects Vite
+vercel --prod   # promote to production URL
+```
 
-### Option A — Vercel CLI (fastest, no GitHub needed)
+**Git + dashboard (recommended for ongoing work):**
+1. Push this folder to a GitHub repo.
+2. On vercel.com → **Add New → Project** → import the repo.
+3. Vercel auto-detects Vite (build: `npm run build`, output: `dist`) —
+   also pinned explicitly in `vercel.json` so it's correct either way.
+4. Deploy. Every push to `main` redeploys automatically.
 
-1. Install the CLI once, globally:
-   ```bash
-   npm install -g vercel
-   ```
-2. From inside the `fixed-ruler` project folder, run:
-   ```bash
-   vercel
-   ```
-   - First run asks you to log in (opens a browser) and asks a few setup
-     questions — accept the defaults, Vercel auto-detects this as a Vite
-     project (build command `npm run build`, output directory `dist`).
-3. That deploys a preview URL. To publish it as your production URL:
-   ```bash
-   vercel --prod
-   ```
+No environment variables or backend needed — fully static/client-side.
 
-### Option B — Git + Vercel dashboard (recommended for ongoing work)
+## An honest note on SEO and this architecture
 
-1. Push this folder to a new GitHub (or GitLab/Bitbucket) repository:
-   ```bash
-   git init
-   git add .
-   git commit -m "Fixed Ruler app"
-   git branch -M main
-   git remote add origin <your-repo-url>
-   git push -u origin main
-   ```
-2. Go to **vercel.com → Add New → Project**, and import that repository.
-3. Vercel auto-detects the **Vite** framework preset:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-   - Install Command: `npm install`
-   (These are also pinned explicitly in `vercel.json`, so they'll be
-   correct even if auto-detection is off.)
-4. Click **Deploy**. Every future push to `main` redeploys automatically;
-   pushes to other branches get their own preview URLs.
+This is a client-rendered single-page app (Vite + React Router, no
+server-side rendering). Google's crawler does execute JavaScript and can
+index SPA content today, so this will get indexed — but a
+server-rendered or statically-generated site (Next.js `next export`,
+Astro, etc.) will generally index faster, more reliably, and rank
+slightly better, because search engines get fully-formed HTML on the
+first request instead of having to render JS first. Bing and most other
+crawlers are considerably worse at JS rendering than Google.
 
-No environment variables, database, or API keys are needed — this is a
-fully static, client-only app.
+For validating the idea and getting initial traffic, this SPA is fine —
+that's exactly what it's built for. If a tool takes off and organic
+search becomes your primary channel, migrating that page's content to a
+statically-generated framework is the highest-leverage next step. The
+`usePageMeta` hook is deliberately isolated to make eventually swapping
+in per-route static HTML (with real `<title>`/`<meta>` at request time
+instead of set via `useEffect`) a smaller, one-file-at-a-time job rather
+than a rewrite.
 
-## Notes on accuracy
+## What changed on the ruler itself
 
-Perfect physical accuracy from a browser is fundamentally limited: the
-platform doesn't expose real monitor DPI, only reported resolution and
-(sometimes) devicePixelRatio. The calibration flow here gets you very
-close by measuring against a real object you already have, but for
-best results:
-
-- Recalibrate if you switch monitors or displays.
-- Recalibrate after changing your OS-level display scaling setting
-  (not just browser zoom — the app tracks browser zoom automatically,
-  but OS scaling changes can shift the baseline).
+Two fixes since the standalone version:
+1. **Tick label legibility** — labels were 9px at a dim gray, hard to
+   read at a glance. Now 11px, full-contrast ink color, bolder weight,
+   plus a subtle contrasting shadow so numbers stay legible over any
+   background.
+2. **Zoom-fixed measurement** (from the previous conversation) — the
+   ruler's physical size on your monitor no longer changes as you zoom
+   or pan the browser; only recalibrating changes it.
