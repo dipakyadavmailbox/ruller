@@ -5,7 +5,7 @@
 // ─────────────────────────────────────────────────────────────────────────
 
 export const SITE_CONFIG = {
-  siteName: 'Free Tools',
+  siteName: 'Rocking Tools',
   domain: 'https://YOUR-DOMAIN.com',
 
   contactEmail: 'hello@your-domain.com',

@@ -14,7 +14,7 @@ export default function ContactForm({ contactEmail }) {
     if (!message.trim()) return
     setSubmitted(true)
 
-    const mailSubject = encodeURIComponent(`[${category}] ${subject || 'Feedback from Free Tools'}`)
+    const mailSubject = encodeURIComponent(`[${category}] ${subject || 'Feedback from Rocking Tools'}`)
     const mailBody = encodeURIComponent(`From: ${name || 'Anonymous'} (${email || 'No email provided'})\nCategory: ${category}\n\nMessage:\n${message}`)
     window.location.href = `mailto:${contactEmail}?subject=${mailSubject}&body=${mailBody}`
   }

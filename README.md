@@ -1,4 +1,4 @@
-# Free Tools — Astro MPA
+# Rocking Tools — Astro MPA
 
 Migrated from the original Vite/React SPA to a true Astro multi-page
 app: every route ships full static HTML by default, with React islands

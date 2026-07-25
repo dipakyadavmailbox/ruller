@@ -23,7 +23,7 @@ function toDateInput(date) {
 
 export default function PregnancyCalculator() {
   usePageMeta({
-    title: 'Pregnancy Due Date & Ovulation Calculator — Free Tool',
+    title: 'Pregnancy Due Date & Ovulation Calculator — Rocking Tool',
     description: 'Estimate your due date from your last period or conception date, see your current week of pregnancy, or calculate your next ovulation and fertile window.',
   })
 

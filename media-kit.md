@@ -1,12 +1,12 @@
-# Free Tools — Partner & Affiliate Media Kit
+# Rocking Tools — Partner & Affiliate Media Kit
 
 *Prepared for affiliate program applications and advertiser partnership requests.*
 
 ---
 
-## About Free Tools
+## About Rocking Tools
 
-Free Tools is a small collection of single-purpose web utilities — no
+Rocking Tools is a small collection of single-purpose web utilities — no
 signup, no clutter, no dark patterns. Each tool solves exactly one
 well-defined problem a person is actively searching for a solution to
 the moment they land on the page:

@@ -35,9 +35,9 @@ export default function Layout() {
         }}
       >
         <NavLink to="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-          <img src="/logo.svg" alt="Free Tools logo" width={20} height={20} style={{ display: 'block' }} />
+          <img src="/logo.svg" alt="Rocking Tools logo" width={20} height={20} style={{ display: 'block' }} />
           <span style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1, color: 'var(--ink)' }}>
-            FREE TOOLS
+            Rocking Tools
           </span>
         </NavLink>
 
@@ -96,7 +96,7 @@ export default function Layout() {
           lineHeight: 1.6,
         }}
       >
-        <div>Free Tools — no signup, no tracking required to use any tool.</div>
+        <div>Rocking Tools — no signup, no tracking required to use any tool.</div>
         <div style={{ marginTop: 4 }}>
           Some recommendations on this site are affiliate links — if you buy
           through them we may earn a commission at no extra cost to you.
