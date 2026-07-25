@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import DataConverter from '../components/react/converter/DataConverter.jsx'
+
+const title = 'JSON, CSV & YAML Converter — Free Online Tool | Free Tools'
+const description = 'Convert between JSON, CSV, and YAML instantly in your browser. Paste data in any of the three formats and get the other two, no upload required.'
+---
+
+<BaseLayout title={title} description={description} path="/data-converter">
+  <SoftwareApplicationSchema slot="head" name="JSON ⇄ CSV ⇄ YAML Converter" description={description} path="/data-converter" />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Data Converter' }]} />
+
+  <div class="tool-hero">
+    <h1>JSON ⇄ CSV ⇄ YAML Converter</h1>
+    <p>Paste data in any of the three formats below — conversion happens instantly in your browser, nothing is uploaded anywhere.</p>
+  </div>
+
+  <DataConverter client:only="react" />
+
+  <RelatedTools currentSlug="/data-converter" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+</style>

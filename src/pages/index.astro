@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import ToolGrid from '../components/react/home/ToolGrid.jsx'
+import { SITE_CONFIG } from '../siteConfig.js'
+
+const title = 'Free Online Tools — High Precision Browser Utilities | Free Tools'
+const description = 'A curated studio collection of single-purpose, high-precision browser tools for design, security, health, and development. 100% private with zero signup.'
+---
+
+<BaseLayout title={title} description={description} path="/">
+  <div class="hero-section">
+    <div class="badge-pill">✨ 100% FREE &amp; PRIVATE BROWSER UTILITIES</div>
+    <h1>High-Precision Tools.<br /><span class="gradient-text">Zero Signup. Instant Results.</span></h1>
+    <p class="hero-sub">
+      Single-purpose browser utilities engineered for extreme speed and precision. 
+      Your data is processed locally in your browser and never leaves your device.
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">9+</span>
+        <span class="stat-label">Studio Tools</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">0ms</span>
+        <span class="stat-label">Server Latency</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Client-Side Private</span>
+      </div>
+    </div>
+  </div>
+
+  <ToolGrid client:only="react" />
+</BaseLayout>
+
+<style>
+  .hero-section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 20px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: var(--accent-light);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    color: var(--accent);
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: clamp(32px, 5.5vw, 52px);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin: 0 0 18px 0;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent), var(--accent-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 17px);
+    color: var(--ink-dim);
+    line-height: 1.65;
+    max-width: 640px;
+    margin: 0 0 36px 0;
+  }
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 16px 32px;
+    border-radius: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: var(--glass-backdrop);
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .stat-num {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--ink);
+    font-family: var(--font-mono);
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-faint);
+    letter-spacing: 0.5px;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--panel-border);
+  }
+  @media (max-width: 600px) {
+    .hero-stats {
+      gap: 16px;
+      padding: 14px 20px;
+    }
+  }
+</style>

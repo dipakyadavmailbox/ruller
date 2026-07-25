@@ -1,0 +1,64 @@
+---
+import MinimalLayout from '../layouts/MinimalLayout.astro'
+import RulerApp from '../components/react/ruler/RulerApp.jsx'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+
+const title = 'Online Screen Ruler — Measure Anything on Your Screen | Free Tools'
+const description = 'A free on-screen ruler in mm, cm, or inches, calibrated to your real display so it measures true physical size — even as you zoom.'
+---
+
+<MinimalLayout title={title} description={description} path="/ruler">
+  <SoftwareApplicationSchema
+    name="Screen Ruler"
+    description={description}
+    path="/ruler"
+    slot="head"
+  />
+
+  <div class="hero">
+    <div id="scale-badge" class="scale-badge">UNCALIBRATED SCALE · 96 DPI</div>
+    <h1>Measure anything<br />on your screen.</h1>
+    <p>
+      Rulers pinned to the edges of the viewport at true millimetre / inch
+      scale. Physically fixed even when you zoom your browser.
+    </p>
+  </div>
+
+  <RulerApp client:only="react" />
+</MinimalLayout>
+
+<style>
+  .hero {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 48px;
+    pointer-events: none;
+  }
+  .scale-badge {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 64px);
+    line-height: 1.15;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+    max-width: 900px;
+  }
+  .hero p {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--ink-dim);
+    max-width: 520px;
+    line-height: 1.6;
+  }
+</style>

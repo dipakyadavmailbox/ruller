@@ -1,0 +1,66 @@
+---
+import '../styles/global.css'
+import { SITE_CONFIG } from '../siteConfig.js'
+
+interface Props {
+  title: string
+  description: string
+  path: string
+}
+const { title, description, path } = Astro.props
+const canonicalUrl = `${SITE_CONFIG.domain}${path}`
+const ogImage = `${SITE_CONFIG.domain}/og-image.png`
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-us" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    <meta name="geo.region" content="US" />
+    <meta name="geo.placename" content="United States" />
+    <meta name="language" content="en-US" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={SITE_CONFIG.siteName} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('toolkit:theme')
+          document.documentElement.dataset.theme = stored === 'light' ? 'light' : 'dark'
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      })()
+    </script>
+
+    <slot name="head" />
+  </head>
+  <body style="margin:0; overflow:hidden;">
+    <slot />
+  </body>
+</html>

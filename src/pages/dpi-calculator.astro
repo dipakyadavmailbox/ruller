@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import DpiCalculator from '../components/react/dpi/DpiCalculator.jsx'
+
+const title = 'DPI / PPI Print Size Calculator — Free Online Tool | Free Tools'
+const description = 'Find out what print size your image resolution supports, or how many pixels you need for a target print size at a given DPI/PPI.'
+---
+
+<BaseLayout title={title} description={description} path="/dpi-calculator">
+  <SoftwareApplicationSchema slot="head" name="DPI / PPI Print Size Calculator" description={description} path="/dpi-calculator" />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'DPI Calculator' }]} />
+
+  <div class="tool-hero">
+    <h1>DPI / PPI Print Size Calculator</h1>
+    <p>Figure out what print size your image supports, or how many pixels you need to hit a target print size and quality.</p>
+  </div>
+
+  <DpiCalculator client:only="react" />
+
+  <RelatedTools currentSlug="/dpi-calculator" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 720px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+</style>

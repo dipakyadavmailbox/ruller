@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import CronBuilder from '../components/react/regex/CronBuilder.jsx'
+
+const title = 'Cron Expression Builder & Validator — Free Online Tool | Free Tools'
+const description = 'Build, validate, and convert cron expressions into human-readable text. Features an interactive field builder, preset schedules, and execution previews.'
+---
+
+<BaseLayout title={title} description={description} path="/cron-expression-builder">
+  <SoftwareApplicationSchema slot="head" name="Cron Expression Builder & Validator" description={description} path="/cron-expression-builder" />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Cron Expression Builder & Validator' }]} />
+
+  <div class="tool-hero">
+    <h1>Cron Expression Builder & Validator</h1>
+    <p>Generate, edit, and validate 5-part cron schedule expressions with plain-English translations and upcoming execution previews.</p>
+  </div>
+
+  <CronBuilder client:only="react" />
+
+  <RelatedTools currentSlug="/cron-expression-builder" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 820px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+</style>

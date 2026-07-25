@@ -1,0 +1,27 @@
+---
+import { SITE_CONFIG } from '../../siteConfig.js'
+
+interface Props {
+  name: string
+  description: string
+  path: string
+}
+const { name, description, path } = Astro.props
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name,
+  description,
+  url: `${SITE_CONFIG.domain}${path}`,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any (runs in browser)',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

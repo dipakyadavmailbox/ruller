@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import CalorieCalculator from '../components/react/calorie/CalorieCalculator.jsx'
+
+const title = 'Calorie Calculator (TDEE) & Food Log — Free Online Tool | Free Tools'
+const description = 'Calculate your daily calorie needs (TDEE) and macro split, then log what you actually eat to see remaining calories, macro balance, and personalized adjustments.'
+---
+
+<BaseLayout title={title} description={description} path="/calorie-calculator">
+  <SoftwareApplicationSchema slot="head" name="Calorie Calculator (TDEE) & Food Log" description={description} path="/calorie-calculator" />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Calorie Calculator' }]} />
+
+  <div class="tool-hero">
+    <h1>Calorie Calculator (TDEE)</h1>
+    <p>Uses the Mifflin-St Jeor equation to estimate your daily calorie needs, then applies your goal and shows a macro split.</p>
+  </div>
+
+  <CalorieCalculator client:only="react" />
+
+  <RelatedTools currentSlug="/calorie-calculator" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 760px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+</style>

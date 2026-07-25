@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import PregnancyCalculator from '../components/react/pregnancy/PregnancyCalculator.jsx'
+
+const title = 'Pregnancy Due Date & Ovulation Calculator — Free Tool | Free Tools'
+const description = 'Estimate your due date from your last period or conception date, see your current week of pregnancy, or calculate your next ovulation and fertile window.'
+---
+
+<BaseLayout title={title} description={description} path="/pregnancy-calculator">
+  <SoftwareApplicationSchema slot="head" name="Pregnancy Due Date & Ovulation Calculator" description={description} path="/pregnancy-calculator" />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Pregnancy Calculator' }]} />
+
+  <div class="tool-hero">
+    <h1>Pregnancy Due Date & Ovulation Calculator</h1>
+    <p>Estimates only — every cycle and pregnancy is different. Always confirm dates with your doctor or midwife.</p>
+  </div>
+
+  <PregnancyCalculator client:only="react" />
+
+  <RelatedTools currentSlug="/pregnancy-calculator" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 720px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+</style>

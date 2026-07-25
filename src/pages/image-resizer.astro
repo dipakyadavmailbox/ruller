@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import ImageResizer from '../components/react/imagetool/ImageResizer.jsx'
+
+const title = 'Image Compressor & Resizer — Free Online Tool | Free Tools'
+const description = 'Resize and compress an image right in your browser — adjust dimensions and quality, preview the result and file size, and download. Nothing is uploaded to a server.'
+---
+
+<BaseLayout title={title} description={description} path="/image-resizer">
+  <SoftwareApplicationSchema slot="head" name="Image Compressor & Resizer" description={description} path="/image-resizer" />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Image Resizer' }]} />
+
+  <div class="tool-hero">
+    <h1>Image Compressor & Resizer</h1>
+    <p>Resize and compress an image entirely in your browser — nothing is uploaded anywhere. Adjust dimensions or quality and download the result.</p>
+  </div>
+
+  <ImageResizer client:only="react" />
+
+  <RelatedTools currentSlug="/image-resizer" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 780px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+</style>

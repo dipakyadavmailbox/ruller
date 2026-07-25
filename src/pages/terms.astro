@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import { SITE_CONFIG } from '../siteConfig.js'
+
+const title = `Terms of Service — ${SITE_CONFIG.siteName}`
+const description = `Terms of Service for ${SITE_CONFIG.siteName}.`
+---
+
+<BaseLayout title={title} description={description} path="/terms">
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Terms' }]} />
+
+  <div class="page">
+    <h1>Terms of Service</h1>
+    <p class="subtitle">Last updated: {SITE_CONFIG.legal.lastUpdated}</p>
+
+    <div class="notice">
+      This is a general-purpose template, not legal advice, written for
+      a US-based site. Have a qualified US lawyer review it — especially
+      the arbitration clause below, which has specific enforceability
+      requirements that vary by state — before relying on it.
+    </div>
+
+    <section>
+      <h2>1. Acceptance of terms</h2>
+      <p>By using {SITE_CONFIG.siteName} ("the site," "we," "us"), you agree to these Terms of Service. If you don't agree, please don't use the site.</p>
+    </section>
+
+    <section>
+      <h2>2. What this site is</h2>
+      <p>{SITE_CONFIG.siteName} provides free, browser-based utility tools (calculators, converters, and similar). Unless a tool explicitly says otherwise, everything runs client-side in your browser — we do not receive, store, or process the data you enter into a tool on our servers.</p>
+    </section>
+
+    <section>
+      <h2>3. Eligibility</h2>
+      <p>You must be at least 13 years old to use this site, consistent with our Children's Online Privacy Protection Act (COPPA) position described in our <a href="/privacy" class="accent-link">Privacy Policy</a>. If you are under 18, you should review these terms with a parent or guardian.</p>
+    </section>
+
+    <section>
+      <h2>4. No professional advice</h2>
+      <p>Nothing on this site is medical, financial, legal, or professional advice of any kind. Tools like the calorie or pregnancy calculator provide general estimates only, based on standard public formulas — they are not a substitute for advice from a qualified doctor, dietitian, financial advisor, or other professional. Always consult an appropriate professional before making decisions based on anything calculated here.</p>
+    </section>
+
+    <section>
+      <h2>5. No warranty</h2>
+      <p>The site and its tools are provided "as is" and "as available," without warranty of any kind, express or implied, including implied warranties of merchantability, fitness for a particular purpose, and non-infringement. We do our best to keep calculations accurate, but we don't guarantee correctness, availability, or fitness for any particular purpose. Use at your own discretion.</p>
+    </section>
+
+    <section>
+      <h2>6. Limitation of liability</h2>
+      <p>To the fullest extent permitted by law, {SITE_CONFIG.siteName} and its operators are not liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of data, arising from your use of, or inability to use, this site or its tools — even if advised of the possibility of such damages. Some jurisdictions don't allow these limitations, so parts of this section may not apply to you.</p>
+    </section>
+
+    <section>
+      <h2>7. Indemnification</h2>
+      <p>You agree to indemnify and hold {SITE_CONFIG.siteName} and its operators harmless from any claim, demand, loss, or damages, including reasonable attorneys' fees, arising out of your use of the site or violation of these terms.</p>
+    </section>
+
+    <section>
+      <h2>8. Intellectual property & DMCA</h2>
+      <p>The site's design, code, and original content are owned by {SITE_CONFIG.siteName} or its licensors. If you believe content on this site infringes your copyright, see our <a href="/dmca" class="accent-link">DMCA Policy</a> for how to submit a takedown notice under the Digital Millennium Copyright Act.</p>
+    </section>
+
+    <section>
+      <h2>9. Affiliate links</h2>
+      <p>Some pages contain affiliate links. If you make a purchase through one, we may earn a commission at no extra cost to you. This never affects the calculations or results a tool shows you. See our <a href="/privacy" class="accent-link">Privacy Policy</a> for more detail.</p>
+    </section>
+
+    <section>
+      <h2>10. Governing law and dispute resolution</h2>
+      <p>These terms are governed by the laws of {SITE_CONFIG.legal.jurisdiction}, without regard to conflict-of-law principles. Any dispute arising from these terms or your use of the site will first be attempted to be resolved informally by contacting us — see the Contact section below. [Add your specific arbitration/venue clause here if you want disputes handled outside court; this requires jurisdiction-specific legal drafting, so have a lawyer add it rather than relying on generic template language.]</p>
+    </section>
+
+    <section>
+      <h2>11. Severability</h2>
+      <p>If any provision of these terms is found unenforceable, the remaining provisions stay in full effect, and the unenforceable provision will be interpreted to best reflect its original intent.</p>
+    </section>
+
+    <section>
+      <h2>12. Entire agreement</h2>
+      <p>These terms, together with our <a href="/privacy" class="accent-link">Privacy Policy</a> and <a href="/dmca" class="accent-link">DMCA Policy</a>, constitute the entire agreement between you and {SITE_CONFIG.siteName} regarding use of the site.</p>
+    </section>
+
+    <section>
+      <h2>13. Changes to these terms</h2>
+      <p>We may update these terms from time to time; the "Last updated" date above will reflect the most recent change. Continued use of the site after an update means you accept the revised terms.</p>
+    </section>
+
+    <section>
+      <h2>14. Contact</h2>
+      <p>Questions about these terms? Reach us via the <a href="/contact" class="accent-link">Contact page</a>.</p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { max-width: 720px; margin: 0 auto; padding: 48px 20px 60px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .subtitle { font-size: 13px; color: var(--ink-faint); margin-bottom: 28px; }
+  .notice {
+    font-size: 12.5px; color: var(--ink-faint); padding: 12px 14px;
+    border: 1px solid var(--panel-border); border-radius: 8px;
+    background: var(--panel-bg); margin-bottom: 24px;
+  }
+  section { margin-bottom: 24px; }
+  h2 { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  p { font-size: 14px; color: var(--ink-dim); line-height: 1.75; }
+  .accent-link { color: var(--accent); font-weight: 700; text-decoration: none; }
+</style>

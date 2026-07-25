@@ -1,0 +1,100 @@
+---
+import { relatedTools } from '../../data/tools.js'
+
+interface Props {
+  currentSlug: string
+}
+const { currentSlug } = Astro.props
+const related = relatedTools(currentSlug, 3)
+---
+
+{related.length > 0 && (
+  <div class="related-section">
+    <div class="related-heading">EXPLORE RELATED TOOLS</div>
+    <div class="related-grid">
+      {related.map((tool) => (
+        <a href={tool.slug} class="related-card">
+          <div class="card-header">
+            <span class="related-icon" aria-hidden="true">{tool.icon}</span>
+            <span class="category-badge">{tool.category}</span>
+          </div>
+          <h3 class="related-name">{tool.name}</h3>
+          <p class="related-desc">{tool.description}</p>
+          <span class="card-cta">Open tool →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .related-section {
+    max-width: 840px;
+    margin: 40px auto 0;
+    padding: 0 20px 40px;
+    border-top: 1px dashed var(--divider);
+    padding-top: 32px;
+  }
+  .related-heading {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .related-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--panel-border);
+    background: var(--panel-bg);
+    text-decoration: none;
+    transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+  }
+  .related-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .related-icon {
+    font-size: 24px;
+  }
+  .category-badge {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    background: rgba(92, 140, 224, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .related-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 6px 0;
+  }
+  .related-desc {
+    font-size: 12px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0 0 14px 0;
+    flex: 1;
+  }
+  .card-cta {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+</style>

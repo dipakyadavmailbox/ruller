@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { CATEGORIES } from '../data/tools.js'
+import { SITE_CONFIG } from '../siteConfig.js'
+
+const title = `Page Not Found — ${SITE_CONFIG.siteName}`
+const description = 'The page you were looking for doesn\u2019t exist — here are all the tools available.'
+const allTools = CATEGORIES.flatMap((c) => c.tools)
+---
+
+<BaseLayout title={title} description={description} path="/404">
+  <div class="page">
+    <div class="code">404</div>
+    <h1>Page not found</h1>
+    <p>That page doesn't exist, or may have moved. Here's every tool on the site:</p>
+
+    <div class="tool-list">
+      {allTools.map((tool) => (
+        <a href={tool.slug} class="tool-link">
+          <span aria-hidden="true">{tool.icon}</span> {tool.name}
+        </a>
+      ))}
+    </div>
+
+    <a href="/" class="home-link">← Back to home</a>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { max-width: 640px; margin: 0 auto; padding: 64px 20px 60px; text-align: center; }
+  .code { font-size: 64px; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+  h1 { font-size: 24px; font-weight: 800; color: var(--ink); margin-bottom: 12px; }
+  p { font-size: 14px; color: var(--ink-dim); margin-bottom: 28px; }
+  .tool-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 32px; }
+  .tool-link {
+    font-size: 12.5px; font-weight: 700; color: var(--ink);
+    padding: 8px 14px; border-radius: 6px; border: 1px solid var(--panel-border);
+    background: var(--panel-bg); text-decoration: none;
+  }
+  .home-link { font-size: 13px; font-weight: 700; color: var(--accent); text-decoration: none; }
+</style>
