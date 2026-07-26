@@ -6,9 +6,9 @@
 
 export const SITE_CONFIG = {
   siteName: 'Rocking Tools',
-  domain: 'https://YOUR-DOMAIN.com',
+  domain: (typeof process !== 'undefined' && process.env?.PUBLIC_SITE_URL) || 'https://rockingtools.com',
 
-  contactEmail: 'hello@your-domain.com',
+  contactEmail: 'info@rockingtools.com',
 
   legal: {
     // Bump this whenever you edit the Terms or Privacy page content.
@@ -42,12 +42,12 @@ export const SITE_CONFIG = {
     // have that account set up — until then it renders as "coming soon"
     // so the page still looks complete but doesn't link anywhere broken.
     methods: [
-      { id: 'upi', label: 'UPI', enabled: false, upiId: '', qrImage: '' },
+      { id: 'upi', label: 'UPI', enabled: false, upiId: 'xyz@paytm', qrImage: '../public/QrCode.jpeg' },
       { id: 'paypal', label: 'PayPal', enabled: false, href: '' },
       { id: 'buymeacoffee', label: 'Buy Me a Coffee', enabled: false, href: '' },
       { id: 'githubsponsors', label: 'GitHub Sponsors', enabled: false, href: '' },
       { id: 'stripe', label: 'Card (Stripe)', enabled: false, href: '' },
-      { id: 'razorpay', label: 'Razorpay', enabled: false, href: '' },
+      { id: 'razorpay', label: 'Razorpay', enabled: false, href: 'razorpay.me/@rockingtools' },
     ],
   },
 }

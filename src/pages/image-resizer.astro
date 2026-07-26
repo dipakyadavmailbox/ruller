@@ -4,13 +4,22 @@ import Breadcrumb from '../components/astro/Breadcrumb.astro'
 import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import ImageResizer from '../components/react/imagetool/ImageResizer.jsx'
+import FaqSchema from '../components/astro/FaqSchema.astro'
 
 const title = 'Image Compressor & Resizer — Free Online Tool | Rocking Tools'
 const description = 'Resize and compress an image right in your browser — adjust dimensions and quality, preview the result and file size, and download. Nothing is uploaded to a server.'
+const keywords = 'image resizer, image compressor, resize image online, compress photo online, webp converter, png jpeg compressor, private image resizer'
+
+const faqItems = [
+  { q: 'Are my images uploaded to any server?', a: 'No. All image resizing, canvas rendering, and file compression happen 100% locally in your web browser.' },
+  { q: 'What image formats can I convert and compress?', a: 'Supports PNG, JPEG, WebP, SVG, and GIF image files.' },
+  { q: 'Does resizing reduce image file size?', a: 'Yes. Lowering pixel dimensions or adjusting quality compression significantly reduces output file size for faster page loading.' }
+]
 ---
 
-<BaseLayout title={title} description={description} path="/image-resizer">
+<BaseLayout title={title} description={description} path="/image-resizer" keywords={keywords}>
   <SoftwareApplicationSchema slot="head" name="Image Compressor & Resizer" description={description} path="/image-resizer" />
+  <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Image Resizer' }]} />
 
@@ -20,6 +29,26 @@ const description = 'Resize and compress an image right in your browser — adju
   </div>
 
   <ImageResizer client:only="react" />
+
+  <article class="tool-guide">
+    <h2>Client-Side Image Optimization Guide</h2>
+    <p>Optimize photographs, screenshots, and web graphics without compromising privacy or quality.</p>
+
+    <h3>Benefits of Local In-Browser Processing</h3>
+    <ul>
+      <li><strong>100% Privacy & Security:</strong> Photos and sensitive documents never touch a third-party server.</li>
+      <li><strong>Instant Processing:</strong> Zero queue time or network upload delays.</li>
+      <li><strong>WebP Format Export:</strong> Convert legacy JPEG/PNG formats into modern WebP for smaller web payloads.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
 
   <RelatedTools currentSlug="/image-resizer" />
 </BaseLayout>

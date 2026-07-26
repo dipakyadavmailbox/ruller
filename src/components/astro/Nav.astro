@@ -4,48 +4,67 @@ import { CATEGORIES } from '../../data/tools.js'
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
 ---
 
-<header class="site-header">
-  <a href="/" class="logo-link">
-    <div class="logo-badge">
-      <span class="logo-spark">✨</span>
-    </div>
-    <div class="logo-text-group">
-      <span class="logo-title">Rocking Tools</span>
-      <span class="logo-sub">STUDIO UTILITIES</span>
-    </div>
-  </a>
+<header class="site-header" id="site-header">
+  <div class="header-left">
+    <a href="/" class="logo-link">
+      <div class="logo-badge">
+        <span class="logo-spark">✨</span>
+      </div>
+      <div class="logo-text-group">
+        <span class="logo-title">Rocking Tools</span>
+        <span class="logo-sub"></span>
+      </div>
+    </a>
+  </div>
 
-  <nav class="site-nav">
-    <a href="/" class={currentPath === '/' ? 'nav-item active' : 'nav-item'}>All Tools</a>
+  <!-- Navigation Menu (Desktop inline, Mobile Drawer) -->
+  <nav class="site-nav" id="site-nav">
+    <div class="nav-content">
+      <a href="/" class={currentPath === '/' ? 'nav-item active' : 'nav-item'}>All Tools</a>
 
-    {CATEGORIES.map((cat) => {
-      const hasActive = cat.tools.some((t) => currentPath === t.slug)
-      return (
-        <div class="nav-dropdown">
-          <button class={hasActive ? 'dropdown-trigger active' : 'dropdown-trigger'} type="button">
-            {cat.heading} <span class="arrow">▾</span>
-          </button>
-          <div class="dropdown-menu glass-panel">
-            {cat.tools.map((tool) => (
-              <a href={tool.slug} class={currentPath === tool.slug ? 'dropdown-item active' : 'dropdown-item'}>
-                <span class="tool-icon">{tool.icon}</span>
-                <div class="tool-info">
-                  <span class="tool-name">{tool.navLabel}</span>
-                </div>
-              </a>
-            ))}
+      {CATEGORIES.map((cat) => {
+        const hasActive = cat.tools.some((t) => currentPath === t.slug)
+        return (
+          <div class="nav-dropdown">
+            <button class={hasActive ? 'dropdown-trigger active' : 'dropdown-trigger'} type="button" aria-expanded="false">
+              <span>{cat.heading}</span>
+              <span class="arrow">▾</span>
+            </button>
+            <div class="dropdown-menu glass-panel">
+              {cat.tools.map((tool) => (
+                <a href={tool.slug} class={currentPath === tool.slug ? 'dropdown-item active' : 'dropdown-item'}>
+                  <span class="tool-icon">{tool.icon}</span>
+                  <div class="tool-info">
+                    <span class="tool-name">{tool.navLabel}</span>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      )
-    })}
+        )
+      })}
 
-    <a href="/contact" class={currentPath === '/contact' ? 'nav-item active' : 'nav-item'}>Contact</a>
-    <a href="/donate" class="support-link" aria-label="Support this project">💛 Support</a>
+      <a href="/about" class={currentPath === '/about' ? 'nav-item active' : 'nav-item'}>About</a>
+      <a href="/faq" class={currentPath === '/faq' ? 'nav-item active' : 'nav-item'}>FAQ</a>
+      <a href="/contact" class={currentPath === '/contact' ? 'nav-item active' : 'nav-item'}>Contact</a>
+      <a href="/donate" class="support-link" aria-label="Support this project">💛 Support</a>
+
+      <!-- Theme Toggle (Placed at the very last position) -->
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" type="button">
+        <span id="theme-toggle-label" class="theme-toggle-label">Theme</span>
+      </button>
+    </div>
   </nav>
 
-  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" type="button">
-    <span id="theme-toggle-label">Theme</span>
+  <!-- Mobile Hamburger Toggle Button -->
+  <button id="mobile-toggle" class="mobile-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="site-nav" type="button">
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
+    <span class="hamburger-bar"></span>
   </button>
+
+  <!-- Mobile Backdrop Overlay -->
+  <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
 </header>
 
 <style>
@@ -62,6 +81,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+  }
+  .header-left {
+    display: flex;
+    align-items: center;
   }
   .logo-link {
     display: flex;
@@ -99,7 +122,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     letter-spacing: 1.5px;
     color: var(--accent);
   }
+
+  /* Desktop Nav */
   .site-nav {
+    display: flex;
+    align-items: center;
+  }
+  .nav-content {
     display: flex;
     gap: 8px;
     align-items: center;
@@ -111,6 +140,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     font-weight: 700;
     color: var(--ink-dim);
     transition: all 150ms ease;
+    display: inline-flex;
+    align-items: center;
+    min-height: 38px;
   }
   .nav-item:hover, .nav-item.active {
     color: var(--ink);
@@ -136,6 +168,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     align-items: center;
     gap: 6px;
     transition: all 150ms ease;
+    min-height: 38px;
   }
   .dropdown-trigger:hover, .dropdown-trigger.active {
     color: var(--ink);
@@ -147,6 +180,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
   .arrow {
     font-size: 10px;
     opacity: 0.6;
+    transition: transform 200ms ease;
   }
   .dropdown-menu {
     position: absolute;
@@ -177,6 +211,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     text-decoration: none;
     color: var(--ink);
     transition: background 120ms ease;
+    min-height: 40px;
   }
   .dropdown-item:hover {
     background: var(--btn-idle-bg);
@@ -203,6 +238,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     color: var(--accent);
     text-decoration: none;
     transition: all 150ms ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
   }
   .site-nav a.support-link:hover {
     box-shadow: var(--glow-accent);
@@ -218,28 +257,204 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     cursor: pointer;
     font-family: var(--font-mono);
     transition: all 150ms ease;
+    min-height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .theme-toggle:hover {
     border-color: var(--accent);
+  }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--panel-border);
+    background: var(--btn-idle-bg);
+    cursor: pointer;
+    padding: 0;
+    transition: all 150ms ease;
+  }
+  .hamburger-bar {
+    width: 18px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+
+  .nav-backdrop {
+    display: none;
+  }
+
+  /* Mobile Responsive (< 860px) */
+  @media (max-width: 860px) {
+    .site-header {
+      padding: 12px 18px;
+    }
+    .mobile-toggle {
+      display: flex;
+    }
+
+    /* Mobile Hamburger Animation when active */
+    .site-header.menu-open .mobile-toggle .hamburger-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .site-header.menu-open .mobile-toggle .hamburger-bar:nth-child(2) {
+      opacity: 0;
+    }
+    .site-header.menu-open .mobile-toggle .hamburger-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Backdrop */
+    .nav-backdrop {
+      display: block;
+      position: fixed;
+      inset: 0;
+      top: 61px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 250ms ease;
+      z-index: 90;
+    }
+    .site-header.menu-open .nav-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Mobile Drawer Nav */
+    .site-nav {
+      position: fixed;
+      top: 61px;
+      left: 0;
+      right: 0;
+      max-height: calc(100vh - 61px);
+      background: var(--bg);
+      border-bottom: 1px solid var(--panel-border);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease, visibility 280ms;
+      z-index: 95;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 16px 20px 24px;
+    }
+    .site-header.menu-open .site-nav {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-content {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .nav-item {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+      border-radius: 10px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      justify-content: flex-start;
+    }
+
+    .nav-dropdown {
+      width: 100%;
+      border-radius: 10px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      overflow: hidden;
+    }
+    .dropdown-trigger {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+      justify-content: space-between;
+      border-radius: 0;
+    }
+    .dropdown-trigger .arrow {
+      font-size: 12px;
+    }
+    .nav-dropdown.expanded .dropdown-trigger .arrow {
+      transform: rotate(180deg);
+    }
+    .dropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: unset;
+      width: 100%;
+      box-shadow: none;
+      border: none;
+      background: transparent;
+      padding: 4px 8px 10px;
+      display: none;
+    }
+    .nav-dropdown.expanded .dropdown-menu {
+      display: flex;
+    }
+    .dropdown-item {
+      padding: 10px 14px;
+      border-radius: 8px;
+    }
+    .dropdown-item .tool-name {
+      font-size: 13.5px;
+    }
+
+    .site-nav a.support-link {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+
+    .theme-toggle {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      border-radius: 10px;
+      margin-top: 4px;
+    }
   }
 </style>
 
 <script>
   const STORAGE_KEY = 'toolkit:theme'
-  const button = document.getElementById('theme-toggle')
-  const label = document.getElementById('theme-toggle-label')
+  const themeBtn = document.getElementById('theme-toggle')
+  const themeLabel = document.getElementById('theme-toggle-label')
+  const header = document.getElementById('site-header')
+  const mobileToggle = document.getElementById('mobile-toggle')
+  const navBackdrop = document.getElementById('nav-backdrop')
+  const dropdowns = document.querySelectorAll('.nav-dropdown')
 
   function currentTheme() {
     return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
   }
 
-  function updateLabel() {
-    if (label) label.textContent = currentTheme() === 'dark' ? '🌙 Dark' : '☀️ Light'
+  function updateThemeLabel() {
+    const isDark = currentTheme() === 'dark'
+    if (themeLabel) {
+      themeLabel.textContent = isDark ? '🌙 Dark' : '☀️ Light'
+    }
   }
 
-  updateLabel()
-
-  button?.addEventListener('click', () => {
+  function toggleTheme() {
     const next = currentTheme() === 'dark' ? 'light' : 'dark'
     document.documentElement.dataset.theme = next
     try {
@@ -247,6 +462,72 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/'
     } catch {
       // storage unavailable
     }
-    updateLabel()
+    updateThemeLabel()
+  }
+
+  updateThemeLabel()
+  themeBtn?.addEventListener('click', toggleTheme)
+
+  // Mobile Menu Drawer Logic
+  function closeMobileMenu() {
+    header?.classList.remove('menu-open')
+    mobileToggle?.setAttribute('aria-expanded', 'false')
+    document.body.style.overflow = ''
+  }
+
+  function openMobileMenu() {
+    header?.classList.add('menu-open')
+    mobileToggle?.setAttribute('aria-expanded', 'true')
+    document.body.style.overflow = 'hidden'
+  }
+
+  mobileToggle?.addEventListener('click', () => {
+    const isOpen = header?.classList.contains('menu-open')
+    if (isOpen) {
+      closeMobileMenu()
+    } else {
+      openMobileMenu()
+    }
+  })
+
+  navBackdrop?.addEventListener('click', closeMobileMenu)
+
+  // Close mobile drawer when pressing Escape
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && header?.classList.contains('menu-open')) {
+      closeMobileMenu()
+    }
+  })
+
+  // Mobile Dropdown Accordion Toggle
+  dropdowns.forEach((dd) => {
+    const trigger = dd.querySelector('.dropdown-trigger')
+    trigger?.addEventListener('click', (e) => {
+      if (window.innerWidth <= 860) {
+        e.preventDefault()
+        const isExpanded = dd.classList.contains('expanded')
+        // Close other accordions on mobile for clean UI
+        dropdowns.forEach((other) => {
+          if (other !== dd) {
+            other.classList.remove('expanded')
+            other.querySelector('.dropdown-trigger')?.setAttribute('aria-expanded', 'false')
+          }
+        })
+        dd.classList.toggle('expanded', !isExpanded)
+        trigger.setAttribute('aria-expanded', String(!isExpanded))
+      }
+    })
+  })
+
+  // Close drawer when clicking any navigation link
+  const navLinks = header?.querySelectorAll('a')
+  navLinks?.forEach((link) => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 860) {
+        closeMobileMenu()
+      }
+    })
   })
 </script>
+
+

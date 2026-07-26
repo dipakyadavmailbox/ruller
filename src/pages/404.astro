@@ -8,7 +8,7 @@ const description = 'The page you were looking for doesn\u2019t exist — here a
 const allTools = CATEGORIES.flatMap((c) => c.tools)
 ---
 
-<BaseLayout title={title} description={description} path="/404">
+<BaseLayout title={title} description={description} path="/404" noindex={true}>
   <div class="page">
     <div class="code">404</div>
     <h1>Page not found</h1>

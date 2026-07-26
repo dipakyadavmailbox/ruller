@@ -25,4 +25,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://YOUR-DOMAIN.com/sitemap-index.xml
+Sitemap: https://rockingtools.com/sitemap-index.xml

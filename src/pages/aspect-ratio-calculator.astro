@@ -4,13 +4,22 @@ import Breadcrumb from '../components/astro/Breadcrumb.astro'
 import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import AspectRatioCalculator from '../components/react/aspect/AspectRatioCalculator.jsx'
+import FaqSchema from '../components/astro/FaqSchema.astro'
 
 const title = 'Aspect Ratio & Crop Calculator — Free Online Tool | Rocking Tools'
 const description = 'Calculate matching dimensions for any aspect ratio (1:1, 4:5, 9:16, 16:9, and more), or find the center-crop size and offset to fit your image to a target ratio.'
+const keywords = 'aspect ratio calculator, 16:9 ratio calculator, image crop calculator, video aspect ratio, resolution calculator, 4:3 9:16 aspect ratio'
+
+const faqItems = [
+  { q: 'What is an aspect ratio?', a: 'Aspect ratio is the proportional relationship between an image or display screen’s width and height, written as width:height (e.g., 16:9).' },
+  { q: 'What aspect ratio is used for Instagram and TikTok videos?', a: 'TikTok, Instagram Reels, and YouTube Shorts use 9:16 vertical ratio (1080x1920px), while Instagram posts use 1:1 square or 4:5 vertical.' },
+  { q: 'How do I calculate missing dimension from aspect ratio?', a: 'Multiply or divide your known width/height by the ratio fraction. For 16:9, height = width * (9 / 16).' }
+]
 ---
 
-<BaseLayout title={title} description={description} path="/aspect-ratio-calculator">
+<BaseLayout title={title} description={description} path="/aspect-ratio-calculator" keywords={keywords}>
   <SoftwareApplicationSchema slot="head" name="Aspect Ratio & Crop Calculator" description={description} path="/aspect-ratio-calculator" />
+  <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Aspect Ratio Calculator' }]} />
 
@@ -20,6 +29,28 @@ const description = 'Calculate matching dimensions for any aspect ratio (1:1, 4:
   </div>
 
   <AspectRatioCalculator client:only="react" />
+
+  <article class="tool-guide">
+    <h2>Standard Video & Screen Aspect Ratios</h2>
+    <p>Aspect ratios determine how visuals scale across different displays, social platforms, and broadcast standards without distortion.</p>
+    
+    <h3>Popular Ratio Reference</h3>
+    <ul>
+      <li><strong>16:9 (Widescreen):</strong> YouTube videos, HDTVs, desktop monitors (1920x1080, 2560x1440, 3840x2160).</li>
+      <li><strong>9:16 (Vertical Video):</strong> TikTok, Instagram Stories/Reels, YouTube Shorts (1080x1920).</li>
+      <li><strong>4:5 (Social Feed):</strong> Instagram vertical portrait posts (1080x1350).</li>
+      <li><strong>1:1 (Square):</strong> Profile avatars, Instagram square feed posts (1080x1080).</li>
+      <li><strong>21:9 (Ultrawide):</strong> Cinematic movies and ultrawide gaming displays (3440x1440).</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
 
   <RelatedTools currentSlug="/aspect-ratio-calculator" />
 </BaseLayout>

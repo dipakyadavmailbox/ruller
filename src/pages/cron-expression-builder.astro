@@ -4,13 +4,22 @@ import Breadcrumb from '../components/astro/Breadcrumb.astro'
 import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import CronBuilder from '../components/react/regex/CronBuilder.jsx'
+import FaqSchema from '../components/astro/FaqSchema.astro'
 
 const title = 'Cron Expression Builder & Validator — Free Online Tool | Rocking Tools'
 const description = 'Build, validate, and convert cron expressions into human-readable text. Features an interactive field builder, preset schedules, and execution previews.'
+const keywords = 'cron expression builder, cron generator, crontab syntax, cron schedule validator, 5 part cron, crontab online tool'
+
+const faqItems = [
+  { q: 'What are the 5 fields of a standard crontab expression?', a: 'Standard crontab expressions consist of 5 fields: Minute (0-59), Hour (0-23), Day of Month (1-31), Month (1-12), and Day of Week (0-6).' },
+  { q: 'What does */5 * * * * mean in cron?', a: 'It schedules a task to run every 5 minutes.' },
+  { q: 'How do I run a cron job at midnight every day?', a: 'Use the cron expression `0 0 * * *`.' }
+]
 ---
 
-<BaseLayout title={title} description={description} path="/cron-expression-builder">
+<BaseLayout title={title} description={description} path="/cron-expression-builder" keywords={keywords}>
   <SoftwareApplicationSchema slot="head" name="Cron Expression Builder & Validator" description={description} path="/cron-expression-builder" />
+  <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Cron Expression Builder & Validator' }]} />
 
@@ -20,6 +29,28 @@ const description = 'Build, validate, and convert cron expressions into human-re
   </div>
 
   <CronBuilder client:only="react" />
+
+  <article class="tool-guide">
+    <h2>Standard 5-Part Cron Expression Syntax Guide</h2>
+    <p>Cron is a time-based job scheduler in Unix-like operating systems. Each line in a crontab file specifies a schedule followed by a command.</p>
+
+    <h3>Field Syntax Breakdown</h3>
+    <ul>
+      <li><code>* * * * *</code> = <code>[Minute] [Hour] [Day of Month] [Month] [Day of Week]</code></li>
+      <li><code>*</code> = Any value / every interval</li>
+      <li><code>,</code> = Value list separator (e.g., <code>1,15,30</code>)</li>
+      <li><code>-</code> = Range of values (e.g., <code>1-5</code>)</li>
+      <li><code>/</code> = Step values (e.g., <code>*/15</code> for every 15 units)</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
 
   <RelatedTools currentSlug="/cron-expression-builder" />
 </BaseLayout>

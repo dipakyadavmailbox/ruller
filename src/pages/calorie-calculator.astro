@@ -4,13 +4,22 @@ import Breadcrumb from '../components/astro/Breadcrumb.astro'
 import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import CalorieCalculator from '../components/react/calorie/CalorieCalculator.jsx'
+import FaqSchema from '../components/astro/FaqSchema.astro'
 
 const title = 'Calorie Calculator (TDEE) & Food Log — Free Online Tool | Rocking Tools'
 const description = 'Calculate your daily calorie needs (TDEE) and macro split, then log what you actually eat to see remaining calories, macro balance, and personalized adjustments.'
+const keywords = 'calorie calculator, tdee calculator, bmr calculator, macro calculator, daily calorie intake, weight loss calorie calculator, mifflin st jeor'
+
+const faqItems = [
+  { q: 'What is BMR vs TDEE?', a: 'BMR (Basal Metabolic Rate) is calories burned at rest. TDEE (Total Daily Energy Expenditure) adds physical activity and exercise.' },
+  { q: 'Which formula is used for calorie estimation?', a: 'We use the Mifflin-St Jeor equation, widely recognized as the most accurate standard formula for BMR estimation.' },
+  { q: 'How do I adjust calories for weight loss or muscle gain?', a: 'For weight loss, aim for a 300–500 calorie deficit below TDEE. For muscle gain, aim for a 250–500 calorie surplus above TDEE.' }
+]
 ---
 
-<BaseLayout title={title} description={description} path="/calorie-calculator">
+<BaseLayout title={title} description={description} path="/calorie-calculator" keywords={keywords}>
   <SoftwareApplicationSchema slot="head" name="Calorie Calculator (TDEE) & Food Log" description={description} path="/calorie-calculator" />
+  <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Calorie Calculator' }]} />
 
@@ -20,6 +29,26 @@ const description = 'Calculate your daily calorie needs (TDEE) and macro split, 
   </div>
 
   <CalorieCalculator client:only="react" />
+
+  <article class="tool-guide">
+    <h2>Understanding TDEE & Macronutrient Balance</h2>
+    <p>Total Daily Energy Expenditure (TDEE) represents the total number of calories your body burns in 24 hours based on age, gender, height, weight, and activity level.</p>
+
+    <h3>Macro Ratio Split Strategies</h3>
+    <ul>
+      <li><strong>Balanced (30/40/30):</strong> 30% Protein, 40% Carbs, 30% Fat — ideal for maintenance and general fitness.</li>
+      <li><strong>High Protein (40/30/30):</strong> 40% Protein, 30% Carbs, 30% Fat — supports muscle preservation during weight loss.</li>
+      <li><strong>Low Carb (40/20/40):</strong> 40% Protein, 20% Carbs, 40% Fat — suitable for carbohydrate sensitivity.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
 
   <RelatedTools currentSlug="/calorie-calculator" />
 </BaseLayout>

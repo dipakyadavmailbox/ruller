@@ -151,7 +151,7 @@ export default function DataConverter() {
             </Field>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
             <div>
               <div style={{ fontSize: 11, fontWeight: 800, color: 'var(--ink-faint)', marginBottom: 6 }}>INPUT ({fromFormat})</div>
               <textarea

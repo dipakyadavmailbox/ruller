@@ -27,6 +27,7 @@ export default function RulerPanel({
         left: position.x,
         top: position.y,
         width: 240,
+        maxWidth: 'calc(100vw - 32px)',
         background: 'var(--panel-bg)',
         border: '1px solid var(--panel-border)',
         borderRadius: 12,

@@ -72,27 +72,30 @@ export default function ToolGrid() {
           )}
         </div>
 
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-          {categoryHeadings.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              style={{
-                padding: '8px 16px',
-                borderRadius: 20,
-                border: selectedCategory === cat ? '1px solid var(--accent)' : '1px solid var(--panel-border)',
-                background: selectedCategory === cat ? 'var(--accent-light)' : 'var(--panel-bg)',
-                color: selectedCategory === cat ? 'var(--accent)' : 'var(--ink-dim)',
-                fontWeight: 700,
-                fontSize: 13,
-                cursor: 'pointer',
-                transition: 'all 150ms ease',
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-          <span style={{ marginLeft: 'auto', fontSize: 12, fontWeight: 700, color: 'var(--ink-faint)' }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', flex: '1 1 auto' }}>
+            {categoryHeadings.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                style={{
+                  padding: '8px 16px',
+                  minHeight: 38,
+                  borderRadius: 20,
+                  border: selectedCategory === cat ? '1px solid var(--accent)' : '1px solid var(--panel-border)',
+                  background: selectedCategory === cat ? 'var(--accent-light)' : 'var(--panel-bg)',
+                  color: selectedCategory === cat ? 'var(--accent)' : 'var(--ink-dim)',
+                  fontWeight: 700,
+                  fontSize: 13,
+                  cursor: 'pointer',
+                  transition: 'all 150ms ease',
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink-faint)', whiteSpace: 'nowrap', paddingTop: 4 }}>
             Showing {totalFilteredCount} tool{totalFilteredCount === 1 ? '' : 's'}
           </span>
         </div>
@@ -105,7 +108,7 @@ export default function ToolGrid() {
             <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.2, textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 16 }}>
               {category.heading}
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: 18 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 18 }}>
               {category.tools.map((tool) => (
                 <a
                   key={tool.slug}
@@ -114,7 +117,7 @@ export default function ToolGrid() {
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: 16,
-                    padding: '22px 24px',
+                    padding: '20px 20px',
                     borderRadius: 16,
                     border: '1px solid var(--panel-border)',
                     background: 'var(--panel-bg)',

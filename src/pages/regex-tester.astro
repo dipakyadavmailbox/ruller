@@ -4,13 +4,22 @@ import Breadcrumb from '../components/astro/Breadcrumb.astro'
 import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import RegexTester from '../components/react/regex/RegexTester.jsx'
+import FaqSchema from '../components/astro/FaqSchema.astro'
 
 const title = 'Regex Tester & Cheatsheet — Free Online Tool | Rocking Tools'
 const description = 'Test regular expressions live with match highlighting and capture groups, plus a quick-reference regex cheatsheet for common patterns and syntax.'
+const keywords = 'regex tester, regular expression online, regex validator, javascript regex cheatsheet, regex match highlighter, regex tester online'
+
+const faqItems = [
+  { q: 'Which regex flavor is used by this online tester?', a: 'This tool uses JavaScript ES2024 Regular Expression syntax with support for flags (g, i, m, s, u, y).' },
+  { q: 'What does \\d, \\w, and \\s match in Regex?', a: '`\\d` matches digits (0-9), `\\w` matches word characters (letters, numbers, underscore), and `\\s` matches whitespace characters (spaces, tabs, line breaks).' },
+  { q: 'What is greedy vs lazy matching in regular expressions?', a: 'Greedy matchers (`*`, `+`) capture as much text as possible, whereas lazy matchers (`*?`, `+?`) capture as little as possible.' }
+]
 ---
 
-<BaseLayout title={title} description={description} path="/regex-tester">
+<BaseLayout title={title} description={description} path="/regex-tester" keywords={keywords}>
   <SoftwareApplicationSchema slot="head" name="Regex Tester & Cheatsheet" description={description} path="/regex-tester" />
+  <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Regex Tester' }]} />
 
@@ -20,6 +29,27 @@ const description = 'Test regular expressions live with match highlighting and c
   </div>
 
   <RegexTester client:only="react" />
+
+  <article class="tool-guide">
+    <h2>Regular Expressions (Regex) Quick Reference</h2>
+    <p>Use regex patterns to parse strings, validate email/phone inputs, extract tokens, and rewrite text.</p>
+
+    <h3>Essential Metacharacter Cheatsheet</h3>
+    <ul>
+      <li><code>^</code> / <code>$</code> — Start and end of line anchors.</li>
+      <li><code>[a-zA-Z0-9]</code> — Character set matching any alphanumeric character.</li>
+      <li><code>(group)</code> — Capturing group for substring extraction.</li>
+      <li><code>(?=...)</code> / <code>(?!...)</code> — Positive and negative lookahead assertions.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
 
   <RelatedTools currentSlug="/regex-tester" />
 </BaseLayout>

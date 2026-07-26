@@ -3,17 +3,27 @@ import MinimalLayout from '../layouts/MinimalLayout.astro'
 import RulerApp from '../components/react/ruler/RulerApp.jsx'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 
+import FaqSchema from '../components/astro/FaqSchema.astro'
+
 const title = 'Online Screen Ruler — Measure Anything on Your Screen | Rocking Tools'
 const description = 'A free on-screen ruler in mm, cm, or inches, calibrated to your real display so it measures true physical size — even as you zoom.'
+const keywords = 'online screen ruler, actual size ruler, mm ruler online, cm ruler, inch ruler on screen, calibrated screen ruler, measure on screen'
+
+const faqItems = [
+  { q: 'How do I calibrate the online screen ruler?', a: 'Click the Calibrate button in the toolbar and align the on-screen card guide with a physical standard credit card or driver license.' },
+  { q: 'Is the screen ruler accurate when zooming?', a: 'Yes, the ruler accounts for your browser scale and device pixel ratio to maintain true physical millimeter and inch measurements.' },
+  { q: 'Does this ruler store or transmit any screen data?', a: 'No, all calculations and rendering are performed 100% locally in your browser.' }
+]
 ---
 
-<MinimalLayout title={title} description={description} path="/ruler">
+<MinimalLayout title={title} description={description} path="/ruler" keywords={keywords}>
   <SoftwareApplicationSchema
-    name="Screen Ruler"
+    name="Online Screen Ruler"
     description={description}
     path="/ruler"
     slot="head"
   />
+  <FaqSchema items={faqItems} slot="head" />
 
   <div class="hero">
     <div id="scale-badge" class="scale-badge">UNCALIBRATED SCALE · 96 DPI</div>
@@ -25,6 +35,11 @@ const description = 'A free on-screen ruler in mm, cm, or inches, calibrated to 
   </div>
 
   <RulerApp client:only="react" />
+
+  <div class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
+    <h2>Actual Size Online Screen Ruler Instructions</h2>
+    <p>Use our free on-screen ruler to measure items directly on your monitor, tablet, or mobile display in inches, centimeters, or millimeters. Calibrate using a standard credit card for 100% real-world accuracy.</p>
+  </div>
 </MinimalLayout>
 
 <style>
