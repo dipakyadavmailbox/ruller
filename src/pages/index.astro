@@ -3,8 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 import ToolGrid from '../components/react/home/ToolGrid.jsx'
 import { SITE_CONFIG } from '../siteConfig.js'
 
-const title = 'Free Online Tools — High Precision Browser Utilities | Rocking Tools'
-const description = 'A curated studio collection of single-purpose, high-precision browser tools for design, security, health, and development. 100% private with zero signup.'
+const title = 'Rocking Tools — Free & Private Online Browser Utilities'
+const description = '100% private, free online browser tools for design, security, health & development. Screen ruler, DPI calculator, calorie calculator, password checker & more.'
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -18,15 +18,77 @@ const websiteSchema = {
     'query-input': 'required name=search_term_string',
   },
 }
+
+// SiteNavigationElement Schema - Crucial for Google Sitelinks generation
+const sitelinksSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    name: 'Online Screen Ruler',
+    url: `${SITE_CONFIG.domain}/ruler`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    name: 'DPI & PPI Print Size Calculator',
+    url: `${SITE_CONFIG.domain}/dpi-calculator`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    name: 'Password Strength Checker & Generator',
+    url: `${SITE_CONFIG.domain}/password-checker`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    name: 'Calorie & TDEE Calculator',
+    url: `${SITE_CONFIG.domain}/calorie-calculator`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    name: 'Image Resizer & Compressor',
+    url: `${SITE_CONFIG.domain}/image-resizer`,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    name: 'Regex Tester & Debugger',
+    url: `${SITE_CONFIG.domain}/regex-tester`,
+  },
+]
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Rocking Tools Free Browser Utilities',
+  description: 'Single-purpose high-precision client-side browser tools',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Online Screen Ruler', url: `${SITE_CONFIG.domain}/ruler` },
+    { '@type': 'ListItem', position: 2, name: 'DPI / PPI Print Size Calculator', url: `${SITE_CONFIG.domain}/dpi-calculator` },
+    { '@type': 'ListItem', position: 3, name: 'Image Compressor & Resizer', url: `${SITE_CONFIG.domain}/image-resizer` },
+    { '@type': 'ListItem', position: 4, name: 'Aspect Ratio Calculator', url: `${SITE_CONFIG.domain}/aspect-ratio-calculator` },
+    { '@type': 'ListItem', position: 5, name: 'Password Strength Checker', url: `${SITE_CONFIG.domain}/password-checker` },
+    { '@type': 'ListItem', position: 6, name: 'Calorie & TDEE Calculator', url: `${SITE_CONFIG.domain}/calorie-calculator` },
+    { '@type': 'ListItem', position: 7, name: 'Pregnancy Due Date Calculator', url: `${SITE_CONFIG.domain}/pregnancy-calculator` },
+    { '@type': 'ListItem', position: 8, name: 'Regex Tester', url: `${SITE_CONFIG.domain}/regex-tester` },
+    { '@type': 'ListItem', position: 9, name: 'Cron Expression Builder', url: `${SITE_CONFIG.domain}/cron-expression-builder` },
+    { '@type': 'ListItem', position: 10, name: 'Data Format Converter', url: `${SITE_CONFIG.domain}/data-converter` },
+  ],
+}
 ---
 
 <BaseLayout 
   title={title} 
   description={description} 
   path="/"
-  keywords="free online tools, browser tools, developer utilities, screen ruler, dpi calculator, calorie calculator, pregnancy calculator, regex tester, cron builder, aspect ratio calculator"
+  keywords="free online tools, browser tools, developer utilities, screen ruler, dpi calculator, calorie calculator, pregnancy calculator, regex tester, cron builder, aspect ratio calculator, private web utilities"
 >
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(sitelinksSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+
   <div class="hero-section">
     <div class="badge-pill">✨ 100% FREE &amp; PRIVATE BROWSER UTILITIES</div>
     <h1>High-Precision Tools.<br /><span class="gradient-text">Zero Signup. Instant Results.</span></h1>
@@ -37,7 +99,7 @@ const websiteSchema = {
 
     <div class="hero-stats">
       <div class="stat-item">
-        <span class="stat-num">9+</span>
+        <span class="stat-num">10+</span>
         <span class="stat-label">Studio Tools</span>
       </div>
       <div class="stat-divider"></div>
@@ -55,20 +117,20 @@ const websiteSchema = {
 
   <ToolGrid client:only="react" />
 
-  {/* Static tool links for Googlebot — ToolGrid is client:only="react" so Googlebot cannot see those links */}
+  {/* Static tool links for Googlebot — ensures full indexability and sitelink generation */}
   <nav aria-label="All Tools Directory" class="seo-tool-directory">
     <h2>All Free Online Tools</h2>
     <ul class="seo-tool-list">
-      <li><a href="/ruler">📏 Online Screen Ruler — Measure in mm, cm & inches</a></li>
-      <li><a href="/dpi-calculator">🖨️ DPI / PPI Print Size Calculator</a></li>
-      <li><a href="/image-resizer">🖼️ Image Compressor & Resizer</a></li>
-      <li><a href="/aspect-ratio-calculator">📐 Aspect Ratio Calculator</a></li>
-      <li><a href="/password-checker">🔒 Password Strength Checker & Generator</a></li>
-      <li><a href="/calorie-calculator">🥗 Calorie & TDEE Calculator</a></li>
-      <li><a href="/pregnancy-calculator">🤰 Pregnancy Due Date Calculator</a></li>
-      <li><a href="/regex-tester">⚙️ Regex Tester & Debugger</a></li>
-      <li><a href="/cron-expression-builder">🕐 Cron Expression Builder</a></li>
-      <li><a href="/data-converter">🔄 Data Format Converter</a></li>
+      <li><a href="/ruler">📏 Online Screen Ruler — Real Physical Scale Calibration (mm, cm, in)</a></li>
+      <li><a href="/dpi-calculator">🖨️ DPI / PPI Print Size Calculator & Pixel Converter</a></li>
+      <li><a href="/image-resizer">🖼️ Image Compressor & Resizer (WebP, PNG, JPG)</a></li>
+      <li><a href="/aspect-ratio-calculator">📐 Aspect Ratio & Crop Box Calculator (16:9, 9:16, 4:5, 1:1)</a></li>
+      <li><a href="/password-checker">🔒 Password Strength Checker & Cryptographic Generator</a></li>
+      <li><a href="/calorie-calculator">🥗 Calorie & TDEE Calculator (Mifflin-St Jeor Formula)</a></li>
+      <li><a href="/pregnancy-calculator">🤰 Pregnancy Due Date & Ovulation Calculator (Naegele Rule)</a></li>
+      <li><a href="/regex-tester">⚙️ Regex Tester & Cheatsheet (JavaScript Regular Expressions)</a></li>
+      <li><a href="/cron-expression-builder">🕐 Cron Expression Builder & Schedule Validator</a></li>
+      <li><a href="/data-converter">🔄 JSON ⇄ CSV ⇄ YAML Data Format Converter</a></li>
     </ul>
   </nav>
 </BaseLayout>

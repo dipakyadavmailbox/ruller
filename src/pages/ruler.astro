@@ -2,17 +2,18 @@
 import MinimalLayout from '../layouts/MinimalLayout.astro'
 import RulerApp from '../components/react/ruler/RulerApp.jsx'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
-
 import FaqSchema from '../components/astro/FaqSchema.astro'
 
-const title = 'Online Screen Ruler — Measure Anything on Your Screen | Rocking Tools'
-const description = 'A free on-screen ruler in mm, cm, or inches, calibrated to your real display so it measures true physical size — even as you zoom.'
-const keywords = 'online screen ruler, actual size ruler, mm ruler online, cm ruler, inch ruler on screen, calibrated screen ruler, measure on screen'
+const title = 'Online Screen Ruler — Actual Physical Size (mm, cm, in) | Rocking Tools'
+const description = 'Free on-screen ruler calibrated to your actual display size. Measure physical objects in millimetres, centimetres, or inches with 100% accuracy.'
+const keywords = 'online screen ruler, actual size ruler, mm ruler online, cm ruler, inch ruler on screen, calibrated screen ruler, measure on screen, real size ruler'
 
 const faqItems = [
-  { q: 'How do I calibrate the online screen ruler?', a: 'Click the Calibrate button in the toolbar and align the on-screen card guide with a physical standard credit card or driver license.' },
-  { q: 'Is the screen ruler accurate when zooming?', a: 'Yes, the ruler accounts for your browser scale and device pixel ratio to maintain true physical millimeter and inch measurements.' },
-  { q: 'Does this ruler store or transmit any screen data?', a: 'No, all calculations and rendering are performed 100% locally in your browser.' }
+  { q: 'How do I calibrate the online screen ruler to actual physical size?', a: 'Click the Calibrate button in the toolbar and hold a standard physical credit card or driver license up to your monitor screen. Adjust the slider until the on-screen card guide matches your physical card exactly.' },
+  { q: 'Why is standard screen ruler software inaccurate on modern monitors?', a: 'Standard web rulers assume all screens are 96 DPI. Modern 4K monitors, Retina displays, and laptops have pixel densities ranging from 120 DPI to 300+ DPI. Manual calibration guarantees 1:1 millimeter precision.' },
+  { q: 'Is the screen ruler scale accurate when zooming in or out?', a: 'Yes! The ruler dynamically listens to browser viewport scale and device pixel ratio events to recalculate scale factors so your measurements remain physically true.' },
+  { q: 'Can I use this screen ruler on a phone or tablet screen?', a: 'Yes! You can use it on iPhones, iPads, Android tablets, or desktop monitors. Just calibrate once using any standard ID or credit card.' },
+  { q: 'Does this screen ruler record or upload my screen or camera?', a: 'No. The screen ruler renders 100% in CSS and SVG locally in your browser thread. No camera, screen recording, or server requests are involved.' }
 ]
 ---
 
@@ -37,8 +38,19 @@ const faqItems = [
   <RulerApp client:only="react" />
 
   <div class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
-    <h2>Actual Size Online Screen Ruler Instructions</h2>
-    <p>Use our free on-screen ruler to measure items directly on your monitor, tablet, or mobile display in inches, centimeters, or millimeters. Calibrate using a standard credit card for 100% real-world accuracy.</p>
+    <h2>Actual Size Online Screen Ruler Guide & Instructions</h2>
+    <p>Use our free on-screen ruler to measure real-world items directly against your computer screen, tablet, or mobile phone in inches, centimeters, or millimeters. Calibrate using a standard credit card for 100% true physical accuracy.</p>
+    
+    <h3>How Screen Ruler Calibration Works</h3>
+    <p>A standard ISO 7810 ID-1 credit card is exactly 85.60 mm wide (3.370 inches). By matching the on-screen card border to a physical card in your hand, our algorithm calculates your screen exact PPI (Pixels Per Inch) and scales the digital ruler ticks to match real physical dimensions.</p>
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div>
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
   </div>
 </MinimalLayout>
 
@@ -77,3 +89,4 @@ const faqItems = [
     line-height: 1.6;
   }
 </style>
+

@@ -7,13 +7,15 @@ import RegexTester from '../components/react/regex/RegexTester.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 
 const title = 'Regex Tester & Cheatsheet — Free Online Tool | Rocking Tools'
-const description = 'Test regular expressions live with match highlighting and capture groups, plus a quick-reference regex cheatsheet for common patterns and syntax.'
-const keywords = 'regex tester, regular expression online, regex validator, javascript regex cheatsheet, regex match highlighter, regex tester online'
+const description = 'Live JavaScript regex tester with instant match highlighting, capture group extraction, and a complete regular expression syntax cheatsheet.'
+const keywords = 'regex tester, regular expression online, regex validator, javascript regex cheatsheet, regex match highlighter, regex tester online, regex regex101 alternative, regex regex2ph'
 
 const faqItems = [
-  { q: 'Which regex flavor is used by this online tester?', a: 'This tool uses JavaScript ES2024 Regular Expression syntax with support for flags (g, i, m, s, u, y).' },
-  { q: 'What does \\d, \\w, and \\s match in Regex?', a: '`\\d` matches digits (0-9), `\\w` matches word characters (letters, numbers, underscore), and `\\s` matches whitespace characters (spaces, tabs, line breaks).' },
-  { q: 'What is greedy vs lazy matching in regular expressions?', a: 'Greedy matchers (`*`, `+`) capture as much text as possible, whereas lazy matchers (`*?`, `+?`) capture as little as possible.' }
+  { q: 'Which regex engine flavor does this tester use?', a: 'This tool uses native ECMAScript (JavaScript ES2024) regular expression syntax with support for standard flags: global (g), case-insensitive (i), multiline (m), dotAll (s), unicode (u), and sticky (y).' },
+  { q: 'What do \\d, \\w, and \\s match in Regular Expressions?', a: '`\\d` matches any digit (0-9), `\\w` matches any word character (letters A-Z, numbers 0-9, and underscore _), and `\\s` matches whitespace (space, tab, line break).' },
+  { q: 'What is the difference between greedy and lazy matching?', a: 'Greedy matchers (`*`, `+`) expand to match as much text as possible. Adding a question mark (`*?`, `+?`) makes them lazy, matching as few characters as possible.' },
+  { q: 'How do I validate an email address using Regex?', a: 'A standard email validation pattern is: `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`' },
+  { q: 'Is my input text or pattern sent to a server?', a: 'No. All regex matching, substring evaluation, and group parsing execute 100% locally in your browser JavaScript thread. Your data is completely private.' }
 ]
 ---
 
@@ -24,22 +26,32 @@ const faqItems = [
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Regex Tester' }]} />
 
   <div class="tool-hero">
-    <h1>Regex Tester</h1>
-    <p>Test JavaScript-flavored regular expressions live, with match highlighting, capture groups, and a syntax cheatsheet below.</p>
+    <h1>Regex Tester & Cheatsheet</h1>
+    <p>Test JavaScript regular expressions live with instant match highlighting, capture group extraction, and syntax reference cheatsheet below.</p>
   </div>
 
   <RegexTester client:only="react" />
 
   <article class="tool-guide">
-    <h2>Regular Expressions (Regex) Quick Reference</h2>
-    <p>Use regex patterns to parse strings, validate email/phone inputs, extract tokens, and rewrite text.</p>
+    <h2>Complete Regular Expression Syntax Guide</h2>
+    <p>Regular expressions (Regex) are powerful pattern-matching strings used across software engineering, data cleaning, logs analysis, and web scraping.</p>
 
-    <h3>Essential Metacharacter Cheatsheet</h3>
+    <h3>Common Pattern Syntax Cheatsheet</h3>
     <ul>
       <li><code>^</code> / <code>$</code> — Start and end of line anchors.</li>
-      <li><code>[a-zA-Z0-9]</code> — Character set matching any alphanumeric character.</li>
+      <li><code>[a-zA-Z0-9]</code> — Character set matching any single alphanumeric character.</li>
+      <li><code>[^0-9]</code> — Negated character set (matches anything except digits).</li>
       <li><code>(group)</code> — Capturing group for substring extraction.</li>
+      <li><code>(?:group)</code> — Non-capturing group.</li>
       <li><code>(?=...)</code> / <code>(?!...)</code> — Positive and negative lookahead assertions.</li>
+    </ul>
+
+    <h3>Regex Flags Reference</h3>
+    <ul>
+      <li><code>g</code> (Global): Don't return after first match; find all occurrences.</li>
+      <li><code>i</code> (Insensitive): Case-insensitive matching.</li>
+      <li><code>m</code> (Multiline): <code>^</code> and <code>$</code> match start/end of each line.</li>
+      <li><code>s</code> (DotAll): Allows dot (<code>.</code>) to match newline characters.</li>
     </ul>
 
     <h3>Frequently Asked Questions</h3>
@@ -59,3 +71,4 @@ const faqItems = [
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
   .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
 </style>
+

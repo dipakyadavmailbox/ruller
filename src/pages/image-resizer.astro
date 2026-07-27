@@ -7,13 +7,15 @@ import ImageResizer from '../components/react/imagetool/ImageResizer.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 
 const title = 'Image Compressor & Resizer — Free Online Tool | Rocking Tools'
-const description = 'Resize and compress an image right in your browser — adjust dimensions and quality, preview the result and file size, and download. Nothing is uploaded to a server.'
-const keywords = 'image resizer, image compressor, resize image online, compress photo online, webp converter, png jpeg compressor, private image resizer'
+const description = 'Resize & compress images instantly in WebP, PNG, JPEG & SVG. 100% private in your browser with zero file upload to any server. Free & instant.'
+const keywords = 'image resizer, image compressor, resize image online, compress photo online, webp converter, png jpeg compressor, private image resizer, image dimensions editor'
 
 const faqItems = [
-  { q: 'Are my images uploaded to any server?', a: 'No. All image resizing, canvas rendering, and file compression happen 100% locally in your web browser.' },
-  { q: 'What image formats can I convert and compress?', a: 'Supports PNG, JPEG, WebP, SVG, and GIF image files.' },
-  { q: 'Does resizing reduce image file size?', a: 'Yes. Lowering pixel dimensions or adjusting quality compression significantly reduces output file size for faster page loading.' }
+  { q: 'Are my photos or images uploaded to any server?', a: 'No. All image resizing, HTML5 canvas rendering, and WebP/JPEG compression happen 100% locally in your web browser. Your images never leave your computer or phone.' },
+  { q: 'Which image formats are supported for compression?', a: 'You can upload and compress PNG, JPEG/JPG, WebP, SVG, GIF, and BMP files.' },
+  { q: 'Why should I convert images to WebP format?', a: 'WebP offers 25–35% smaller file sizes compared to JPEG and PNG at equivalent visual quality. It is natively supported by all modern browsers and improves page load speed.' },
+  { q: 'Does resizing an image reduce its file size?', a: 'Yes. Lowering pixel dimensions (e.g. from 4000px to 1200px) or lowering quality compression percentage significantly reduces file size for web publishing.' },
+  { q: 'Is there a file size limit or daily usage cap?', a: 'No file size limit and no daily caps! Since computation runs on your local CPU instead of a server, you can process high-resolution images as fast as your device permits.' }
 ]
 ---
 
@@ -25,20 +27,27 @@ const faqItems = [
 
   <div class="tool-hero">
     <h1>Image Compressor & Resizer</h1>
-    <p>Resize and compress an image entirely in your browser — nothing is uploaded anywhere. Adjust dimensions or quality and download the result.</p>
+    <p>Resize and compress photos and graphics entirely in your browser — nothing is uploaded anywhere. Adjust pixel dimensions, quality compression, and output format in seconds.</p>
   </div>
 
   <ImageResizer client:only="react" />
 
   <article class="tool-guide">
-    <h2>Client-Side Image Optimization Guide</h2>
-    <p>Optimize photographs, screenshots, and web graphics without compromising privacy or quality.</p>
+    <h2>Complete Guide to Client-Side Image Optimization</h2>
+    <p>Optimizing web images is crucial for website speed, mobile performance, and Search Engine Optimization (SEO). Uncompressed images are the single largest contributor to slow page load times on the web.</p>
 
-    <h3>Benefits of Local In-Browser Processing</h3>
+    <h3>Why In-Browser HTML5 Canvas Compression Wins</h3>
     <ul>
-      <li><strong>100% Privacy & Security:</strong> Photos and sensitive documents never touch a third-party server.</li>
-      <li><strong>Instant Processing:</strong> Zero queue time or network upload delays.</li>
-      <li><strong>WebP Format Export:</strong> Convert legacy JPEG/PNG formats into modern WebP for smaller web payloads.</li>
+      <li><strong>100% Data Confidentiality:</strong> Personal photos, medical scans, business documents, and unreleased designs stay completely private on your machine.</li>
+      <li><strong>Zero Bandwidth Latency:</strong> No waiting for multi-megabyte files to upload over slow internet connections or queue on busy cloud servers.</li>
+      <li><strong>WebP & Modern Format Conversion:</strong> Effortlessly convert heavy PNGs or JPEGs into optimized WebP images for fast Core Web Vitals performance.</li>
+    </ul>
+
+    <h3>Best Practices for Web Image Sizing</h3>
+    <ul>
+      <li><strong>Blog & Website Content:</strong> Maximum width 1200px to 1600px at 75–85% WebP quality.</li>
+      <li><strong>Hero Banners & Backgrounds:</strong> Maximum width 1920px at 80% compression.</li>
+      <li><strong>Thumbnails & Avatars:</strong> 300px to 600px square at 80% WebP quality.</li>
     </ul>
 
     <h3>Frequently Asked Questions</h3>
@@ -58,3 +67,4 @@ const faqItems = [
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
   .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
 </style>
+
