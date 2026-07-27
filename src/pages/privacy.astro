@@ -8,7 +8,7 @@ const description = `Privacy Policy for ${SITE_CONFIG.siteName} — what data we
 const privacyEmail = SITE_CONFIG.legal.privacyEmail || SITE_CONFIG.contactEmail
 ---
 
-<BaseLayout title={title} description={description} path="/privacy">
+<BaseLayout title={title} description={description} path="/privacy" noindex={true}>
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Privacy' }]} />
 
   <div class="page">

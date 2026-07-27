@@ -24,7 +24,7 @@ const {
 } = Astro.props
 
 const canonicalUrl = `${SITE_CONFIG.domain}${path}`
-const ogImage = customOgImage || `${SITE_CONFIG.domain}/logo.svg`
+const ogImage = customOgImage || `${SITE_CONFIG.domain}/og-image.png`
 
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -32,7 +32,26 @@ const organizationSchema = {
   name: SITE_CONFIG.siteName,
   url: SITE_CONFIG.domain,
   logo: `${SITE_CONFIG.domain}/logo.svg`,
+  image: `${SITE_CONFIG.domain}/og-image.png`,
   email: SITE_CONFIG.contactEmail,
+  foundingDate: '2024',
+  sameAs: [
+    'https://rockingtools.com',
+  ],
+}
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description: description,
+  url: canonicalUrl,
+  isPartOf: {
+    '@type': 'WebSite',
+    name: SITE_CONFIG.siteName,
+    url: SITE_CONFIG.domain,
+  },
+  dateModified: new Date().toISOString().split('T')[0],
 }
 ---
 
@@ -79,6 +98,7 @@ const organizationSchema = {
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@RockingTools" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
@@ -92,6 +112,7 @@ const organizationSchema = {
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />}
 
     <!-- Sets the theme before first paint to avoid a flash of the wrong theme -->
     <script is:inline>

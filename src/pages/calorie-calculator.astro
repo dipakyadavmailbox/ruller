@@ -6,14 +6,18 @@ import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSc
 import CalorieCalculator from '../components/react/calorie/CalorieCalculator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 
-const title = 'Calorie Calculator (TDEE) & Food Log — Free Online Tool | Rocking Tools'
-const description = 'Calculate your daily calorie needs (TDEE) and macro split, then log what you actually eat to see remaining calories, macro balance, and personalized adjustments.'
-const keywords = 'calorie calculator, tdee calculator, bmr calculator, macro calculator, daily calorie intake, weight loss calorie calculator, mifflin st jeor'
+const title = 'Calorie Calculator (TDEE & BMR) — Free Online Tool | Rocking Tools'
+const description = 'Free TDEE & BMR calorie calculator using the Mifflin-St Jeor equation. Calculate daily calorie needs for weight loss, muscle gain, or maintenance. Includes macro split and food log. 100% private, no signup.'
+const keywords = 'calorie calculator, tdee calculator, bmr calculator, macro calculator, daily calorie intake, weight loss calorie calculator, mifflin st jeor, how many calories should i eat, calorie deficit calculator'
 
 const faqItems = [
-  { q: 'What is BMR vs TDEE?', a: 'BMR (Basal Metabolic Rate) is calories burned at rest. TDEE (Total Daily Energy Expenditure) adds physical activity and exercise.' },
-  { q: 'Which formula is used for calorie estimation?', a: 'We use the Mifflin-St Jeor equation, widely recognized as the most accurate standard formula for BMR estimation.' },
-  { q: 'How do I adjust calories for weight loss or muscle gain?', a: 'For weight loss, aim for a 300–500 calorie deficit below TDEE. For muscle gain, aim for a 250–500 calorie surplus above TDEE.' }
+  { q: 'What is BMR vs TDEE?', a: 'BMR (Basal Metabolic Rate) is the number of calories your body burns at complete rest to maintain vital functions. TDEE (Total Daily Energy Expenditure) adds your physical activity and exercise multiplier on top of BMR — it is the real-world calories you burn daily.' },
+  { q: 'Which formula is used for calorie estimation?', a: 'This calculator uses the Mifflin-St Jeor equation, widely validated as the most accurate BMR formula for the general population. For males: BMR = (10 × weight kg) + (6.25 × height cm) − (5 × age) + 5. For females: the same formula but −161 instead of +5.' },
+  { q: 'How do I adjust calories for weight loss or muscle gain?', a: 'For weight loss, create a 300–500 calorie deficit below TDEE — this produces roughly 0.3–0.5 kg of fat loss per week. For muscle gain (lean bulk), eat 200–300 calories above TDEE. Avoid deficits larger than 1000 kcal/day as they cause muscle loss.' },
+  { q: 'What is a macro split and how do I pick one?', a: 'A macro split defines the percentage of calories from protein, carbohydrates, and fat. A standard balanced split is 30% protein / 40% carbs / 30% fat. High-protein (40/30/30) is ideal for weight loss or muscle building. Low-carb (40/20/40) suits those with carbohydrate sensitivity or insulin resistance.' },
+  { q: 'How many calories should I eat to lose 1 kg per week?', a: 'One kilogram of body fat is approximately 7700 calories. To lose 1 kg per week you need a daily deficit of ~1100 kcal, which is aggressive and not recommended for most people. A safer pace is 0.5 kg per week (550 kcal deficit). Always keep intake above 1200 kcal (women) or 1500 kcal (men) to prevent nutrient deficiency.' },
+  { q: 'Is my health data stored or shared?', a: 'No. All calculations happen entirely in your browser using JavaScript. No health data — age, weight, height, gender, or activity level — is transmitted to any server. Your information never leaves your device.' },
+  { q: 'How accurate is this calorie calculator?', a: 'The Mifflin-St Jeor equation is accurate within ±10% for most adults. Results are estimates — individual metabolism varies based on genetics, muscle mass, hormones, and lifestyle. Use the result as a starting point and adjust based on 2–3 weeks of real-world tracking.' },
 ]
 ---
 
@@ -31,14 +35,25 @@ const faqItems = [
   <CalorieCalculator client:only="react" />
 
   <article class="tool-guide">
-    <h2>Understanding TDEE & Macronutrient Balance</h2>
-    <p>Total Daily Energy Expenditure (TDEE) represents the total number of calories your body burns in 24 hours based on age, gender, height, weight, and activity level.</p>
+    <h2>Understanding TDEE, BMR & Daily Calorie Needs</h2>
+    <p>Total Daily Energy Expenditure (TDEE) represents the total number of calories your body burns in 24 hours, accounting for your age, gender, height, weight, and physical activity level. Knowing your TDEE is the starting point for any evidence-based nutrition plan — whether you want to lose fat, build muscle, or maintain your current weight.</p>
+
+    <p>This calculator uses the <strong>Mifflin-St Jeor equation</strong>, the formula recommended by the Academy of Nutrition and Dietetics as the most accurate standard BMR model for non-athletic adults. Your BMR is then multiplied by an activity factor to produce your TDEE.</p>
+
+    <h3>Activity Level Multipliers</h3>
+    <ul>
+      <li><strong>Sedentary (×1.2):</strong> Desk job, little or no deliberate exercise.</li>
+      <li><strong>Lightly active (×1.375):</strong> Light exercise or sports 1–3 days per week.</li>
+      <li><strong>Moderately active (×1.55):</strong> Moderate exercise 3–5 days per week.</li>
+      <li><strong>Very active (×1.725):</strong> Hard exercise 6–7 days per week.</li>
+      <li><strong>Extra active (×1.9):</strong> Physical job + daily intense training.</li>
+    </ul>
 
     <h3>Macro Ratio Split Strategies</h3>
     <ul>
       <li><strong>Balanced (30/40/30):</strong> 30% Protein, 40% Carbs, 30% Fat — ideal for maintenance and general fitness.</li>
       <li><strong>High Protein (40/30/30):</strong> 40% Protein, 30% Carbs, 30% Fat — supports muscle preservation during weight loss.</li>
-      <li><strong>Low Carb (40/20/40):</strong> 40% Protein, 20% Carbs, 40% Fat — suitable for carbohydrate sensitivity.</li>
+      <li><strong>Low Carb (40/20/40):</strong> 40% Protein, 20% Carbs, 40% Fat — suitable for carbohydrate sensitivity or keto-adjacent diets.</li>
     </ul>
 
     <h3>Frequently Asked Questions</h3>

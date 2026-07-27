@@ -8,7 +8,7 @@ const title = `Contact Us — ${SITE_CONFIG.siteName}`
 const description = `Get in touch with ${SITE_CONFIG.siteName} — questions, bug reports, or feedback on any tool.`
 ---
 
-<BaseLayout title={title} description={description} path="/contact">
+<BaseLayout title={title} description={description} path="/contact" noindex={true}>
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Contact' }]} />
 
   <div class="page">

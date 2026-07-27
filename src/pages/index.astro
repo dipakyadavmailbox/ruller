@@ -54,6 +54,23 @@ const websiteSchema = {
   </div>
 
   <ToolGrid client:only="react" />
+
+  {/* Static tool links for Googlebot — ToolGrid is client:only="react" so Googlebot cannot see those links */}
+  <nav aria-label="All Tools Directory" class="seo-tool-directory">
+    <h2>All Free Online Tools</h2>
+    <ul class="seo-tool-list">
+      <li><a href="/ruler">📏 Online Screen Ruler — Measure in mm, cm & inches</a></li>
+      <li><a href="/dpi-calculator">🖨️ DPI / PPI Print Size Calculator</a></li>
+      <li><a href="/image-resizer">🖼️ Image Compressor & Resizer</a></li>
+      <li><a href="/aspect-ratio-calculator">📐 Aspect Ratio Calculator</a></li>
+      <li><a href="/password-checker">🔒 Password Strength Checker & Generator</a></li>
+      <li><a href="/calorie-calculator">🥗 Calorie & TDEE Calculator</a></li>
+      <li><a href="/pregnancy-calculator">🤰 Pregnancy Due Date Calculator</a></li>
+      <li><a href="/regex-tester">⚙️ Regex Tester & Debugger</a></li>
+      <li><a href="/cron-expression-builder">🕐 Cron Expression Builder</a></li>
+      <li><a href="/data-converter">🔄 Data Format Converter</a></li>
+    </ul>
+  </nav>
 </BaseLayout>
 
 <style>
@@ -164,5 +181,45 @@ const websiteSchema = {
       height: 1px;
     }
   }
+  /* SEO Tool Directory — visible to users and Googlebot alike */
+  .seo-tool-directory {
+    max-width: 860px;
+    margin: 0 auto 60px;
+    padding: 40px 20px 0;
+  }
+  .seo-tool-directory h2 {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ink-faint);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+  }
+  .seo-tool-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .seo-tool-list li a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    color: var(--ink-dim);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
+  }
+  .seo-tool-list li a:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+    background: var(--accent-light);
+  }
 </style>
+
 

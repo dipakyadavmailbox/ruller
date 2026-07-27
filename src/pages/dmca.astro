@@ -8,7 +8,7 @@ const description = `How to submit a copyright takedown notice for ${SITE_CONFIG
 const dmcaEmail = SITE_CONFIG.legal.dmcaEmail || SITE_CONFIG.contactEmail
 ---
 
-<BaseLayout title={title} description={description} path="/dmca">
+<BaseLayout title={title} description={description} path="/dmca" noindex={true}>
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'DMCA Policy' }]} />
 
   <div class="page">

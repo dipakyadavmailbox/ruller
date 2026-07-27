@@ -8,7 +8,7 @@ const description = `${SITE_CONFIG.siteName}'s commitment to web accessibility a
 const accessibilityEmail = SITE_CONFIG.legal.accessibilityEmail || SITE_CONFIG.contactEmail
 ---
 
-<BaseLayout title={title} description={description} path="/accessibility">
+<BaseLayout title={title} description={description} path="/accessibility" noindex={true}>
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Accessibility' }]} />
 
   <div class="page">
