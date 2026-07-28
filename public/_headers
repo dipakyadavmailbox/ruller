@@ -1,0 +1,5 @@
+# HTTP Headers Configuration for Web Server / CDN
+# Sends X-Robots-Tag: noindex, nofollow to prevent web crawlers from indexing preview deployment URLs
+
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
