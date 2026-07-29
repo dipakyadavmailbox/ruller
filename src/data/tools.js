@@ -82,6 +82,13 @@ export const CATEGORIES = [
         navLabel: 'Data Converter',
         description: 'Convert between the three formats instantly — nothing is uploaded, it all runs in your browser.',
       },
+      {
+        slug: '/qr-code-generator',
+        icon: '📱',
+        name: 'QR Code Generator',
+        navLabel: 'QR Code Generator',
+        description: 'Create customizable QR codes for links, Wi-Fi, vCard contacts, email & text with high-res PNG & SVG downloads.',
+      },
     ],
   },
 ]

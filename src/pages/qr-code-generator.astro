@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import QrCodeGenerator from '../components/react/qr/QrCodeGenerator.jsx'
+import FaqSchema from '../components/astro/FaqSchema.astro'
+
+const title = 'Free QR Code Generator — Custom Colors, Logos, PNG & SVG | Rocking Tools'
+const description = 'Generate high-resolution QR codes for links, Wi-Fi networks, vCards, SMS, and email. Customize colors, dot shapes, and logo badges. 100% private in browser.'
+const keywords = 'qr code generator, free qr code maker, custom qr code, wifi qr code generator, vcard qr code, svg qr code, high res qr code, private qr generator'
+
+const faqItems = [
+  { q: 'Is my input data or generated QR code sent to any server?', a: 'No. All QR code matrix calculations, canvas rendering, and downloads take place 100% client-side inside your web browser.' },
+  { q: 'Can I download vector SVG QR codes for professional print design?', a: 'Yes! You can export your QR code as scalable vector graphics (SVG) or high-resolution PNG/WebP images up to 1200px.' },
+  { q: 'How do Wi-Fi QR codes work?', a: 'Scanning a Wi-Fi QR code with an iPhone or Android camera automatically prompts the device to join the network without typing the password.' },
+  { q: 'What is Error Correction Level?', a: 'Error Correction adds redundancy so the QR code remains scannable even if partially obscured or damaged. Level H (30%) is recommended when adding center logos.' }
+]
+---
+
+<BaseLayout title={title} description={description} path="/qr-code-generator" keywords={keywords}>
+  <SoftwareApplicationSchema slot="head" name="QR Code Generator" description={description} path="/qr-code-generator" />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'QR Code Generator' }]} />
+
+  <div class="tool-hero">
+    <h1>Free QR Code Generator</h1>
+    <p>Create, customize, and export studio-grade QR codes for website links, Wi-Fi passwords, contact cards, and text. 100% private & client-side.</p>
+  </div>
+
+  <QrCodeGenerator client:only="react" />
+
+  <article class="tool-guide">
+    <h2>Client-Side QR Code Creation &amp; Customization Features</h2>
+    <p>Generate scannable codes for any digital touchpoint with customizable aesthetics and zero tracking.</p>
+
+    <h3>Supported Data Types</h3>
+    <ul>
+      <li><strong>Website Link / Text:</strong> Direct users to any URL, landing page, or raw text message.</li>
+      <li><strong>Wi-Fi Network Credentials:</strong> Allow guests to scan and connect to WPA/WPA2/WEP networks instantly.</li>
+      <li><strong>vCard Contact Card:</strong> Share full contact details (Name, Phone, Email, Company, Website) directly into phone address books.</li>
+      <li><strong>Email &amp; Phone / SMS:</strong> Trigger pre-filled email drafts or SMS text messages upon scanning.</li>
+    </ul>
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <RelatedTools currentSlug="/qr-code-generator" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+
+  .tool-guide {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 32px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+  }
+  .tool-guide h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 12px; }
+  .tool-guide h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin-top: 24px; margin-bottom: 8px; }
+  .tool-guide p, .tool-guide li { font-size: 14px; color: var(--ink-dim); line-height: 1.6; }
+  .tool-guide ul { padding-left: 20px; margin-bottom: 24px; }
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .faq-item p { margin: 0; }
+</style>

@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { to: '/calorie-calculator', label: 'Calorie Calculator' },
   { to: '/regex-tester', label: 'Regex Tester' },
   { to: '/data-converter', label: 'Data Converter' },
+  { to: '/qr-code-generator', label: 'QR Code Generator' },
   { to: '/pregnancy-calculator', label: 'Pregnancy Calculator' },
   { to: '/aspect-ratio-calculator', label: 'Aspect Ratio' },
   { to: '/dpi-calculator', label: 'DPI Calculator' },

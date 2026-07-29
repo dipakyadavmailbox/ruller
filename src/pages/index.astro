@@ -75,6 +75,7 @@ const itemListSchema = {
     { '@type': 'ListItem', position: 8, name: 'Regex Tester', url: `${SITE_CONFIG.domain}/regex-tester` },
     { '@type': 'ListItem', position: 9, name: 'Cron Expression Builder', url: `${SITE_CONFIG.domain}/cron-expression-builder` },
     { '@type': 'ListItem', position: 10, name: 'Data Format Converter', url: `${SITE_CONFIG.domain}/data-converter` },
+    { '@type': 'ListItem', position: 11, name: 'QR Code Generator', url: `${SITE_CONFIG.domain}/qr-code-generator` },
   ],
 }
 ---
@@ -83,7 +84,7 @@ const itemListSchema = {
   title={title} 
   description={description} 
   path="/"
-  keywords="free online tools, browser tools, developer utilities, screen ruler, dpi calculator, calorie calculator, pregnancy calculator, regex tester, cron builder, aspect ratio calculator, private web utilities"
+  keywords="free online tools, browser tools, developer utilities, screen ruler, dpi calculator, calorie calculator, pregnancy calculator, regex tester, cron builder, aspect ratio calculator, qr code generator, private web utilities"
 >
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(sitelinksSchema)} slot="head" />
@@ -131,6 +132,7 @@ const itemListSchema = {
       <li><a href="/regex-tester">⚙️ Regex Tester & Cheatsheet (JavaScript Regular Expressions)</a></li>
       <li><a href="/cron-expression-builder">🕐 Cron Expression Builder & Schedule Validator</a></li>
       <li><a href="/data-converter">🔄 JSON ⇄ CSV ⇄ YAML Data Format Converter</a></li>
+      <li><a href="/qr-code-generator">📱 Free Online QR Code Generator (PNG, SVG, Custom Colors & WiFi)</a></li>
     </ul>
   </nav>
 </BaseLayout>

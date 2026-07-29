@@ -10,6 +10,7 @@ import PregnancyCalculatorPage from './pages/PregnancyCalculatorPage.jsx'
 import AspectRatioPage from './pages/AspectRatioPage.jsx'
 import DpiCalculatorPage from './pages/DpiCalculatorPage.jsx'
 import ImageResizerPage from './pages/ImageResizerPage.jsx'
+import QrCodeGeneratorPage from './pages/QrCodeGeneratorPage.jsx'
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/calorie-calculator" element={<CalorieCalculatorPage />} />
         <Route path="/regex-tester" element={<RegexTesterPage />} />
         <Route path="/data-converter" element={<DataConverterPage />} />
+        <Route path="/qr-code-generator" element={<QrCodeGeneratorPage />} />
         <Route path="/pregnancy-calculator" element={<PregnancyCalculatorPage />} />
         <Route path="/aspect-ratio-calculator" element={<AspectRatioPage />} />
         <Route path="/dpi-calculator" element={<DpiCalculatorPage />} />
