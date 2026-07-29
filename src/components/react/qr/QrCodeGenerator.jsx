@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { generateQrMatrix, drawQrToCanvas, generateQrSvgString } from './qrcode-engine.js'
+import './QrCodeGenerator.css'
 
 const MODES = [
   { id: 'url', label: '🔗 Link / Text', icon: '🌐' },
@@ -198,86 +199,87 @@ export default function QrCodeGenerator() {
   }
 
   return (
-    <div style={{ maxWidth: 1080, margin: '0 auto', padding: '24px 20px 60px' }}>
+    <div className="qr-container">
       {/* Toast Banner */}
       {copiedToast && (
-        <div style={styles.toast}>
+        <div className="qr-toast">
           {copiedToast}
         </div>
       )}
 
-      {/* Main Grid */}
-      <div style={styles.containerGrid}>
-        {/* Left Control Column */}
-        <div style={styles.leftColumn}>
-          {/* Mode Selector Tabs */}
-          <div style={styles.modeTabs}>
-            {MODES.map((mode) => (
-              <button
-                key={mode.id}
-                onClick={() => setActiveMode(mode.id)}
-                style={{
-                  ...styles.modeTabBtn,
-                  ...(activeMode === mode.id ? styles.modeTabActive : {}),
-                }}
-              >
-                <span>{mode.label}</span>
-              </button>
-            ))}
-          </div>
+      {/* Mode Selector Tabs */}
+      <div className="qr-mode-tabs">
+        {MODES.map((mode) => (
+          <button
+            key={mode.id}
+            onClick={() => setActiveMode(mode.id)}
+            className={`qr-tab-btn ${activeMode === mode.id ? 'active' : ''}`}
+          >
+            <span>{mode.label}</span>
+          </button>
+        ))}
+      </div>
 
+      {/* Main Grid */}
+      <div className="qr-grid">
+        {/* Left Control Column */}
+        <div>
           {/* Input Panel */}
-          <div style={styles.panelCard}>
-            <h3 style={styles.cardHeading}>1. Content &amp; Details</h3>
+          <div className="qr-panel-card">
+            <h3 className="qr-card-heading">1. Content &amp; Details</h3>
 
             {activeMode === 'url' && (
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Website URL or Plain Text</label>
+              <div className="qr-input-group">
+                <label className="qr-label">Website URL or Plain Text</label>
                 <textarea
                   rows={4}
                   value={urlInput}
                   onChange={(e) => setUrlInput(e.target.value)}
                   placeholder="https://example.com or enter any message..."
-                  style={styles.textarea}
+                  className="qr-textarea"
                 />
-                <span style={styles.hint}>Tip: Enter any web address or freeform text to generate a quick scannable code.</span>
+                <span style={{ fontSize: 11, color: 'var(--ink-faint)', marginTop: 4 }}>
+                  Tip: Enter any web address or freeform text to generate a quick scannable code.
+                </span>
               </div>
             )}
 
             {activeMode === 'wifi' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Network Name (SSID)</label>
+                <div className="qr-input-group">
+                  <label className="qr-label">Network Name (SSID)</label>
                   <input
                     type="text"
                     value={wifiSsid}
                     onChange={(e) => setWifiSsid(e.target.value)}
-                    style={styles.input}
+                    className="qr-input"
                   />
                 </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Security Type</label>
-                  <select
-                    value={wifiEncryption}
-                    onChange={(e) => setWifiEncryption(e.target.value)}
-                    style={styles.select}
-                  >
-                    <option value="WPA">WPA / WPA2 / WPA3 (Standard)</option>
-                    <option value="WEP">WEP (Legacy)</option>
-                    <option value="nopass">None (Open Network)</option>
-                  </select>
-                </div>
-                {wifiEncryption !== 'nopass' && (
-                  <div style={styles.inputGroup}>
-                    <label style={styles.label}>Wi-Fi Password</label>
-                    <input
-                      type="text"
-                      value={wifiPassword}
-                      onChange={(e) => setWifiPassword(e.target.value)}
-                      style={styles.input}
-                    />
+                <div className="qr-form-row">
+                  <div className="qr-input-group">
+                    <label className="qr-label">Security Type</label>
+                    <select
+                      value={wifiEncryption}
+                      onChange={(e) => setWifiEncryption(e.target.value)}
+                      className="qr-select"
+                    >
+                      <option value="WPA">WPA / WPA2 / WPA3 (Standard)</option>
+                      <option value="WEP">WEP (Legacy)</option>
+                      <option value="nopass">None (Open Network)</option>
+                    </select>
                   </div>
-                )}
+                  {wifiEncryption !== 'nopass' && (
+                    <div className="qr-input-group">
+                      <label className="qr-label">Wi-Fi Password</label>
+                      <input
+                        type="text"
+                        value={wifiPassword}
+                        onChange={(e) => setWifiPassword(e.target.value)}
+                        className="qr-input"
+                      />
+                    </div>
+                  )}
+                </div>
                 <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, cursor: 'pointer' }}>
                   <input
                     type="checkbox"
@@ -290,73 +292,79 @@ export default function QrCodeGenerator() {
             )}
 
             {activeMode === 'vcard' && (
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Full Name</label>
-                  <input type="text" value={vcardName} onChange={(e) => setVcardName(e.target.value)} style={styles.input} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <div className="qr-form-row">
+                  <div className="qr-input-group">
+                    <label className="qr-label">Full Name</label>
+                    <input type="text" value={vcardName} onChange={(e) => setVcardName(e.target.value)} className="qr-input" />
+                  </div>
+                  <div className="qr-input-group">
+                    <label className="qr-label">Phone Number</label>
+                    <input type="text" value={vcardPhone} onChange={(e) => setVcardPhone(e.target.value)} className="qr-input" />
+                  </div>
                 </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Phone Number</label>
-                  <input type="text" value={vcardPhone} onChange={(e) => setVcardPhone(e.target.value)} style={styles.input} />
+                <div className="qr-form-row">
+                  <div className="qr-input-group">
+                    <label className="qr-label">Email Address</label>
+                    <input type="email" value={vcardEmail} onChange={(e) => setVcardEmail(e.target.value)} className="qr-input" />
+                  </div>
+                  <div className="qr-input-group">
+                    <label className="qr-label">Company</label>
+                    <input type="text" value={vcardCompany} onChange={(e) => setVcardCompany(e.target.value)} className="qr-input" />
+                  </div>
                 </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Email Address</label>
-                  <input type="email" value={vcardEmail} onChange={(e) => setVcardEmail(e.target.value)} style={styles.input} />
-                </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Company</label>
-                  <input type="text" value={vcardCompany} onChange={(e) => setVcardCompany(e.target.value)} style={styles.input} />
-                </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Job Title</label>
-                  <input type="text" value={vcardTitle} onChange={(e) => setVcardTitle(e.target.value)} style={styles.input} />
-                </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Website URL</label>
-                  <input type="url" value={vcardUrl} onChange={(e) => setVcardUrl(e.target.value)} style={styles.input} />
+                <div className="qr-form-row">
+                  <div className="qr-input-group">
+                    <label className="qr-label">Job Title</label>
+                    <input type="text" value={vcardTitle} onChange={(e) => setVcardTitle(e.target.value)} className="qr-input" />
+                  </div>
+                  <div className="qr-input-group">
+                    <label className="qr-label">Website URL</label>
+                    <input type="url" value={vcardUrl} onChange={(e) => setVcardUrl(e.target.value)} className="qr-input" />
+                  </div>
                 </div>
               </div>
             )}
 
             {activeMode === 'email' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Recipient Email</label>
-                  <input type="email" value={emailTo} onChange={(e) => setEmailTo(e.target.value)} style={styles.input} />
+                <div className="qr-input-group">
+                  <label className="qr-label">Recipient Email</label>
+                  <input type="email" value={emailTo} onChange={(e) => setEmailTo(e.target.value)} className="qr-input" />
                 </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Subject Line</label>
-                  <input type="text" value={emailSubject} onChange={(e) => setEmailSubject(e.target.value)} style={styles.input} />
+                <div className="qr-input-group">
+                  <label className="qr-label">Subject Line</label>
+                  <input type="text" value={emailSubject} onChange={(e) => setEmailSubject(e.target.value)} className="qr-input" />
                 </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Message Body</label>
-                  <textarea rows={3} value={emailBody} onChange={(e) => setEmailBody(e.target.value)} style={styles.textarea} />
+                <div className="qr-input-group">
+                  <label className="qr-label">Message Body</label>
+                  <textarea rows={3} value={emailBody} onChange={(e) => setEmailBody(e.target.value)} className="qr-textarea" />
                 </div>
               </div>
             )}
 
             {activeMode === 'sms' && (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Phone Number</label>
-                  <input type="tel" value={phoneNum} onChange={(e) => setPhoneNum(e.target.value)} style={styles.input} />
+                <div className="qr-input-group">
+                  <label className="qr-label">Phone Number</label>
+                  <input type="tel" value={phoneNum} onChange={(e) => setPhoneNum(e.target.value)} className="qr-input" />
                 </div>
-                <div style={styles.inputGroup}>
-                  <label style={styles.label}>Preset SMS Message (Optional)</label>
-                  <textarea rows={3} value={smsBody} onChange={(e) => setSmsBody(e.target.value)} style={styles.textarea} />
+                <div className="qr-input-group">
+                  <label className="qr-label">Preset SMS Message (Optional)</label>
+                  <textarea rows={3} value={smsBody} onChange={(e) => setSmsBody(e.target.value)} className="qr-textarea" />
                 </div>
               </div>
             )}
           </div>
 
           {/* Styling & Customization Panel */}
-          <div style={styles.panelCard}>
-            <h3 style={styles.cardHeading}>2. Design &amp; Styling</h3>
+          <div className="qr-panel-card">
+            <h3 className="qr-card-heading">2. Design &amp; Styling</h3>
 
             {/* Presets */}
             <div style={{ marginBottom: 18 }}>
-              <label style={styles.label}>Color Themes</label>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <label className="qr-label" style={{ display: 'block', marginBottom: 8 }}>Color Themes</label>
+              <div className="qr-presets">
                 {PRESET_THEMES.map((theme) => (
                   <button
                     key={theme.name}
@@ -364,7 +372,7 @@ export default function QrCodeGenerator() {
                       setFgColor(theme.fg)
                       setBgColor(theme.bg)
                     }}
-                    style={styles.presetBtn}
+                    className="qr-preset-btn"
                   >
                     <span style={{ width: 12, height: 12, borderRadius: '50%', background: theme.fg, display: 'inline-block' }} />
                     {theme.name}
@@ -374,36 +382,36 @@ export default function QrCodeGenerator() {
             </div>
 
             {/* Colors */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Foreground Color</label>
-                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                  <input type="color" value={fgColor} onChange={(e) => setFgColor(e.target.value)} style={styles.colorPicker} />
-                  <input type="text" value={fgColor} onChange={(e) => setFgColor(e.target.value)} style={styles.input} />
+            <div className="qr-form-row">
+              <div className="qr-input-group">
+                <label className="qr-label">Foreground Color</label>
+                <div className="qr-color-wrapper">
+                  <input type="color" value={fgColor} onChange={(e) => setFgColor(e.target.value)} className="qr-color-picker" />
+                  <input type="text" value={fgColor} onChange={(e) => setFgColor(e.target.value)} className="qr-input" />
                 </div>
               </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Background Color</label>
-                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                  <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} style={styles.colorPicker} />
-                  <input type="text" value={bgColor} onChange={(e) => setBgColor(e.target.value)} style={styles.input} />
+              <div className="qr-input-group">
+                <label className="qr-label">Background Color</label>
+                <div className="qr-color-wrapper">
+                  <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="qr-color-picker" />
+                  <input type="text" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="qr-input" />
                 </div>
               </div>
             </div>
 
             {/* Shapes & Error Correction */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Dot Style</label>
-                <select value={dotShape} onChange={(e) => setDotShape(e.target.value)} style={styles.select}>
+            <div className="qr-form-row">
+              <div className="qr-input-group">
+                <label className="qr-label">Dot Style</label>
+                <select value={dotShape} onChange={(e) => setDotShape(e.target.value)} className="qr-select">
                   <option value="square">Square Modules</option>
                   <option value="rounded">Soft Rounded</option>
                   <option value="dots">Circular Dots</option>
                 </select>
               </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Error Correction Level</label>
-                <select value={ecLevel} onChange={(e) => setEcLevel(e.target.value)} style={styles.select}>
+              <div className="qr-input-group">
+                <label className="qr-label">Error Correction Level</label>
+                <select value={ecLevel} onChange={(e) => setEcLevel(e.target.value)} className="qr-select">
                   <option value="L">L — 7% Recovery</option>
                   <option value="M">M — 15% Recovery (Default)</option>
                   <option value="Q">Q — 25% Recovery</option>
@@ -413,10 +421,10 @@ export default function QrCodeGenerator() {
             </div>
 
             {/* Center Logo & Margin */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Center Icon / Badge</label>
-                <select value={centerLogo} onChange={(e) => setCenterLogo(e.target.value)} style={styles.select}>
+            <div className="qr-form-row">
+              <div className="qr-input-group">
+                <label className="qr-label">Center Icon / Badge</label>
+                <select value={centerLogo} onChange={(e) => setCenterLogo(e.target.value)} className="qr-select">
                   <option value="">None</option>
                   <option value="🌐">🌐 Web Link</option>
                   <option value="🔒">🔒 Secure</option>
@@ -427,8 +435,8 @@ export default function QrCodeGenerator() {
                   <option value="💛">💛 Heart</option>
                 </select>
               </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Export Resolution: {downloadSize}px</label>
+              <div className="qr-input-group">
+                <label className="qr-label">Export Resolution: {downloadSize}px</label>
                 <input
                   type="range"
                   min={300}
@@ -444,37 +452,37 @@ export default function QrCodeGenerator() {
         </div>
 
         {/* Right Preview Column */}
-        <div style={styles.rightColumn}>
-          <div style={styles.previewCard}>
-            <div style={styles.previewHeader}>
+        <div>
+          <div className="qr-preview-card">
+            <div className="qr-preview-header">
               <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--ink)' }}>LIVE PREVIEW</span>
-              <span style={styles.badge}>{activeMode.toUpperCase()}</span>
+              <span className="qr-badge">{activeMode.toUpperCase()}</span>
             </div>
 
             {/* Canvas Display */}
-            <div style={styles.canvasContainer}>
-              <canvas ref={canvasRef} style={styles.canvasStyle} />
+            <div className="qr-canvas-container">
+              <canvas ref={canvasRef} className="qr-canvas" />
             </div>
 
             {/* Download Buttons */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%', marginTop: 20 }}>
-              <button onClick={handleDownloadPng} style={styles.btnPrimary}>
+            <div className="qr-action-buttons">
+              <button onClick={handleDownloadPng} className="qr-btn-primary">
                 📥 Download PNG Image ({downloadSize}px)
               </button>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                <button onClick={handleDownloadSvg} style={styles.btnSecondary}>
-                  🎨 Download SVG Vector
+              <div className="qr-btn-group-2">
+                <button onClick={handleDownloadSvg} className="qr-btn-secondary">
+                  🎨 Download SVG
                 </button>
-                <button onClick={handleDownloadWebp} style={styles.btnSecondary}>
+                <button onClick={handleDownloadWebp} className="qr-btn-secondary">
                   🖼️ Download WebP
                 </button>
               </div>
-              <button onClick={handleCopySvg} style={styles.btnOutline}>
+              <button onClick={handleCopySvg} className="qr-btn-outline">
                 📋 Copy SVG Code to Clipboard
               </button>
             </div>
 
-            <div style={styles.privacyNote}>
+            <div className="qr-privacy-note">
               🔒 100% Private — Generated strictly inside your browser window. Zero data sent to any server.
             </div>
           </div>
@@ -482,213 +490,4 @@ export default function QrCodeGenerator() {
       </div>
     </div>
   )
-}
-
-const styles = {
-  toast: {
-    position: 'fixed',
-    bottom: 24,
-    right: 24,
-    zIndex: 999,
-    background: 'var(--accent)',
-    color: '#ffffff',
-    padding: '12px 20px',
-    borderRadius: 10,
-    fontWeight: 700,
-    fontSize: 14,
-    boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-  },
-  containerGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1.4fr 1fr',
-    gap: 24,
-  },
-  leftColumn: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 20,
-  },
-  rightColumn: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  modeTabs: {
-    display: 'flex',
-    gap: 8,
-    flexWrap: 'wrap',
-  },
-  modeTabBtn: {
-    padding: '10px 16px',
-    borderRadius: 10,
-    border: '1px solid var(--panel-border)',
-    background: 'var(--panel-bg)',
-    color: 'var(--ink-dim)',
-    fontSize: 13,
-    fontWeight: 700,
-    cursor: 'pointer',
-    transition: 'all 150ms ease',
-  },
-  modeTabActive: {
-    border: '1px solid var(--accent)',
-    background: 'var(--accent-light)',
-    color: 'var(--accent)',
-  },
-  panelCard: {
-    background: 'var(--panel-bg)',
-    border: '1px solid var(--panel-border)',
-    borderRadius: 16,
-    padding: 24,
-    backdropFilter: 'var(--glass-backdrop)',
-  },
-  cardHeading: {
-    fontSize: 15,
-    fontWeight: 800,
-    color: 'var(--ink)',
-    marginBottom: 16,
-    margin: '0 0 16px 0',
-  },
-  inputGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 6,
-  },
-  label: {
-    fontSize: 12,
-    fontWeight: 700,
-    color: 'var(--ink-dim)',
-  },
-  input: {
-    padding: '10px 14px',
-    borderRadius: 8,
-    border: '1px solid var(--panel-border)',
-    background: 'var(--input-bg, var(--panel-bg))',
-    color: 'var(--ink)',
-    fontSize: 14,
-    outline: 'none',
-  },
-  textarea: {
-    padding: '10px 14px',
-    borderRadius: 8,
-    border: '1px solid var(--panel-border)',
-    background: 'var(--input-bg, var(--panel-bg))',
-    color: 'var(--ink)',
-    fontSize: 14,
-    outline: 'none',
-    fontFamily: 'inherit',
-    resize: 'vertical',
-  },
-  select: {
-    padding: '10px 14px',
-    borderRadius: 8,
-    border: '1px solid var(--panel-border)',
-    background: 'var(--input-bg, var(--panel-bg))',
-    color: 'var(--ink)',
-    fontSize: 14,
-    outline: 'none',
-  },
-  hint: {
-    fontSize: 11,
-    color: 'var(--ink-faint)',
-  },
-  colorPicker: {
-    width: 38,
-    height: 38,
-    border: 'none',
-    borderRadius: 8,
-    cursor: 'pointer',
-    padding: 0,
-    background: 'none',
-  },
-  presetBtn: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 6,
-    padding: '6px 12px',
-    borderRadius: 20,
-    border: '1px solid var(--panel-border)',
-    background: 'var(--panel-bg)',
-    color: 'var(--ink-dim)',
-    fontSize: 12,
-    fontWeight: 600,
-    cursor: 'pointer',
-  },
-  previewCard: {
-    position: 'sticky',
-    top: 90,
-    background: 'var(--panel-bg)',
-    border: '1px solid var(--panel-border)',
-    borderRadius: 16,
-    padding: 24,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  previewHeader: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  badge: {
-    fontSize: 10,
-    fontWeight: 800,
-    color: 'var(--accent)',
-    background: 'rgba(92, 140, 224, 0.1)',
-    padding: '4px 8px',
-    borderRadius: 4,
-  },
-  canvasContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    padding: 16,
-    background: 'rgba(0,0,0,0.02)',
-    borderRadius: 12,
-    border: '1px dashed var(--panel-border)',
-  },
-  canvasStyle: {
-    maxWidth: '100%',
-    height: 'auto',
-    borderRadius: 8,
-    boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-  },
-  btnPrimary: {
-    padding: '12px 18px',
-    borderRadius: 10,
-    border: 'none',
-    background: 'var(--accent)',
-    color: '#ffffff',
-    fontWeight: 700,
-    fontSize: 14,
-    cursor: 'pointer',
-    transition: 'opacity 150ms ease',
-  },
-  btnSecondary: {
-    padding: '10px 14px',
-    borderRadius: 10,
-    border: '1px solid var(--panel-border)',
-    background: 'var(--btn-idle-bg, var(--panel-bg))',
-    color: 'var(--ink)',
-    fontWeight: 700,
-    fontSize: 12,
-    cursor: 'pointer',
-  },
-  btnOutline: {
-    padding: '10px 14px',
-    borderRadius: 10,
-    border: '1px dashed var(--accent)',
-    background: 'transparent',
-    color: 'var(--accent)',
-    fontWeight: 700,
-    fontSize: 12,
-    cursor: 'pointer',
-  },
-  privacyNote: {
-    marginTop: 18,
-    fontSize: 11,
-    color: 'var(--ink-faint)',
-    textAlign: 'center',
-    lineHeight: 1.5,
-  },
 }
