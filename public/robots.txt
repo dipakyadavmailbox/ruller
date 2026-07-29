@@ -2,14 +2,14 @@ User-agent: *
 Allow: /
 
 # Save crawl budget — noindex pages should also be disallowed from crawling
-Disallow: /privacy
-Disallow: /terms
-Disallow: /dmca
-Disallow: /accessibility
-Disallow: /donate
-Disallow: /sitemap
-Disallow: /contact
-Disallow: /404
+# Disallow: /privacy
+# Disallow: /terms
+# Disallow: /dmca
+# Disallow: /accessibility
+# Disallow: /donate
+# Disallow: /sitemap
+# Disallow: /contact
+# Disallow: /404
 
 # AI retrieval/citation crawlers — explicitly allowed so ChatGPT, Claude,
 # and Perplexity can cite these tools in their answers.
