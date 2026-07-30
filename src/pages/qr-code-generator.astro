@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import QrCodeGenerator from '../components/react/qr/QrCodeGenerator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Free QR Code Generator — Custom Colors, Logos, PNG & SVG | Rocking Tools'
 const description = 'Generate high-resolution QR codes for links, Wi-Fi networks, vCards, SMS, and email. Customize colors, dot shapes, and logo badges. 100% private in browser.'
@@ -42,6 +43,8 @@ const faqItems = [
       <li><strong>vCard Contact Card:</strong> Share full contact details (Name, Phone, Email, Company, Website) directly into phone address books.</li>
       <li><strong>Email &amp; Phone / SMS:</strong> Trigger pre-filled email drafts or SMS text messages upon scanning.</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="QR Code Generation" competitorLabel="Other QR Generators" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

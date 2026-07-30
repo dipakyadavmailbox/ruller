@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import AspectRatioCalculator from '../components/react/aspect/AspectRatioCalculator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Aspect Ratio & Crop Calculator — Free Online Tool | Rocking Tools'
 const description = 'Calculate matching dimensions for any aspect ratio (1:1, 4:5, 9:16, 16:9, and more), or find the center-crop size and offset to fit your image to a target ratio.'
@@ -42,6 +43,8 @@ const faqItems = [
       <li><strong>1:1 (Square):</strong> Profile avatars, Instagram square feed posts (1080x1080).</li>
       <li><strong>21:9 (Ultrawide):</strong> Cinematic movies and ultrawide gaming displays (3440x1440).</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="Aspect Ratio Calculation" competitorLabel="Other Aspect Ratio Tools" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

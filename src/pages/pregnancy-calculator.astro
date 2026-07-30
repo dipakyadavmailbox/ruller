@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import PregnancyCalculator from '../components/react/pregnancy/PregnancyCalculator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Pregnancy Due Date & Ovulation Calculator — Free Online Tool | Rocking Tools'
 const description = 'Estimate your due date from your last period or conception date, see your current week of pregnancy, or calculate your next ovulation and fertile window.'
@@ -40,6 +41,8 @@ const faqItems = [
       <li><strong>Second Trimester (Weeks 13–27):</strong> Rapid growth, movement detection, and mid-pregnancy anatomy scans.</li>
       <li><strong>Third Trimester (Weeks 28–40+):</strong> Final development, position shifting, and preparing for childbirth.</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="Pregnancy & Ovulation Calculation" competitorLabel="Other Health Apps" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

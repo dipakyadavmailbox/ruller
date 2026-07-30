@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import ImageResizer from '../components/react/imagetool/ImageResizer.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Image Compressor & Resizer — Free Online Tool | Rocking Tools'
 const description = 'Resize & compress images instantly in WebP, PNG, JPEG & SVG. 100% private in your browser with zero file upload to any server. Free & instant.'
@@ -49,6 +50,8 @@ const faqItems = [
       <li><strong>Hero Banners & Backgrounds:</strong> Maximum width 1920px at 80% compression.</li>
       <li><strong>Thumbnails & Avatars:</strong> 300px to 600px square at 80% WebP quality.</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="Image Compression & Resizing" competitorLabel="Other Online Image Tools" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

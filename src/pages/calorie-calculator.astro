@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import CalorieCalculator from '../components/react/calorie/CalorieCalculator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Calorie Calculator (TDEE & BMR) — Free Online Tool | Rocking Tools'
 const description = 'Free TDEE & BMR calorie calculator using the Mifflin-St Jeor equation. Calculate daily calorie needs for weight loss, muscle gain, or maintenance. Includes macro split and food log. 100% private, no signup.'
@@ -55,6 +56,8 @@ const faqItems = [
       <li><strong>High Protein (40/30/30):</strong> 40% Protein, 30% Carbs, 30% Fat — supports muscle preservation during weight loss.</li>
       <li><strong>Low Carb (40/20/40):</strong> 40% Protein, 20% Carbs, 40% Fat — suitable for carbohydrate sensitivity or keto-adjacent diets.</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="Calorie & Health Tracking" competitorLabel="Other Fitness Apps" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

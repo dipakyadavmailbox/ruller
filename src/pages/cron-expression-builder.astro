@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import CronBuilder from '../components/react/regex/CronBuilder.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Cron Expression Builder & Validator — Free Online Tool | Rocking Tools'
 const description = 'Build, validate, and convert cron expressions into human-readable text. Features an interactive field builder, preset schedules, and execution previews.'
@@ -42,6 +43,8 @@ const faqItems = [
       <li><code>-</code> = Range of values (e.g., <code>1-5</code>)</li>
       <li><code>/</code> = Step values (e.g., <code>*/15</code> for every 15 units)</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="Cron Expression Building" competitorLabel="Other Cron Builders" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

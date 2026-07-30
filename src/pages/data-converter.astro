@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import DataConverter from '../components/react/converter/DataConverter.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'JSON, CSV & YAML Converter — Free Online Tool | Rocking Tools'
 const description = 'Convert between JSON, CSV, and YAML instantly in your browser. Paste data in any of the three formats and get the other two, no upload required.'
@@ -40,6 +41,8 @@ const faqItems = [
       <li><strong>CSV (Comma-Separated Values):</strong> Standard tabular spreadsheet format for Excel, Google Sheets, and data analytics.</li>
       <li><strong>YAML (YAML Ain't Markup Language):</strong> Human-friendly data serialization format for Kubernetes, Docker, and CI/CD pipelines.</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="Data Format Conversion" competitorLabel="Other Online Converters" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

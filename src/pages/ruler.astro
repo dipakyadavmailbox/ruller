@@ -3,6 +3,7 @@ import MinimalLayout from '../layouts/MinimalLayout.astro'
 import RulerApp from '../components/react/ruler/RulerApp.jsx'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Online Screen Ruler — Actual Physical Size (mm, cm, in) | Rocking Tools'
 const description = 'Free on-screen ruler calibrated to your actual display size. Measure physical objects in millimetres, centimetres, or inches with 100% accuracy.'
@@ -43,6 +44,8 @@ const faqItems = [
     
     <h3>How Screen Ruler Calibration Works</h3>
     <p>A standard ISO 7810 ID-1 credit card is exactly 85.60 mm wide (3.370 inches). By matching the on-screen card border to a physical card in your hand, our algorithm calculates your screen exact PPI (Pixels Per Inch) and scales the digital ruler ticks to match real physical dimensions.</p>
+
+    <PrivacyComparisonTable toolName="Screen Ruler Calibration" competitorLabel="Other Ruler Apps" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (

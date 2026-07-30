@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import RegexTester from '../components/react/regex/RegexTester.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Regex Tester & Cheatsheet — Free Online Tool | Rocking Tools'
 const description = 'Live JavaScript regex tester with instant match highlighting, capture group extraction, and a complete regular expression syntax cheatsheet.'
@@ -53,6 +54,8 @@ const faqItems = [
       <li><code>m</code> (Multiline): <code>^</code> and <code>$</code> match start/end of each line.</li>
       <li><code>s</code> (DotAll): Allows dot (<code>.</code>) to match newline characters.</li>
     </ul>
+
+    <PrivacyComparisonTable toolName="Regex Testing & Debugging" competitorLabel="Other Regex Testers" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (
