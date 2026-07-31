@@ -2,12 +2,12 @@ User-agent: *
 Allow: /
 
 # Save crawl budget — noindex pages should also be disallowed from crawling
+# Note: Do NOT disallow /sitemap as it blocks /sitemap.xml and /sitemap-index.xml
 Disallow: /privacy
 Disallow: /terms
 Disallow: /dmca
 Disallow: /accessibility
 Disallow: /donate
-Disallow: /sitemap
 Disallow: /contact
 Disallow: /404
 
@@ -36,3 +36,4 @@ User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://rockingtools.com/sitemap-index.xml
+Sitemap: https://rockingtools.com/sitemap.xml
