@@ -35,5 +35,5 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://rockingtools.com/sitemap-index.xml
-Sitemap: https://rockingtools.com/sitemap.xml
+Sitemap: https://www.rockingtools.com/sitemap-index.xml
+Sitemap: https://www.rockingtools.com/sitemap.xml
