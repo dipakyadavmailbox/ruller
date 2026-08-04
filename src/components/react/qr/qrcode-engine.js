@@ -5,7 +5,7 @@ import qrcode from 'qrcode-generator'
  * Supports all versions (1-40) and Error Correction levels (L, M, Q, H).
  */
 export function generateQrMatrix(text, ecLevel = 'M') {
-  const content = text && text.trim() ? text : 'https://rockingtools.com'
+  const content = text && text.trim() ? text : 'https://www.rockingtools.com'
   const ec = ['L', 'M', 'Q', 'H'].includes(ecLevel) ? ecLevel : 'M'
 
   // TypeNumber 0 = Auto-detect optimal QR Version (1-40)

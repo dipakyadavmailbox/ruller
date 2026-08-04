@@ -91,6 +91,19 @@ export const CATEGORIES = [
       },
     ],
   },
+  {
+    heading: 'PDF Tools',
+    tools: [
+      {
+        slug: '/pdf-tools',
+        icon: '📄',
+        name: 'PDF Converter, Merger & Splitter',
+        navLabel: 'PDF Tools',
+        description:
+          'Convert images to PDF, merge multiple PDFs into one, or split a PDF into individual pages — 100% in your browser, zero upload.',
+      },
+    ],
+  },
 ]
 
 export const ALL_TOOLS = CATEGORIES.flatMap((c) => c.tools.map((t) => ({ ...t, category: c.heading })))

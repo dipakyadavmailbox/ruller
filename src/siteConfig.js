@@ -6,7 +6,7 @@
 
 export const SITE_CONFIG = {
   siteName: 'Rocking Tools',
-  domain: (typeof process !== 'undefined' && process.env?.PUBLIC_SITE_URL) || 'https://rockingtools.com',
+  domain: (typeof process !== 'undefined' && process.env?.PUBLIC_SITE_URL) || 'https://www.rockingtools.com',
 
   contactEmail: 'info@rockingtools.com',
 

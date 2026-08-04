@@ -23,7 +23,7 @@ export default function QrCodeGenerator() {
   const [activeMode, setActiveMode] = useState('url')
 
   // Data Inputs
-  const [urlInput, setUrlInput] = useState('https://rockingtools.com')
+  const [urlInput, setUrlInput] = useState('https://www.rockingtools.com')
 
   const [wifiSsid, setWifiSsid] = useState('MyHomeWiFi')
   const [wifiPassword, setWifiPassword] = useState('SecretPass123')
@@ -35,7 +35,7 @@ export default function QrCodeGenerator() {
   const [vcardEmail, setVcardEmail] = useState('alex@example.com')
   const [vcardCompany, setVcardCompany] = useState('Rocking Tools Inc')
   const [vcardTitle, setVcardTitle] = useState('Lead Engineer')
-  const [vcardUrl, setVcardUrl] = useState('https://rockingtools.com')
+  const [vcardUrl, setVcardUrl] = useState('https://www.rockingtools.com')
 
   const [emailTo, setEmailTo] = useState('support@rockingtools.com')
   const [emailSubject, setEmailSubject] = useState('Inquiry from QR Code')
@@ -60,7 +60,7 @@ export default function QrCodeGenerator() {
   const payloadString = useMemo(() => {
     switch (activeMode) {
       case 'url':
-        return urlInput.trim() || 'https://rockingtools.com'
+        return urlInput.trim() || 'https://www.rockingtools.com'
       case 'wifi': {
         const ssid = wifiSsid.trim()
         const pass = wifiEncryption === 'nopass' ? '' : wifiPassword
@@ -75,7 +75,7 @@ export default function QrCodeGenerator() {
       case 'sms':
         return smsBody ? `SMSTO:${phoneNum}:${smsBody}` : `tel:${phoneNum}`
       default:
-        return urlInput.trim() || 'https://rockingtools.com'
+        return urlInput.trim() || 'https://www.rockingtools.com'
     }
   }, [
     activeMode,
@@ -110,7 +110,7 @@ export default function QrCodeGenerator() {
     try {
       return generateQrMatrix(payloadString, effectiveEcLevel)
     } catch {
-      return generateQrMatrix('https://rockingtools.com', 'M')
+      return generateQrMatrix('https://www.rockingtools.com', 'M')
     }
   }, [payloadString, effectiveEcLevel])
 
