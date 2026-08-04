@@ -30,6 +30,14 @@ export const CATEGORIES = [
         navLabel: 'Image Resizer',
         description: 'Resize and compress an image right in your browser, preview the result, and download it — nothing is uploaded.',
       },
+      {
+        slug: '/color-tools',
+        icon: '🎨',
+        name: 'Color Picker & Palette Generator',
+        navLabel: 'Color Tools',
+        description:
+          'Pick any color and get HEX, RGB, HSL, HSV values instantly. Generate complementary, analogous, and triadic palettes with CSS/Tailwind/JSON export.',
+      },
     ],
   },
   {
@@ -101,6 +109,19 @@ export const CATEGORIES = [
         navLabel: 'PDF Tools',
         description:
           'Convert images to PDF, merge multiple PDFs into one, or split a PDF into individual pages — 100% in your browser, zero upload.',
+      },
+    ],
+  },
+  {
+    heading: 'Utility Tools',
+    tools: [
+      {
+        slug: '/unit-converter',
+        icon: '📐',
+        name: 'Unit Converter',
+        navLabel: 'Unit Converter',
+        description:
+          'Convert between 80+ units across length, weight, temperature, area, volume, speed, time, data storage, energy, and pressure — instantly in your browser.',
       },
     ],
   },
