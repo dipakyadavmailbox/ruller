@@ -19,6 +19,11 @@ import AboutPage from '../about.astro'
 import FaqPage from '../faq.astro'
 import ContactPage from '../contact.astro'
 import DonatePage from '../donate.astro'
+import PrivacyPage from '../privacy.astro'
+import TermsPage from '../terms.astro'
+import AccessibilityPage from '../accessibility.astro'
+import DmcaPage from '../dmca.astro'
+import SitemapPage from '../sitemap.astro'
 
 export function getStaticPaths() {
   const slugs = [
@@ -40,7 +45,12 @@ export function getStaticPaths() {
     'about',
     'faq',
     'contact',
-    'donate'
+    'donate',
+    'privacy',
+    'terms',
+    'accessibility',
+    'dmca',
+    'sitemap'
   ]
 
   const routes = []
@@ -74,3 +84,8 @@ const { slug } = Astro.params
 {slug === 'faq' && <FaqPage />}
 {slug === 'contact' && <ContactPage />}
 {slug === 'donate' && <DonatePage />}
+{slug === 'privacy' && <PrivacyPage />}
+{slug === 'terms' && <TermsPage />}
+{slug === 'accessibility' && <AccessibilityPage />}
+{slug === 'dmca' && <DmcaPage />}
+{slug === 'sitemap' && <SitemapPage />}
