@@ -1,7 +1,9 @@
-import { useState } from 'react'
-import ConvertTab from './ConvertTab.jsx'
-import MergeTab   from './MergeTab.jsx'
-import SplitTab   from './SplitTab.jsx'
+import { useState, useEffect } from 'react'
+import ConvertTab    from './ConvertTab.jsx'
+import MergeTab     from './MergeTab.jsx'
+import SplitTab     from './SplitTab.jsx'
+import { readHandoff, clearHandoff } from '../workspace/handoff.js'
+import HandoffBanner from '../workspace/HandoffBanner.jsx'
 
 const TABS = [
   { id: 'convert', label: '🖼️ Convert', sublabel: 'Images → PDF'  },
@@ -11,9 +13,20 @@ const TABS = [
 
 export default function PdfTools() {
   const [activeTab, setActiveTab] = useState('convert')
+  const [handoff,   setHandoff]   = useState(() => readHandoff('/pdf-tools'))
+
+  // Pre-select tab from workspace handoff
+  useEffect(() => {
+    if (handoff?.tabTarget) {
+      setActiveTab(handoff.tabTarget)
+    }
+    clearHandoff()
+  }, [])
 
   return (
     <div style={{ maxWidth: '900px', margin: '24px auto 40px', padding: '0 20px' }}>
+      {/* Handoff banner from workspace */}
+      <HandoffBanner handoff={handoff} onDismiss={() => setHandoff(null)} />
       {/* ─── Tab Switcher ───────────────────────────────────────────────────── */}
       <div
         role="tablist"

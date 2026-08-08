@@ -4,9 +4,13 @@ import RulerApp from '../components/react/ruler/RulerApp.jsx'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
+import { useTranslations, getLangFromUrl } from '../i18n/ui.js'
 
-const title = 'Online Screen Ruler — Actual Physical Size (mm, cm, in) | Rocking Tools'
-const description = 'Free on-screen ruler calibrated to your actual display size. Measure physical objects in millimetres, centimetres, or inches with 100% accuracy.'
+const currentLang = getLangFromUrl(Astro.url)
+const t = useTranslations(currentLang)
+
+const title = t('page.ruler.title')
+const description = t('page.ruler.description')
 const keywords = 'online screen ruler, actual size ruler, mm ruler online, cm ruler, inch ruler on screen, calibrated screen ruler, measure on screen, real size ruler'
 
 const faqItems = [

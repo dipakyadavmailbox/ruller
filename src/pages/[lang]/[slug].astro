@@ -1,0 +1,76 @@
+---
+import { SUPPORTED_LANGS } from '../../i18n/ui.js'
+import RulerPage from '../ruler.astro'
+import PregnancyCalculatorPage from '../pregnancy-calculator.astro'
+import DataConverterPage from '../data-converter.astro'
+import DpiCalculatorPage from '../dpi-calculator.astro'
+import AspectRatioCalculatorPage from '../aspect-ratio-calculator.astro'
+import CalorieCalculatorPage from '../calorie-calculator.astro'
+import ColorToolsPage from '../color-tools.astro'
+import CronExpressionBuilderPage from '../cron-expression-builder.astro'
+import ImageResizerPage from '../image-resizer.astro'
+import PasswordCheckerPage from '../password-checker.astro'
+import PdfToolsPage from '../pdf-tools.astro'
+import QrCodeGeneratorPage from '../qr-code-generator.astro'
+import RegexTesterPage from '../regex-tester.astro'
+import UnitConverterPage from '../unit-converter.astro'
+import WorkspacePage from '../workspace.astro'
+import AboutPage from '../about.astro'
+import FaqPage from '../faq.astro'
+import ContactPage from '../contact.astro'
+import DonatePage from '../donate.astro'
+
+export function getStaticPaths() {
+  const slugs = [
+    'ruler',
+    'pregnancy-calculator',
+    'data-converter',
+    'dpi-calculator',
+    'aspect-ratio-calculator',
+    'calorie-calculator',
+    'color-tools',
+    'cron-expression-builder',
+    'image-resizer',
+    'password-checker',
+    'pdf-tools',
+    'qr-code-generator',
+    'regex-tester',
+    'unit-converter',
+    'workspace',
+    'about',
+    'faq',
+    'contact',
+    'donate'
+  ]
+
+  const routes = []
+  for (const lang of SUPPORTED_LANGS) {
+    for (const slug of slugs) {
+      routes.push({ params: { lang, slug } })
+    }
+  }
+  return routes
+}
+
+const { slug } = Astro.params
+---
+
+{slug === 'ruler' && <RulerPage />}
+{slug === 'pregnancy-calculator' && <PregnancyCalculatorPage />}
+{slug === 'data-converter' && <DataConverterPage />}
+{slug === 'dpi-calculator' && <DpiCalculatorPage />}
+{slug === 'aspect-ratio-calculator' && <AspectRatioCalculatorPage />}
+{slug === 'calorie-calculator' && <CalorieCalculatorPage />}
+{slug === 'color-tools' && <ColorToolsPage />}
+{slug === 'cron-expression-builder' && <CronExpressionBuilderPage />}
+{slug === 'image-resizer' && <ImageResizerPage />}
+{slug === 'password-checker' && <PasswordCheckerPage />}
+{slug === 'pdf-tools' && <PdfToolsPage />}
+{slug === 'qr-code-generator' && <QrCodeGeneratorPage />}
+{slug === 'regex-tester' && <RegexTesterPage />}
+{slug === 'unit-converter' && <UnitConverterPage />}
+{slug === 'workspace' && <WorkspacePage />}
+{slug === 'about' && <AboutPage />}
+{slug === 'faq' && <FaqPage />}
+{slug === 'contact' && <ContactPage />}
+{slug === 'donate' && <DonatePage />}

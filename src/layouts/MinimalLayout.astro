@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import { SITE_CONFIG } from '../siteConfig.js'
+import { getLangFromUrl, RTL_LANGS } from '../i18n/ui.js'
 
 interface Props {
   title: string
@@ -21,12 +22,22 @@ const {
   noindex = false,
 } = Astro.props
 
+const currentLang = getLangFromUrl(Astro.url)
+const isRTL = RTL_LANGS.has(currentLang)
+const dir = isRTL ? 'rtl' : 'ltr'
+
 const canonicalUrl = `${SITE_CONFIG.domain}${path}`
-const ogImage = customOgImage || `${SITE_CONFIG.domain}/og-image.png`
+
+const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '') || 'home'
+const defaultToolOg = `/og/${toolSlug}.png`
+const rawOgImage = customOgImage || defaultToolOg
+const ogImage = rawOgImage.startsWith('http')
+  ? rawOgImage
+  : `${SITE_CONFIG.domain}${rawOgImage.startsWith('/') ? '' : '/'}${rawOgImage}`
 ---
 
 <!doctype html>
-<html lang="en-US">
+<html lang={currentLang} dir={dir}>
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F1VTCGJSZG"></script>
@@ -70,6 +81,15 @@ const ogImage = customOgImage || `${SITE_CONFIG.domain}/og-image.png`
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
 
+    <!-- Favicons & Icons -->
+    {toolSlug && toolSlug !== 'home' && (
+      <link rel="icon" type="image/png" sizes="96x96" href={`/favicons/${toolSlug}.png`} />
+    )}
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
 

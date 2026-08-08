@@ -1,0 +1,12 @@
+---
+import { SUPPORTED_LANGS } from '../../i18n/ui.js'
+import HomePage from '../index.astro'
+
+export function getStaticPaths() {
+  return SUPPORTED_LANGS.map((lang) => ({
+    params: { lang },
+  }))
+}
+---
+
+<HomePage />

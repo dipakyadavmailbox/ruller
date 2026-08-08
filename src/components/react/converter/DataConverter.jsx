@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import {
   convert,
   FORMATS,
@@ -18,9 +18,19 @@ import {
   decodeJWT,
 } from './convert.js'
 import { textareaStyle, selectStyle, inputStyle, secondaryBtn, segBtn } from '../shared/FormKit.jsx'
+import { readHandoff, clearHandoff } from '../workspace/handoff.js'
+import HandoffBanner from '../workspace/HandoffBanner.jsx'
+
 
 export default function DataConverter() {
   const [tab, setTab] = useState('structure') // 'structure' | 'storage' | 'encoding' | 'numbers' | 'color' | 'jwt'
+  const [handoff, setHandoff] = useState(() => readHandoff('/data-converter'))
+
+  // Pre-select tab from workspace handoff (data files map to 'structure')
+  useEffect(() => {
+    if (handoff?.tabTarget) setTab(handoff.tabTarget)
+    clearHandoff()
+  }, [])
 
   // Structural Converter State
   const [fromFormat, setFromFormat] = useState('JSON')
@@ -127,6 +137,8 @@ export default function DataConverter() {
 
   return (
     <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 20px 60px' }}>
+      {/* Handoff banner from workspace */}
+      <HandoffBanner handoff={handoff} onDismiss={() => setHandoff(null)} />
       {/* Tab bar */}
       <div style={{ display: 'flex', gap: 6, marginBottom: 24, flexWrap: 'wrap' }}>
         {TABS.map(t => (

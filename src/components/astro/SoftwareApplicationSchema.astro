@@ -5,8 +5,14 @@ interface Props {
   name: string
   description: string
   path: string
+  image?: string
 }
-const { name, description, path } = Astro.props
+const { name, description, path, image: customImage } = Astro.props
+
+const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '') || 'home'
+const imageUrl = customImage 
+  ? (customImage.startsWith('http') ? customImage : `${SITE_CONFIG.domain}${customImage}`)
+  : `${SITE_CONFIG.domain}/og/${toolSlug}.png`
 
 const schema = {
   '@context': 'https://schema.org',
@@ -14,6 +20,9 @@ const schema = {
   name,
   description,
   url: `${SITE_CONFIG.domain}${path}`,
+  image: imageUrl,
+  thumbnailUrl: imageUrl,
+  screenshot: imageUrl,
   applicationCategory: 'UtilitiesApplication',
   operatingSystem: 'Any (runs in browser)',
   offers: {

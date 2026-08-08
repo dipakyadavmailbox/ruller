@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { formatBytes, loadImageFromFile, resolveOutputType, extensionForType, renderToBlob } from './imageUtils.js'
 import AffiliateCard from '../shared/AffiliateCard.jsx'
 import { Field, ResultCard, inputStyle, selectStyle, segBtn, secondaryBtn } from '../shared/FormKit.jsx'
+import { readHandoff, clearHandoff } from '../workspace/handoff.js'
+import HandoffBanner from '../workspace/HandoffBanner.jsx'
 
 const AFFILIATE_ITEMS = [
   { name: 'Cloud photo storage', blurb: 'Back up your originals before compressing copies for the web.', href: '#', cta: 'Try free →' },
@@ -20,6 +22,7 @@ const PRESET_PERCENTS = [100, 75, 50, 25]
 
 export default function ImageResizer() {
   const [file, setFile] = useState(null)
+  const [handoff, setHandoff] = useState(() => readHandoff('/image-resizer'))
   const [sourceImg, setSourceImg] = useState(null)
   const [sourceUrl, setSourceUrl] = useState(null)
   const [originalWidth, setOriginalWidth] = useState(0)
@@ -126,6 +129,10 @@ export default function ImageResizer() {
   }, [sourceImg, targetWidth, targetHeight, outputType, quality, generate])
 
   useEffect(() => {
+    clearHandoff() // consume handoff token on mount (image resizer has no tab target)
+  }, [])
+
+  useEffect(() => {
     return () => {
       if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current)
       if (sourceUrlRef.current) URL.revokeObjectURL(sourceUrlRef.current)
@@ -156,6 +163,8 @@ export default function ImageResizer() {
 
   return (
     <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 20px 60px' }}>
+      {/* Handoff banner from workspace */}
+      <HandoffBanner handoff={handoff} onDismiss={() => setHandoff(null)} />
       {!sourceImg && (
         <div
           onClick={() => fileInputRef.current?.click()}

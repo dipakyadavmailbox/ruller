@@ -1,6 +1,10 @@
 ---
 import { SITE_CONFIG } from '../../siteConfig.js'
 import { CATEGORIES } from '../../data/tools.js'
+import { useTranslations, getLangFromUrl, getLocalePath } from '../../i18n/ui.js'
+
+const currentLang = getLangFromUrl(Astro.url)
+const t = useTranslations(currentLang)
 ---
 
 <footer class="site-footer">
@@ -11,10 +15,10 @@ import { CATEGORIES } from '../../data/tools.js'
         <span class="logo-title">Rocking Tools</span>
       </div>
       <p class="footer-tagline">
-        Studio-grade, high-precision browser utilities for design, security, health, and development. 100% private & client-side.
+        {t('footer.tagline')}
       </p>
       <div class="privacy-badge">
-        🔒 100% Private — No Data Ever Leaves Your Browser
+        {t('footer.privacyBadge')}
       </div>
     </div>
 
@@ -23,24 +27,24 @@ import { CATEGORIES } from '../../data/tools.js'
         <div class="footer-col">
           <div class="col-title">{cat.heading}</div>
           <ul class="col-list">
-            {cat.tools.map((t) => (
-              <li><a href={t.slug}>{t.navLabel}</a></li>
+            {cat.tools.map((tool) => (
+              <li><a href={getLocalePath(tool.slug, currentLang)}>{tool.navLabel}</a></li>
             ))}
           </ul>
         </div>
       ))}
 
       <div class="footer-col">
-        <div class="col-title">Legal & Contact</div>
+        <div class="col-title">{t('footer.legal')}</div>
         <ul class="col-list">
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/faq">FAQ</a></li>
-          <li><a href="/contact">Contact Support</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-          <li><a href="/accessibility">Accessibility</a></li>
-          <li><a href="/dmca">DMCA</a></li>
-          <li><a href="/donate">Support Us 💛</a></li>
+          <li><a href={getLocalePath('/about', currentLang)}>{t('footer.about')}</a></li>
+          <li><a href={getLocalePath('/faq', currentLang)}>{t('footer.faq')}</a></li>
+          <li><a href={getLocalePath('/contact', currentLang)}>{t('footer.contact')}</a></li>
+          <li><a href={getLocalePath('/privacy', currentLang)}>{t('footer.privacy')}</a></li>
+          <li><a href={getLocalePath('/terms', currentLang)}>{t('footer.terms')}</a></li>
+          <li><a href={getLocalePath('/accessibility', currentLang)}>Accessibility</a></li>
+          <li><a href={getLocalePath('/dmca', currentLang)}>DMCA</a></li>
+          <li><a href={getLocalePath('/donate', currentLang)}>{t('nav.support')}</a></li>
         </ul>
       </div>
     </div>
@@ -51,7 +55,7 @@ import { CATEGORIES } from '../../data/tools.js'
     <div class="footer-bottom-links">
       <span>Built with Astro & React</span>
       <span>•</span>
-      <a href="/sitemap">Sitemap</a>
+      <a href={getLocalePath('/sitemap', currentLang)}>{t('footer.sitemap')}</a>
     </div>
   </div>
 </footer>
