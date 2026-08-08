@@ -29,6 +29,15 @@ const faqItems = [
   <div class="tool-hero">
     <h1>Image Compressor & Resizer</h1>
     <p>Resize and compress photos and graphics entirely in your browser — nothing is uploaded anywhere. Adjust pixel dimensions, quality compression, and output format in seconds.</p>
+    <img
+      src="/og/image-resizer.png"
+      alt="Image Compressor and Resizer tool preview"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
   </div>
 
   <ImageResizer client:only="react" />
@@ -68,6 +77,7 @@ const faqItems = [
 <style>
   .tool-hero { max-width: 780px; margin: 0 auto; padding: 32px 20px 0; }
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
-  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
 </style>
 

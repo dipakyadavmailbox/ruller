@@ -9,10 +9,19 @@ interface Props {
 }
 const { name, description, path, image: customImage } = Astro.props
 
-const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '') || 'home'
+const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '').split('/')[0] || 'home'
+const OG_SLUGS = new Set([
+  'about', 'aspect-ratio-calculator', 'calorie-calculator', 'color-tools',
+  'cron-expression-builder', 'data-converter', 'donate', 'dpi-calculator',
+  'faq', 'home', 'image-resizer', 'password-checker', 'pdf-tools',
+  'pregnancy-calculator', 'qr-code-generator', 'regex-tester', 'ruler',
+  'unit-converter', 'workspace', 'contact', 'privacy', 'terms', 'accessibility', 'dmca', 'sitemap'
+])
+
+const defaultOgPath = OG_SLUGS.has(toolSlug) ? `/og/${toolSlug}.png` : '/og-image.png'
 const imageUrl = customImage 
   ? (customImage.startsWith('http') ? customImage : `${SITE_CONFIG.domain}${customImage}`)
-  : `${SITE_CONFIG.domain}/og/${toolSlug}.png`
+  : `${SITE_CONFIG.domain}${defaultOgPath}`
 
 const schema = {
   '@context': 'https://schema.org',

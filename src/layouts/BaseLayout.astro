@@ -62,8 +62,56 @@ const hreflangs = [
   { lang: 'x-default', url: `${SITE_CONFIG.domain}${normalizedBasePath === '/' ? '' : normalizedBasePath}` },
 ]
 
-const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '') || 'home'
-const defaultToolOg = `/og/${toolSlug}.png`
+const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '').split('/')[0] || 'home'
+
+const TOOLS_WITH_FAVICONS = new Set([
+  'aspect-ratio-calculator',
+  'calorie-calculator',
+  'color-tools',
+  'cron-expression-builder',
+  'data-converter',
+  'dpi-calculator',
+  'image-resizer',
+  'password-checker',
+  'pdf-tools',
+  'pregnancy-calculator',
+  'qr-code-generator',
+  'regex-tester',
+  'ruler',
+  'unit-converter',
+  'workspace',
+])
+
+const OG_SLUGS = new Set([
+  'about',
+  'aspect-ratio-calculator',
+  'calorie-calculator',
+  'color-tools',
+  'cron-expression-builder',
+  'data-converter',
+  'donate',
+  'dpi-calculator',
+  'faq',
+  'home',
+  'image-resizer',
+  'password-checker',
+  'pdf-tools',
+  'pregnancy-calculator',
+  'qr-code-generator',
+  'regex-tester',
+  'ruler',
+  'unit-converter',
+  'workspace',
+  'contact',
+  'privacy',
+  'terms',
+  'accessibility',
+  'dmca',
+  'sitemap',
+])
+
+const hasToolFavicon = TOOLS_WITH_FAVICONS.has(toolSlug)
+const defaultToolOg = OG_SLUGS.has(toolSlug) ? `/og/${toolSlug}.png` : '/og-image.png'
 const rawOgImage = customOgImage || defaultToolOg
 const ogImage = rawOgImage.startsWith('http')
   ? rawOgImage
@@ -92,8 +140,15 @@ const webPageSchema = {
   primaryImageOfPage: {
     '@type': 'ImageObject',
     url: ogImage,
+    width: 1200,
+    height: 630,
   },
-  image: ogImage,
+  image: {
+    '@type': 'ImageObject',
+    url: ogImage,
+    width: 1200,
+    height: 630,
+  },
   isPartOf: {
     '@type': 'WebSite',
     name: SITE_CONFIG.siteName,
@@ -139,6 +194,8 @@ const webPageSchema = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={title} />
     <meta property="og:site_name" content={SITE_CONFIG.siteName} />
     <meta property="og:locale" content={ogLocale} />
@@ -151,17 +208,17 @@ const webPageSchema = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content={title} />
 
-    <!-- Favicons & Icons -->
-    {toolSlug && toolSlug !== 'home' && (
-      <link rel="icon" type="image/png" sizes="96x96" href={`/favicons/${toolSlug}.png`} />
-    )}
+    <!-- Favicons & Icons (Google Search Compliant Order) -->
+    <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
     <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    {hasToolFavicon && (
+      <link rel="icon" type="image/png" sizes="96x96" href={`/favicons/${toolSlug}.png`} />
+    )}
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

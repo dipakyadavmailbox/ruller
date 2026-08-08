@@ -27,6 +27,15 @@ const faqItems = [
   <div class="tool-hero">
     <h1>Aspect Ratio & Crop Calculator</h1>
     <p>Find matching dimensions for a target aspect ratio, or calculate the largest center-crop of a given ratio that fits your image.</p>
+    <img
+      src="/og/aspect-ratio-calculator.png"
+      alt="Aspect Ratio and Crop Calculator showing standard resolution ratios"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
   </div>
 
   <AspectRatioCalculator client:only="react" />
@@ -61,5 +70,6 @@ const faqItems = [
 <style>
   .tool-hero { max-width: 780px; margin: 0 auto; padding: 32px 20px 0; }
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
-  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
 </style>

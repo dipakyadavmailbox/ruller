@@ -6,6 +6,8 @@ interface Props {
 }
 const { items } = Astro.props
 
+const currentUrl = `${SITE_CONFIG.domain}${Astro.url.pathname.replace(/\/$/, '')}`
+
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -13,7 +15,7 @@ const breadcrumbSchema = {
     '@type': 'ListItem',
     position: i + 1,
     name: item.label,
-    ...(item.path ? { item: `${SITE_CONFIG.domain}${item.path}` } : {}),
+    item: item.path ? `${SITE_CONFIG.domain}${item.path}` : currentUrl,
   })),
 }
 ---

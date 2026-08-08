@@ -28,6 +28,15 @@ const faqItems = [
   <div class="tool-hero">
     <h1>Free QR Code Generator</h1>
     <p>Create, customize, and export studio-grade QR codes for website links, Wi-Fi passwords, contact cards, and text. 100% private & client-side.</p>
+    <img
+      src="/og/qr-code-generator.png"
+      alt="Free QR Code Generator tool preview"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
   </div>
 
   <QrCodeGenerator client:only="react" />
@@ -61,7 +70,8 @@ const faqItems = [
 <style>
   .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
-  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 0; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
 
   .tool-guide {
     max-width: 900px;
