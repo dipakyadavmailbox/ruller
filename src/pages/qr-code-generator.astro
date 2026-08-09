@@ -7,8 +7,8 @@ import QrCodeGenerator from '../components/react/qr/QrCodeGenerator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
-const title = 'Free QR Code Generator — Custom Colors, Logos, PNG & SVG | Rocking Tools'
-const description = 'Generate high-resolution QR codes for links, Wi-Fi networks, vCards, SMS, and email. Customize colors, dot shapes, and logo badges. 100% private in browser.'
+const title = 'Free Online QR Code Generator (PNG, SVG, Colors & WiFi) | Rocking Tools'
+const description = 'Create custom high-resolution QR codes for URLs, Wi-Fi networks, vCards, text, and email. Custom colors, logo upload, and vector SVG download — 100% free and private.'
 const keywords = 'qr code generator, free qr code maker, custom qr code, wifi qr code generator, vcard qr code, svg qr code, high res qr code, private qr generator'
 
 const faqItems = [
@@ -20,17 +20,17 @@ const faqItems = [
 ---
 
 <BaseLayout title={title} description={description} path="/qr-code-generator" keywords={keywords}>
-  <SoftwareApplicationSchema slot="head" name="QR Code Generator" description={description} path="/qr-code-generator" />
+  <SoftwareApplicationSchema slot="head" name="Free Online QR Code Generator" description={description} path="/qr-code-generator" />
   <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'QR Code Generator' }]} />
 
   <div class="tool-hero">
-    <h1>Free QR Code Generator</h1>
-    <p>Create, customize, and export studio-grade QR codes for website links, Wi-Fi passwords, contact cards, and text. 100% private & client-side.</p>
+    <h1>Free Online QR Code Generator</h1>
+    <p>Generate high-resolution PNG & vector SVG QR codes for websites, Wi-Fi, contacts, and text with custom colors.</p>
     <img
       src="/og/qr-code-generator.png"
-      alt="Free QR Code Generator tool preview"
+      alt="Free Online QR Code Generator with PNG SVG and Wi-Fi mode preview"
       class="tool-preview-img"
       width="1200"
       height="630"
@@ -39,7 +39,7 @@ const faqItems = [
     />
   </div>
 
-  <QrCodeGenerator client:only="react" />
+  <QrCodeGenerator client:load />
 
   <article class="tool-guide">
     <h2>Client-Side QR Code Creation &amp; Customization Features</h2>

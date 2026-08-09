@@ -1,24 +1,13 @@
 ---
 import { CATEGORIES } from '../../data/tools.js'
-import {
-  useTranslations,
-  getLangFromUrl,
-  getLocalePath,
-  switchLocaleUrl,
-  ALL_LANGS,
-  LANG_NAMES,
-  LANG_FLAGS,
-} from '../../i18n/ui.js'
 
 const rawPath = Astro.url.pathname
-const currentLang = getLangFromUrl(Astro.url)
-const t = useTranslations(currentLang)
 const currentPath = rawPath.replace(/\/$/, '') || '/'
 ---
 
 <header class="site-header" id="site-header">
   <div class="header-left">
-    <a href={getLocalePath('/', currentLang)} class="logo-link">
+    <a href="/" class="logo-link">
       <div class="logo-badge">
         <span class="logo-spark">✨</span>
       </div>
@@ -32,7 +21,7 @@ const currentPath = rawPath.replace(/\/$/, '') || '/'
   <!-- Navigation Menu (Desktop inline, Mobile Drawer) -->
   <nav class="site-nav" id="site-nav">
     <div class="nav-content">
-      <a href={getLocalePath('/', currentLang)} class={currentPath === '/' || currentPath === `/${currentLang}` ? 'nav-item active' : 'nav-item'}>{t('nav.allTools')}</a>
+      <a href="/" class={currentPath === '/' ? 'nav-item active' : 'nav-item'}>All Tools</a>
 
       {CATEGORIES.map((cat) => {
         const hasActive = cat.tools.some((tool) => currentPath.endsWith(tool.slug))
@@ -44,7 +33,7 @@ const currentPath = rawPath.replace(/\/$/, '') || '/'
             </button>
             <div class="dropdown-menu glass-panel">
               {cat.tools.map((tool) => (
-                <a href={getLocalePath(tool.slug, currentLang)} class={currentPath.endsWith(tool.slug) ? 'dropdown-item active' : 'dropdown-item'}>
+                <a href={tool.slug} class={currentPath.endsWith(tool.slug) ? 'dropdown-item active' : 'dropdown-item'}>
                   <span class="tool-icon">{tool.icon}</span>
                   <div class="tool-info">
                     <span class="tool-name">{tool.navLabel}</span>
@@ -56,32 +45,12 @@ const currentPath = rawPath.replace(/\/$/, '') || '/'
         )
       })}
 
-      <a href={getLocalePath('/workspace', currentLang)} class={currentPath.endsWith('/workspace') ? 'workspace-link active' : 'workspace-link'} aria-label="Open Tool Workspace">{t('nav.workspace')}</a>
+      <a href="/workspace" class={currentPath.endsWith('/workspace') ? 'workspace-link active' : 'workspace-link'} aria-label="Open Tool Workspace">🚀 Workspace</a>
 
-      <a href={getLocalePath('/about', currentLang)} class={currentPath.endsWith('/about') ? 'nav-item active' : 'nav-item'}>{t('nav.about')}</a>
-      <a href={getLocalePath('/faq', currentLang)} class={currentPath.endsWith('/faq') ? 'nav-item active' : 'nav-item'}>{t('nav.faq')}</a>
-      <a href={getLocalePath('/contact', currentLang)} class={currentPath.endsWith('/contact') ? 'nav-item active' : 'nav-item'}>{t('nav.contact')}</a>
-      <a href={getLocalePath('/donate', currentLang)} class="support-link" aria-label="Support this project">{t('nav.support')}</a>
-
-      <!-- Language Selector Dropdown -->
-      <div class="nav-dropdown lang-dropdown">
-        <button class="dropdown-trigger lang-trigger" type="button" aria-expanded="false" aria-label="Select Language">
-          <span class="lang-flag">{LANG_FLAGS[currentLang]}</span>
-          <span>{LANG_NAMES[currentLang]}</span>
-          <span class="arrow">▾</span>
-        </button>
-        <div class="dropdown-menu glass-panel lang-menu">
-          {ALL_LANGS.map((lang) => (
-            <a
-              href={switchLocaleUrl(rawPath, lang)}
-              class={lang === currentLang ? 'dropdown-item active' : 'dropdown-item'}
-            >
-              <span class="lang-flag">{LANG_FLAGS[lang]}</span>
-              <span class="tool-name">{LANG_NAMES[lang]}</span>
-            </a>
-          ))}
-        </div>
-      </div>
+      <a href="/about" class={currentPath.endsWith('/about') ? 'nav-item active' : 'nav-item'}>About</a>
+      <a href="/faq" class={currentPath.endsWith('/faq') ? 'nav-item active' : 'nav-item'}>FAQ</a>
+      <a href="/contact" class={currentPath.endsWith('/contact') ? 'nav-item active' : 'nav-item'}>Contact</a>
+      <a href="/donate" class="support-link" aria-label="Support this project">💛 Support</a>
 
       <!-- Theme Toggle (Placed at the very last position) -->
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" type="button">

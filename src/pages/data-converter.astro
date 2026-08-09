@@ -7,8 +7,8 @@ import DataConverter from '../components/react/converter/DataConverter.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
-const title = 'JSON, CSV & YAML Converter — Free Online Tool | Rocking Tools'
-const description = 'Convert between JSON, CSV, and YAML instantly in your browser. Paste data in any of the three formats and get the other two, no upload required.'
+const title = 'JSON ⇄ CSV ⇄ YAML Data Format Converter — 100% Client-Side | Rocking Tools'
+const description = 'Convert structured data seamlessly between JSON, CSV, and YAML in real-time. Zero network uploads, fast formatting, error highlighting, and one-click file export.'
 const keywords = 'json to csv, csv to json, yaml to json, json to yaml, online data converter, free json csv converter, private data converter'
 
 const faqItems = [
@@ -19,17 +19,17 @@ const faqItems = [
 ---
 
 <BaseLayout title={title} description={description} path="/data-converter" keywords={keywords}>
-  <SoftwareApplicationSchema slot="head" name="JSON ⇄ CSV ⇄ YAML Converter" description={description} path="/data-converter" />
+  <SoftwareApplicationSchema slot="head" name="JSON ⇄ CSV ⇄ YAML Data Format Converter" description={description} path="/data-converter" />
   <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Data Converter' }]} />
 
   <div class="tool-hero">
-    <h1>JSON ⇄ CSV ⇄ YAML Converter</h1>
-    <p>Paste data in any of the three formats below — conversion happens instantly in your browser, nothing is uploaded anywhere.</p>
+    <h1>JSON ⇄ CSV ⇄ YAML Data Format Converter</h1>
+    <p>Bi-directional data format conversion with zero server latency or data leaks.</p>
     <img
       src="/og/data-converter.png"
-      alt="JSON, CSV and YAML Data Converter preview"
+      alt="JSON CSV YAML Data Format Converter preview"
       class="tool-preview-img"
       width="1200"
       height="630"
@@ -38,7 +38,7 @@ const faqItems = [
     />
   </div>
 
-  <DataConverter client:only="react" />
+  <DataConverter client:load />
 
   <article class="tool-guide">
     <h2>Client-Side Data Conversion Features</h2>

@@ -7,9 +7,9 @@ import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 import PdfTools from '../components/react/pdf/PdfTools.jsx'
 
-const title = 'PDF Converter, Merger & Splitter — Free Online Tool | Rocking Tools'
+const title = 'PDF Converter, Merger & Splitter — 100% Browser-Based | Rocking Tools'
 const description =
-  'Convert images to PDF, merge multiple PDFs into one, or split a PDF into separate pages — all 100% in your browser. No upload, no signup, no limits.'
+  'Convert images (JPG, PNG, WebP) to PDF, merge multiple PDF files, or split/extract pages from any PDF. 100% local processing in JavaScript using pdf-lib — zero file uploads, complete privacy.'
 const keywords =
   'pdf converter, merge pdf online, split pdf online, images to pdf, combine pdf files, extract pdf pages, free pdf tool, private pdf converter, browser pdf tool, jpg to pdf, png to pdf'
 
@@ -53,14 +53,14 @@ const faqItems = [
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'PDF Tools' }]} />
 
   <div class="tool-hero">
-    <h1>PDF Converter · Merger · Splitter</h1>
+    <h1>PDF Converter, Merger & Splitter</h1>
     <p>
-      Three PDF superpowers in one tool — convert images to PDF, combine multiple PDFs into one,
-      or extract specific pages — all processed locally in your browser. Nothing is uploaded anywhere.
+      Convert images to PDF, combine multiple PDFs into one, or extract pages. Powered by
+      pdf-lib directly in your browser — zero files sent to any server.
     </p>
     <img
       src="/og/pdf-tools.png"
-      alt="PDF Converter, Merger and Splitter preview"
+      alt="PDF Tools interface preview"
       class="tool-preview-img"
       width="1200"
       height="630"
@@ -69,7 +69,7 @@ const faqItems = [
     />
   </div>
 
-  <PdfTools client:only="react" />
+  <PdfTools client:load />
 
   <article class="tool-guide">
     <h2>Complete Guide to Browser-Based PDF Tools</h2>

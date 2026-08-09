@@ -60,7 +60,7 @@ function buildTicks(lengthPx, effectivePPI, unit) {
 
 export default function Ruler({ edge, unit, effectivePPI, mousePos, onDropGuide }) {
   const isHorizontal = edge === 'top' || edge === 'bottom'
-  const [length, setLength] = useState(() => isHorizontal ? window.innerWidth : window.innerHeight)
+  const [length, setLength] = useState(() => (typeof window !== 'undefined' ? (isHorizontal ? window.innerWidth : window.innerHeight) : 1920))
   const [isHovered, setIsHovered] = useState(false)
 
   useEffect(() => {

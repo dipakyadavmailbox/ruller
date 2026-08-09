@@ -7,8 +7,8 @@ import CronBuilder from '../components/react/regex/CronBuilder.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
-const title = 'Cron Expression Builder & Validator — Free Online Tool | Rocking Tools'
-const description = 'Build, validate, and convert cron expressions into human-readable text. Features an interactive field builder, preset schedules, and execution previews.'
+const title = 'Cron Expression Builder & Schedule Validator — Free | Rocking Tools'
+const description = 'Easily build, validate, and understand 5-field cron schedules with real-time plain English descriptions and preset shortcuts.'
 const keywords = 'cron expression builder, cron generator, crontab syntax, cron schedule validator, 5 part cron, crontab online tool'
 
 const faqItems = [
@@ -19,14 +19,14 @@ const faqItems = [
 ---
 
 <BaseLayout title={title} description={description} path="/cron-expression-builder" keywords={keywords}>
-  <SoftwareApplicationSchema slot="head" name="Cron Expression Builder & Validator" description={description} path="/cron-expression-builder" />
+  <SoftwareApplicationSchema slot="head" name="Cron Expression Builder & Schedule Validator" description={description} path="/cron-expression-builder" />
   <FaqSchema slot="head" items={faqItems} />
 
-  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Cron Expression Builder & Validator' }]} />
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Cron Expression Builder' }]} />
 
   <div class="tool-hero">
-    <h1>Cron Expression Builder & Validator</h1>
-    <p>Generate, edit, and validate 5-part cron schedule expressions with plain-English translations and upcoming execution previews.</p>
+    <h1>Cron Expression Builder</h1>
+    <p>Generate, parse, and validate 5-field crontab expressions in plain English with instant visual schedule feedback.</p>
     <img
       src="/og/cron-expression-builder.png"
       alt="Cron Expression Builder and Schedule Validator preview"
@@ -38,7 +38,7 @@ const faqItems = [
     />
   </div>
 
-  <CronBuilder client:only="react" />
+  <CronBuilder client:load />
 
   <article class="tool-guide">
     <h2>Standard 5-Part Cron Expression Syntax Guide</h2>

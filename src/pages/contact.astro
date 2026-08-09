@@ -20,7 +20,7 @@ const description = `Get in touch with ${SITE_CONFIG.siteName} — questions, bu
       <a href={`mailto:${SITE_CONFIG.contactEmail}`} class="accent-link">{SITE_CONFIG.contactEmail}</a>.
     </p>
 
-    <ContactForm client:only="react" contactEmail={SITE_CONFIG.contactEmail} />
+    <ContactForm client:load contactEmail={SITE_CONFIG.contactEmail} />
   </div>
 </BaseLayout>
 

@@ -3,7 +3,6 @@ import Nav from '../components/astro/Nav.astro'
 import Footer from '../components/astro/Footer.astro'
 import '../styles/global.css'
 import { SITE_CONFIG } from '../siteConfig.js'
-import { getLangFromUrl, RTL_LANGS, SUPPORTED_LANGS } from '../i18n/ui.js'
 
 interface Props {
   title: string
@@ -27,40 +26,8 @@ const {
 const rawPathname = Astro.url.pathname
 const currentPath = rawPathname.replace(/\/$/, '').replace(/\.html$/, '') || '/'
 
-const currentLang = getLangFromUrl(Astro.url)
-const isRTL = RTL_LANGS.has(currentLang)
-const dir = isRTL ? 'rtl' : 'ltr'
-
-const OG_LOCALES = {
-  en: 'en_US',
-  es: 'es_ES',
-  fr: 'fr_FR',
-  de: 'de_DE',
-  pt: 'pt_BR',
-  hi: 'hi_IN',
-  ja: 'ja_JP',
-  ar: 'ar_SA',
-  zh: 'zh_CN',
-  it: 'it_IT',
-}
-const ogLocale = OG_LOCALES[currentLang] || 'en_US'
-
-// Self-referencing canonical URL so each language variant has its own proper canonical URL
+// Self-referencing canonical URL
 const canonicalUrl = `${SITE_CONFIG.domain}${currentPath === '/' ? '' : currentPath}`
-
-// Base path without language prefix (e.g. /es/ruler -> /ruler)
-const basePath = currentPath.replace(/^\/(es|fr|de|pt|hi|ja|ar|zh|it)(\/|$)/, '/')
-const normalizedBasePath = basePath === '' ? '/' : basePath
-
-// Generate hreflang annotations for all supported languages + x-default
-const hreflangs = [
-  { lang: 'en', url: `${SITE_CONFIG.domain}${normalizedBasePath === '/' ? '' : normalizedBasePath}` },
-  ...SUPPORTED_LANGS.map((l) => ({
-    lang: l,
-    url: `${SITE_CONFIG.domain}/${l}${normalizedBasePath === '/' ? '' : normalizedBasePath}`,
-  })),
-  { lang: 'x-default', url: `${SITE_CONFIG.domain}${normalizedBasePath === '/' ? '' : normalizedBasePath}` },
-]
 
 const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '').split('/')[0] || 'home'
 
@@ -159,7 +126,7 @@ const webPageSchema = {
 ---
 
 <!doctype html>
-<html lang={currentLang} dir={dir}>
+<html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F1VTCGJSZG"></script>
@@ -180,13 +147,7 @@ const webPageSchema = {
     <meta name="theme-color" content="#090d16" />
 
     <link rel="canonical" href={canonicalUrl} />
-    {hreflangs.map((h) => (
-      <link rel="alternate" hreflang={h.lang} href={h.url} />
-    ))}
     <link rel="manifest" href="/site.webmanifest" />
-
-    <!-- Geo and Language signals -->
-    <meta name="language" content={currentLang} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
@@ -198,7 +159,7 @@ const webPageSchema = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={title} />
     <meta property="og:site_name" content={SITE_CONFIG.siteName} />
-    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />

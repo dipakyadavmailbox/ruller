@@ -7,8 +7,8 @@ import RegexTester from '../components/react/regex/RegexTester.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
-const title = 'Regex Tester & Cheatsheet — Free Online Tool | Rocking Tools'
-const description = 'Live JavaScript regex tester with instant match highlighting, capture group extraction, and a complete regular expression syntax cheatsheet.'
+const title = 'JavaScript Regex Tester & Cheatsheet — Free Online Tool | Rocking Tools'
+const description = 'Test regular expressions in real-time with syntax highlighting, capture groups, instant match explanation, and cheat sheet. 100% private in browser.'
 const keywords = 'regex tester, regular expression online, regex validator, javascript regex cheatsheet, regex match highlighter, regex tester online, regex regex101 alternative, regex regex2ph'
 
 const faqItems = [
@@ -21,17 +21,17 @@ const faqItems = [
 ---
 
 <BaseLayout title={title} description={description} path="/regex-tester" keywords={keywords}>
-  <SoftwareApplicationSchema slot="head" name="Regex Tester & Cheatsheet" description={description} path="/regex-tester" />
+  <SoftwareApplicationSchema slot="head" name="JavaScript Regex Tester & Cheatsheet" description={description} path="/regex-tester" />
   <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Regex Tester' }]} />
 
   <div class="tool-hero">
-    <h1>Regex Tester & Cheatsheet</h1>
-    <p>Test JavaScript regular expressions live with instant match highlighting, capture group extraction, and syntax reference cheatsheet below.</p>
+    <h1>JavaScript Regex Tester & Cheatsheet</h1>
+    <p>Test JavaScript regular expressions with real-time match highlighting, group extraction, flags, and cheat sheet.</p>
     <img
       src="/og/regex-tester.png"
-      alt="Regex Tester and Syntax Cheatsheet preview"
+      alt="JavaScript Regex Tester and Cheatsheet preview"
       class="tool-preview-img"
       width="1200"
       height="630"
@@ -40,7 +40,7 @@ const faqItems = [
     />
   </div>
 
-  <RegexTester client:only="react" />
+  <RegexTester client:load />
 
   <article class="tool-guide">
     <h2>Complete Regular Expression Syntax Guide</h2>

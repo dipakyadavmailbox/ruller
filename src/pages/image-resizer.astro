@@ -7,8 +7,8 @@ import ImageResizer from '../components/react/imagetool/ImageResizer.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
-const title = 'Image Compressor & Resizer — Free Online Tool | Rocking Tools'
-const description = 'Resize & compress images instantly in WebP, PNG, JPEG & SVG. 100% private in your browser with zero file upload to any server. Free & instant.'
+const title = 'Batch Image Resizer & WebP Compressor — Free, Private | Rocking Tools'
+const description = 'Resize, crop, and compress images (PNG, JPEG, WebP, SVG) in bulk — 100% in your browser using HTML5 Canvas. Zero upload, maximum privacy, zero quality loss.'
 const keywords = 'image resizer, image compressor, resize image online, compress photo online, webp converter, png jpeg compressor, private image resizer, image dimensions editor'
 
 const faqItems = [
@@ -21,17 +21,17 @@ const faqItems = [
 ---
 
 <BaseLayout title={title} description={description} path="/image-resizer" keywords={keywords}>
-  <SoftwareApplicationSchema slot="head" name="Image Compressor & Resizer" description={description} path="/image-resizer" />
+  <SoftwareApplicationSchema slot="head" name="Batch Image Resizer & WebP Compressor" description={description} path="/image-resizer" />
   <FaqSchema slot="head" items={faqItems} />
 
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Image Resizer' }]} />
 
   <div class="tool-hero">
-    <h1>Image Compressor & Resizer</h1>
-    <p>Resize and compress photos and graphics entirely in your browser — nothing is uploaded anywhere. Adjust pixel dimensions, quality compression, and output format in seconds.</p>
+    <h1>Batch Image Resizer & WebP Compressor</h1>
+    <p>Resize dimensions, compress file sizes, and convert formats — processed 100% in your browser for absolute privacy.</p>
     <img
       src="/og/image-resizer.png"
-      alt="Image Compressor and Resizer tool preview"
+      alt="Batch Image Resizer and Compressor tool interface preview"
       class="tool-preview-img"
       width="1200"
       height="630"
@@ -40,7 +40,7 @@ const faqItems = [
     />
   </div>
 
-  <ImageResizer client:only="react" />
+  <ImageResizer client:load />
 
   <article class="tool-guide">
     <h2>Complete Guide to Client-Side Image Optimization</h2>

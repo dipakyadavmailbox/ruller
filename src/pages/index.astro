@@ -2,13 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ToolGrid from '../components/react/home/ToolGrid.jsx'
 import { SITE_CONFIG } from '../siteConfig.js'
-import { useTranslations, getLangFromUrl } from '../i18n/ui.js'
 
-const currentLang = getLangFromUrl(Astro.url)
-const t = useTranslations(currentLang)
-
-const title = t('page.home.title')
-const description = t('page.home.description')
+const title = 'Rocking Tools — Free, Private Online Tools & Utilities'
+const description = 'Studio-grade browser utilities for image processing, PDF editing, developer formatting, calculations, and security. 100% private, client-side, zero signup.'
 
 const websiteSchema = {
   '@context': 'https://schema.org',
@@ -123,7 +119,7 @@ const itemListSchema = {
     </div>
   </div>
 
-  <ToolGrid client:only="react" />
+  <ToolGrid client:load />
 
   {/* Static tool links for Googlebot — ensures full indexability and sitelink generation */}
   <nav aria-label="All Tools Directory" class="seo-tool-directory">

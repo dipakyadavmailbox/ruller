@@ -7,8 +7,8 @@ import PregnancyCalculator from '../components/react/pregnancy/PregnancyCalculat
 import FaqSchema from '../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
-const title = 'Pregnancy Due Date & Ovulation Calculator — Free Online Tool | Rocking Tools'
-const description = 'Estimate your due date from your last period or conception date, see your current week of pregnancy, or calculate your next ovulation and fertile window.'
+const title = 'Pregnancy Due Date & Ovulation Calculator — Free | Rocking Tools'
+const description = 'Calculate your estimated due date, pregnancy progress by week/trimester, and fertile ovulation window based on your last menstrual period (LMP).'
 const keywords = 'pregnancy due date calculator, ovulation calculator, fertile window calculator, calculate due date lmp, pregnancy week calculator, naegele rule'
 
 const faqItems = [
@@ -26,7 +26,7 @@ const faqItems = [
 
   <div class="tool-hero">
     <h1>Pregnancy Due Date & Ovulation Calculator</h1>
-    <p>Estimates only — every cycle and pregnancy is different. Always confirm dates with your doctor or midwife.</p>
+    <p>Estimate your due date, current gestational week, trimester timeline, and fertile window.</p>
     <img
       src="/og/pregnancy-calculator.png"
       alt="Pregnancy Due Date and Ovulation Calculator preview"
@@ -38,7 +38,7 @@ const faqItems = [
     />
   </div>
 
-  <PregnancyCalculator client:only="react" />
+  <PregnancyCalculator client:load />
 
   <article class="tool-guide">
     <h2>Understanding Pregnancy Timeline & Trimesters</h2>
