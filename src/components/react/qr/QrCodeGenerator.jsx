@@ -19,8 +19,13 @@ const PRESET_THEMES = [
   { name: 'High Contrast Dark', fg: '#38bdf8', bg: '#0f172a' },
 ]
 
-export default function QrCodeGenerator() {
-  const [activeMode, setActiveMode] = useState('url')
+export default function QrCodeGenerator({ initialMode }) {
+  const [activeMode, setActiveMode] = useState(() => {
+    if (initialMode && MODES.some((m) => m.id === initialMode)) {
+      return initialMode
+    }
+    return 'url'
+  })
 
   // Data Inputs
   const [urlInput, setUrlInput] = useState('https://www.rockingtools.com')

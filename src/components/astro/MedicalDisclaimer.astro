@@ -1,0 +1,71 @@
+---
+interface Props {
+  lastReviewed?: string
+  topic?: string
+}
+
+const { lastReviewed = 'August 2026', topic = 'Health' } = Astro.props
+---
+
+<div class="medical-disclaimer-card">
+  <div class="disclaimer-header">
+    <span class="disclaimer-icon">⚕️</span>
+    <span class="disclaimer-title">MEDICAL & YMYL DISCLAIMER</span>
+    <span class="disclaimer-badge">Reviewed {lastReviewed}</span>
+  </div>
+  <p class="disclaimer-body">
+    <strong>Educational Purpose Only:</strong> The calculations, formulas, and estimates provided by this {topic.toLowerCase()} calculator are intended solely for educational, research, and informational purposes. They do not constitute medical advice, diagnosis, or personalized treatment plans.
+  </p>
+  <p class="disclaimer-footnote">
+    Always consult a qualified healthcare professional, physician, or registered dietitian before making changes to your diet, exercise regimen, calorie intake, or pregnancy care plan. Never disregard or delay professional medical advice because of something you read on this website.
+  </p>
+</div>
+
+<style>
+  .medical-disclaimer-card {
+    max-width: 900px;
+    margin: 28px auto;
+    padding: 20px 24px;
+    background: rgba(234, 179, 8, 0.06);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    border-radius: 14px;
+    color: var(--ink);
+  }
+  .disclaimer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .disclaimer-icon {
+    font-size: 18px;
+  }
+  .disclaimer-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #d97706;
+  }
+  .disclaimer-badge {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ink-dim);
+    background: rgba(0, 0, 0, 0.04);
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+  .disclaimer-body {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 0 8px 0;
+  }
+  .disclaimer-footnote {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--ink-dim);
+    margin: 0;
+  }
+</style>

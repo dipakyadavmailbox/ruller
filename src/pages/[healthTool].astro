@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import FaqSchema from '../components/astro/FaqSchema.astro'
+import MedicalDisclaimer from '../components/astro/MedicalDisclaimer.astro'
+import CalorieCalculator from '../components/react/calorie/CalorieCalculator.jsx'
+import PregnancyCalculator from '../components/react/pregnancy/PregnancyCalculator.jsx'
+import { CALORIE_CLUSTER_DATA, getCalorieToolBySlug } from '../data/calorieClusterData.js'
+import { PREGNANCY_CLUSTER_DATA, getPregnancyToolBySlug } from '../data/pregnancyClusterData.js'
+
+export function getStaticPaths() {
+  const caloriePaths = CALORIE_CLUSTER_DATA.map((c) => ({
+    params: { healthTool: c.slug },
+  }))
+  const pregnancyPaths = PREGNANCY_CLUSTER_DATA.map((p) => ({
+    params: { healthTool: p.slug },
+  }))
+  return [...caloriePaths, ...pregnancyPaths]
+}
+
+const { healthTool: slugParam } = Astro.params
+
+const calorieData = getCalorieToolBySlug(slugParam)
+const pregnancyData = getPregnancyToolBySlug(slugParam)
+
+const isCalorie = Boolean(calorieData)
+const hData = calorieData || pregnancyData || CALORIE_CLUSTER_DATA[0]
+
+const title = hData.title
+const description = hData.description
+const keywords = hData.keywords
+const canonicalPath = `/${hData.slug}`
+
+const faqItems = hData.faqs || []
+const parentSlug = isCalorie ? '/calorie-calculator' : '/pregnancy-calculator'
+const parentName = isCalorie ? 'Calorie Calculator' : 'Pregnancy Calculator'
+
+const relatedObjs = (hData.relatedSlugs || [])
+  .map((s) => (isCalorie ? getCalorieToolBySlug(s) : getPregnancyToolBySlug(s)))
+  .filter(Boolean)
+---
+
+<BaseLayout title={title} description={description} path={canonicalPath} keywords={keywords}>
+  <SoftwareApplicationSchema
+    slot="head"
+    name={hData.title}
+    description={description}
+    path={canonicalPath}
+  />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb
+    items={[
+      { label: 'Home', path: '/' },
+      { label: parentName, path: parentSlug },
+      { label: hData.name },
+    ]}
+  />
+
+  <div class="tool-hero">
+    <h1>{hData.title.split('—')[0]}</h1>
+    <p>{hData.intro}</p>
+  </div>
+
+  {isCalorie ? (
+    <CalorieCalculator
+      client:load
+      initialGoal={hData.slug === 'calorie-deficit-calculator' ? 'cut_mild' : 'maintain'}
+    />
+  ) : (
+    <PregnancyCalculator
+      client:load
+      initialMode={hData.slug === 'ovulation-calculator' ? 'ovulation' : 'due-date'}
+    />
+  )}
+
+  <MedicalDisclaimer topic={isCalorie ? 'Calorie & Nutrition' : 'Pregnancy & Obstetrics'} />
+
+  <article class="tool-guide">
+    <div class="formula-box">
+      <div class="formula-label">SCIENTIFIC FORMULA & METHODOLOGY</div>
+      <div class="formula-name">{hData.formulaName}</div>
+      <pre class="formula-math">{hData.formulaMath}</pre>
+      <p class="formula-desc">{hData.formulaExplanation}</p>
+    </div>
+
+    {hData.limitations && (
+      <div class="limitations-box">
+        <h3>Clinical Limitations & Considerations</h3>
+        <p>{hData.limitations}</p>
+      </div>
+    )}
+
+    {hData.references && hData.references.length > 0 && (
+      <div class="references-box">
+        <h3>Scientific References & Literature</h3>
+        <ul>
+          {hData.references.map((ref) => (
+            <li>{ref.citation}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    {faqItems.length > 0 && (
+      <>
+        <h2>Frequently Asked Questions</h2>
+        {faqItems.map((faq) => (
+          <div class="faq-item">
+            <h4>{faq.q}</h4>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </>
+    )}
+
+    {relatedObjs.length > 0 && (
+      <div class="related-section">
+        <h2>Related {isCalorie ? 'Nutrition & Fitness' : 'Pregnancy & Fertility'} Tools</h2>
+        <div class="related-grid">
+          {relatedObjs.map((r) => (
+            <a href={`/${r.slug}`} class="related-card">
+              <span>{isCalorie ? '🍽️' : '🤰'}</span> {r.name}
+            </a>
+          ))}
+          <a href={parentSlug} class="related-card main-link">
+            <span>⚙️</span> Main {parentName} →
+          </a>
+        </div>
+      </div>
+    )}
+  </article>
+
+  <RelatedTools currentSlug={parentSlug} />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 860px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(22px, 4vw, 32px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+
+  .tool-guide {
+    max-width: 860px; margin: 40px auto; padding: 32px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px;
+  }
+  .tool-guide h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-top: 32px; margin-bottom: 12px; }
+  .tool-guide h2:first-child { margin-top: 0; }
+
+  .formula-box {
+    background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 12px; padding: 20px; margin-bottom: 24px;
+  }
+  .formula-label { font-size: 11px; font-weight: 800; letter-spacing: 0.8px; color: var(--accent); margin-bottom: 4px; }
+  .formula-name { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .formula-math { font-family: var(--font-mono); font-size: 13px; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; color: var(--ink); line-height: 1.5; white-space: pre-wrap; margin-bottom: 10px; }
+  .formula-desc { font-size: 13px; color: var(--ink-dim); margin: 0; line-height: 1.55; }
+
+  .limitations-box {
+    background: rgba(255, 255, 255, 0.02); border: 1px solid var(--panel-border); border-radius: 12px; padding: 20px; margin-bottom: 24px;
+  }
+  .limitations-box h3 { font-size: 15px; font-weight: 700; color: var(--ink); margin-top: 0; margin-bottom: 8px; }
+  .limitations-box p { font-size: 13.5px; color: var(--ink-dim); margin: 0; line-height: 1.6; }
+
+  .references-box {
+    background: rgba(255, 255, 255, 0.02); border: 1px solid var(--panel-border); border-radius: 12px; padding: 20px; margin-bottom: 24px;
+  }
+  .references-box h3 { font-size: 15px; font-weight: 700; color: var(--ink); margin-top: 0; margin-bottom: 8px; }
+  .references-box ul { padding-left: 20px; margin: 0; }
+  .references-box li { font-size: 12.5px; color: var(--ink-dim); line-height: 1.6; margin-bottom: 6px; }
+
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .faq-item p { margin: 0; font-size: 14px; color: var(--ink-dim); line-height: 1.6; }
+
+  .related-section { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--panel-border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .related-card {
+    display: flex; alignItems: center; gap: 8px; padding: 10px 14px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 10px;
+    color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600; transition: all 150ms ease;
+  }
+  .related-card:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .main-link { background: rgba(99, 102, 241, 0.08); color: var(--accent); border-color: rgba(99, 102, 241, 0.2); }
+</style>

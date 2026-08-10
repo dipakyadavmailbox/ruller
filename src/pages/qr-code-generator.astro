@@ -45,13 +45,14 @@ const faqItems = [
     <h2>Client-Side QR Code Creation &amp; Customization Features</h2>
     <p>Generate scannable codes for any digital touchpoint with customizable aesthetics and zero tracking.</p>
 
-    <h3>Supported Data Types</h3>
-    <ul>
-      <li><strong>Website Link / Text:</strong> Direct users to any URL, landing page, or raw text message.</li>
-      <li><strong>Wi-Fi Network Credentials:</strong> Allow guests to scan and connect to WPA/WPA2/WEP networks instantly.</li>
-      <li><strong>vCard Contact Card:</strong> Share full contact details (Name, Phone, Email, Company, Website) directly into phone address books.</li>
-      <li><strong>Email &amp; Phone / SMS:</strong> Trigger pre-filled email drafts or SMS text messages upon scanning.</li>
-    </ul>
+    <h3>Specialized QR Code Generators</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 24px;">
+      <a href="/qr-code-generator/url" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🌐 Website URL QR Generator</a>
+      <a href="/qr-code-generator/wifi" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📶 Wi-Fi Network QR Generator</a>
+      <a href="/qr-code-generator/vcard" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📇 vCard Contact Card QR Generator</a>
+      <a href="/qr-code-generator/email" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">✉️ Email Message QR Generator</a>
+      <a href="/qr-code-generator/text" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📝 Plain Text QR Generator</a>
+    </div>
 
     <PrivacyComparisonTable toolName="QR Code Generation" competitorLabel="Other QR Generators" />
 

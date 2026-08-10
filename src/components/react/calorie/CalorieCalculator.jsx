@@ -9,7 +9,7 @@ const AFFILIATE_ITEMS = [
   { name: 'Whey / plant protein powder', blurb: 'A fast way to hit your daily protein target from the macros below.', href: '#', cta: 'Shop →' },
 ]
 
-export default function CalorieCalculator() {
+export default function CalorieCalculator({ initialGoal }) {
   const [units, setUnits] = useState('metric') // 'metric' | 'imperial'
   const [sex, setSex] = useState('male')
   const [age, setAge] = useState(28)
@@ -22,7 +22,7 @@ export default function CalorieCalculator() {
   const [heightIn, setHeightIn] = useState(9)
 
   const [activity, setActivity] = useState('moderate')
-  const [goal, setGoal] = useState('maintain')
+  const [goal, setGoal] = useState(() => (initialGoal && GOALS.some(g => g.id === initialGoal) ? initialGoal : 'maintain'))
 
   const resolvedWeightKg = units === 'metric' ? weightKg : lbToKg(weightLb)
   const resolvedHeightCm = units === 'metric' ? heightCm : ftInToCm(heightFt, heightIn)

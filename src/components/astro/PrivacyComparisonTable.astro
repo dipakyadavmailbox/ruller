@@ -2,204 +2,40 @@
 interface Props {
   toolName?: string
   competitorLabel?: string
-  customFeatures?: Array<{
-    feature: string
-    rockingTools: string
-    others: string
-  }>
+  customFeatures?: any
 }
 
-const {
-  toolName = 'Rocking Tools',
-  competitorLabel = 'Other Online Tools',
-  customFeatures,
-} = Astro.props
-
-const defaultFeatures = [
-  {
-    feature: 'Data Processing & Storage',
-    rockingTools: '🔒 100% Client-Side (Processed in your browser)',
-    others: '⚠️ Uploaded & processed on remote cloud servers',
-  },
-  {
-    feature: 'Data Privacy & Security',
-    rockingTools: '🛡️ Zero Data Upload (No servers or DB logs)',
-    others: '❌ Stored in temp files or server logs',
-  },
-  {
-    feature: 'Account / Email Signup',
-    rockingTools: '✅ Zero Signup (100% Free forever)',
-    others: '❌ Paywalls, popups, or email signups',
-  },
-  {
-    feature: 'Processing Speed',
-    rockingTools: '⚡ Instant (0ms server latency)',
-    others: '⏳ Upload delays & queue wait times',
-  },
-  {
-    feature: 'Offline Operation',
-    rockingTools: '📶 Works offline once page is loaded',
-    others: '❌ Requires active server connection',
-  },
-]
-
-const features = customFeatures || defaultFeatures
+const { toolName = 'this tool' } = Astro.props
 ---
 
-<section class="privacy-comparison-section">
-  <div class="comparison-header">
-    <span class="privacy-badge">🔒 PRIVACY ADVANTAGE</span>
-    <h2>Rocking Tools vs. {competitorLabel}</h2>
-    <p>See why privacy-conscious users choose Rocking Tools for {toolName}.</p>
+<div class="privacy-banner">
+  <span class="privacy-icon">🔒</span>
+  <div class="privacy-text">
+    <strong>Private by design</strong> — This tool processes your data 100% locally in your browser. Nothing is uploaded to Rocking Tools.
   </div>
-
-  <div class="table-wrapper">
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th class="col-feature">Feature / Guarantee</th>
-          <th class="col-rocking">
-            <div class="brand-cell">
-              <span class="brand-name">✨ Rocking Tools</span>
-              <span class="tag-badge">100% Private</span>
-            </div>
-          </th>
-          <th class="col-others">{competitorLabel}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {features.map((item, index) => (
-          <tr class={index % 2 === 0 ? 'even-row' : ''}>
-            <td class="feature-cell"><strong>{item.feature}</strong></td>
-            <td class="rocking-cell">{item.rockingTools}</td>
-            <td class="others-cell">{item.others}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</section>
+</div>
 
 <style>
-  .privacy-comparison-section {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 20px;
-  }
-  .comparison-header {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  .privacy-badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: var(--accent);
-    background: rgba(92, 140, 224, 0.1);
-    padding: 4px 10px;
-    border-radius: 20px;
-    margin-bottom: 8px;
-  }
-  .comparison-header h2 {
-    font-size: clamp(20px, 3.5vw, 26px);
-    font-weight: 800;
-    color: var(--ink);
-    margin: 0 0 6px 0;
-  }
-  .comparison-header p {
-    font-size: 14px;
-    color: var(--ink-dim);
-    margin: 0;
-  }
-
-  .table-wrapper {
-    overflow-x: auto;
-    background: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    border-radius: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  }
-
-  .comparison-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 14px;
-    min-width: 600px;
-  }
-
-  .comparison-table th {
-    padding: 16px;
-    border-bottom: 1px solid var(--panel-border);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--ink-dim);
-  }
-
-  .col-feature {
-    width: 30%;
-  }
-  .col-rocking {
-    width: 35%;
-    background: rgba(92, 140, 224, 0.05);
-  }
-  .col-others {
-    width: 35%;
-  }
-
-  .brand-cell {
+  .privacy-banner {
     display: flex;
     align-items: center;
-    gap: 8px;
-  }
-  .brand-name {
-    font-size: 14px;
-    font-weight: 800;
+    gap: 12px;
+    max-width: 900px;
+    margin: 28px auto;
+    padding: 14px 20px;
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 12px;
+    font-size: 13.5px;
     color: var(--ink);
-  }
-  .tag-badge {
-    font-size: 10px;
-    font-weight: 800;
-    color: #10b981;
-    background: rgba(16, 185, 129, 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-
-  .comparison-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--panel-border);
     line-height: 1.5;
-    vertical-align: middle;
   }
-
-  .comparison-table tr:last-child td {
-    border-bottom: none;
+  .privacy-icon {
+    font-size: 20px;
+    flex-shrink: 0;
   }
-
-  .even-row {
-    background: rgba(0, 0, 0, 0.01);
-  }
-
-  .feature-cell {
-    color: var(--ink);
-  }
-
-  .rocking-cell {
-    background: rgba(92, 140, 224, 0.04);
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  .others-cell {
-    color: var(--ink-dim);
-  }
-
-  @media (max-width: 640px) {
-    .comparison-table th, .comparison-table td {
-      padding: 12px;
-      font-size: 13px;
-    }
+  .privacy-text strong {
+    color: #10b981;
+    font-weight: 700;
   }
 </style>

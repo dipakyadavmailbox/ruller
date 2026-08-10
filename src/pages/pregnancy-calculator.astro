@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import PregnancyCalculator from '../components/react/pregnancy/PregnancyCalculator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import MedicalDisclaimer from '../components/astro/MedicalDisclaimer.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Pregnancy Due Date & Ovulation Calculator — Free | Rocking Tools'
@@ -40,7 +41,18 @@ const faqItems = [
 
   <PregnancyCalculator client:load />
 
+  <MedicalDisclaimer topic="Pregnancy & Obstetrics" />
+
   <article class="tool-guide">
+    <h2>Specific Pregnancy & Fertility Calculators</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 24px;">
+      <a href="/due-date-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">👶 Due Date Calculator (Naegele's Rule)</a>
+      <a href="/ovulation-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🌸 Ovulation & Fertile Window Calculator</a>
+      <a href="/conception-date-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🗓️ Estimated Conception Date Calculator</a>
+      <a href="/pregnancy-week-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📊 Pregnancy Week-by-Week Calculator</a>
+      <a href="/pregnancy-weight-gain-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">⚖️ Pregnancy Weight Gain Calculator (IOM)</a>
+    </div>
+
     <h2>Understanding Pregnancy Timeline & Trimesters</h2>
     <p>Track important gestational milestones, fetal development phases, and expected delivery windows.</p>
 

@@ -5,6 +5,7 @@ import RelatedTools from '../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
 import CalorieCalculator from '../components/react/calorie/CalorieCalculator.jsx'
 import FaqSchema from '../components/astro/FaqSchema.astro'
+import MedicalDisclaimer from '../components/astro/MedicalDisclaimer.astro'
 import PrivacyComparisonTable from '../components/astro/PrivacyComparisonTable.astro'
 
 const title = 'Calorie Calculator (TDEE & BMR) — Free Online Tool | Rocking Tools'
@@ -44,7 +45,18 @@ const faqItems = [
 
   <CalorieCalculator client:load />
 
+  <MedicalDisclaimer topic="Calorie & Nutrition" />
+
   <article class="tool-guide">
+    <h2>Specific Calorie & Metabolism Calculators</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 24px;">
+      <a href="/bmr-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🔥 BMR Calculator (Basal Metabolic Rate)</a>
+      <a href="/tdee-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">⚡ TDEE Calculator (Total Daily Energy)</a>
+      <a href="/macro-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🥗 Macro Calculator (Protein/Carb/Fat Split)</a>
+      <a href="/protein-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🥩 Protein Intake Calculator</a>
+      <a href="/calorie-deficit-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📉 Calorie Deficit Calculator (Weight Loss)</a>
+    </div>
+
     <h2>Understanding TDEE, BMR & Daily Calorie Needs</h2>
     <p>Total Daily Energy Expenditure (TDEE) represents the total number of calories your body burns in 24 hours, accounting for your age, gender, height, weight, and physical activity level. Knowing your TDEE is the starting point for any evidence-based nutrition plan — whether you want to lose fat, build muscle, or maintain your current weight.</p>
 

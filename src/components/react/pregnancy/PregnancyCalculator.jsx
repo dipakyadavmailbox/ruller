@@ -29,9 +29,9 @@ function toDateInput(date) {
   return date.toISOString().slice(0, 10)
 }
 
-export default function PregnancyCalculator() {
-  const [mode, setMode] = useState('due-date') // 'due-date' | 'ovulation'
-  const [dateBasis, setDateBasis] = useState('lmp')
+export default function PregnancyCalculator({ initialMode = 'due-date', initialBasis = 'lmp' }) {
+  const [mode, setMode] = useState(initialMode) // 'due-date' | 'ovulation'
+  const [dateBasis, setDateBasis] = useState(initialBasis)
 
   const [inputDate, setInputDate] = useState(() => toDateInput(new Date(Date.now() - 20 * 7 * 24 * 60 * 60 * 1000)))
   const [cycleLength, setCycleLength] = useState(28)
