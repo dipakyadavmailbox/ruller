@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import RegexTester from '../../components/react/regex/RegexTester.jsx'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+
+const title = 'JavaScript Regex Tester & Cheatsheet — Free Online Tool | Rocking Tools'
+const description = 'Test regular expressions in real-time with syntax highlighting, capture groups, instant match explanation, and cheat sheet. 100% private in browser.'
+const keywords = 'regex tester, regular expression online, regex validator, javascript regex cheatsheet, regex match highlighter, regex tester online, regex regex101 alternative, regex regex2ph'
+
+const faqItems = [
+  { q: 'Which regex engine flavor does this tester use?', a: 'This tool uses native ECMAScript (JavaScript ES2024) regular expression syntax with support for standard flags: global (g), case-insensitive (i), multiline (m), dotAll (s), unicode (u), and sticky (y).' },
+  { q: 'What do \\d, \\w, and \\s match in Regular Expressions?', a: '`\\d` matches any digit (0-9), `\\w` matches any word character (letters A-Z, numbers 0-9, and underscore _), and `\\s` matches whitespace (space, tab, line break).' },
+  { q: 'What is the difference between greedy and lazy matching?', a: 'Greedy matchers (`*`, `+`) expand to match as much text as possible. Adding a question mark (`*?`, `+?`) makes them lazy, matching as few characters as possible.' },
+  { q: 'How do I validate an email address using Regex?', a: 'A standard email validation pattern is: `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$`' },
+  { q: 'Is my input text or pattern sent to a server?', a: 'No. All regex matching, substring evaluation, and group parsing execute 100% locally in your browser JavaScript thread. Your data is completely private.' }
+]
+---
+
+<BaseLayout title={title} description={description} path="/regex-tester" keywords={keywords}>
+  <SoftwareApplicationSchema slot="head" name="JavaScript Regex Tester & Cheatsheet" description={description} path="/regex-tester" />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Regex Tester' }]} />
+
+  <div class="tool-hero">
+    <h1>JavaScript Regex Tester & Cheatsheet</h1>
+    <p>Test JavaScript regular expressions with real-time match highlighting, group extraction, flags, and cheat sheet.</p>
+    <img
+      src="/og/regex-tester.png"
+      alt="JavaScript Regex Tester and Cheatsheet preview"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <RegexTester client:load />
+
+  <article class="tool-guide">
+    <h2>Complete Regular Expression Syntax Guide</h2>
+    <p>Regular expressions (Regex) are powerful pattern-matching strings used across software engineering, data cleaning, logs analysis, and web scraping.</p>
+
+    <h3>Common Pattern Syntax Cheatsheet</h3>
+    <ul>
+      <li><code>^</code> / <code>$</code> — Start and end of line anchors.</li>
+      <li><code>[a-zA-Z0-9]</code> — Character set matching any single alphanumeric character.</li>
+      <li><code>[^0-9]</code> — Negated character set (matches anything except digits).</li>
+      <li><code>(group)</code> — Capturing group for substring extraction.</li>
+      <li><code>(?:group)</code> — Non-capturing group.</li>
+      <li><code>(?=...)</code> / <code>(?!...)</code> — Positive and negative lookahead assertions.</li>
+    </ul>
+
+    <h3>Regex Flags Reference</h3>
+    <ul>
+      <li><code>g</code> (Global): Don't return after first match; find all occurrences.</li>
+      <li><code>i</code> (Insensitive): Case-insensitive matching.</li>
+      <li><code>m</code> (Multiline): <code>^</code> and <code>$</code> match start/end of each line.</li>
+      <li><code>s</code> (DotAll): Allows dot (<code>.</code>) to match newline characters.</li>
+    </ul>
+
+    <PrivacyComparisonTable toolName="Regex Testing & Debugging" competitorLabel="Other Regex Testers" />
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <RelatedTools currentSlug="/regex-tester" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 820px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+</style>
+

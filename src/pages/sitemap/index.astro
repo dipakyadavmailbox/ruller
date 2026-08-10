@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { CATEGORIES } from '../../data/tools.js'
+import { SITE_CONFIG } from '../../siteConfig.js'
+
+const title = `Sitemap — ${SITE_CONFIG.siteName}`
+const description = `Every page on ${SITE_CONFIG.siteName}, in one place.`
+
+const otherPages = [
+  { name: 'Home', slug: '/' },
+  { name: 'About Us', slug: '/about' },
+  { name: 'FAQ', slug: '/faq' },
+  { name: 'Contact Us', slug: '/contact' },
+  { name: 'Support Us / Donate', slug: '/donate' },
+  { name: 'Terms of Service', slug: '/terms' },
+  { name: 'Privacy Policy', slug: '/privacy' },
+  { name: 'DMCA Policy', slug: '/dmca' },
+  { name: 'Accessibility Statement', slug: '/accessibility' },
+]
+---
+
+<BaseLayout title={title} description={description} path="/sitemap" noindex={true}>
+  <div class="page">
+    <h1>Sitemap</h1>
+    <p class="intro">
+      A full, human-readable list of every page on this site. Looking for
+      the machine-readable version instead? See <a href="/sitemap-index.xml" class="accent-link">sitemap-index.xml</a>.
+    </p>
+
+    {CATEGORIES.map((category) => (
+      <div class="group">
+        <div class="group-heading">{category.heading.toUpperCase()}</div>
+        <ul>
+          {category.tools.map((tool) => (
+            <li><a href={tool.slug}>{tool.name}</a></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <div class="group">
+      <div class="group-heading">UNIT CONVERTER CATEGORIES</div>
+      <ul>
+        <li><a href="/unit-converter/length">Length Converter</a></li>
+        <li><a href="/unit-converter/weight">Weight & Mass Converter</a></li>
+        <li><a href="/unit-converter/temperature">Temperature Converter</a></li>
+        <li><a href="/unit-converter/area">Area & Surface Converter</a></li>
+        <li><a href="/unit-converter/volume">Volume & Capacity Converter</a></li>
+        <li><a href="/unit-converter/speed">Speed & Velocity Converter</a></li>
+        <li><a href="/unit-converter/time">Time Converter</a></li>
+        <li><a href="/unit-converter/data">Data Storage Converter</a></li>
+        <li><a href="/unit-converter/energy">Energy & Work Converter</a></li>
+        <li><a href="/unit-converter/pressure">Pressure & Stress Converter</a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <div class="group-heading">POPULAR CONVERSION CALCULATORS</div>
+      <ul>
+        <li><a href="/kg-to-lbs">Kilograms to Pounds (kg to lbs)</a></li>
+        <li><a href="/lbs-to-kg">Pounds to Kilograms (lbs to kg)</a></li>
+        <li><a href="/km-to-miles">Kilometers to Miles (km to miles)</a></li>
+        <li><a href="/miles-to-km">Miles to Kilometers (miles to km)</a></li>
+        <li><a href="/cm-to-inches">Centimeters to Inches (cm to inches)</a></li>
+        <li><a href="/inches-to-cm">Inches to Centimeters (inches to cm)</a></li>
+        <li><a href="/meters-to-feet">Meters to Feet (m to ft)</a></li>
+        <li><a href="/feet-to-meters">Feet to Meters (ft to m)</a></li>
+        <li><a href="/celsius-to-fahrenheit">Celsius to Fahrenheit (°C to °F)</a></li>
+        <li><a href="/fahrenheit-to-celsius">Fahrenheit to Celsius (°F to °C)</a></li>
+        <li><a href="/mb-to-gb">Megabytes to Gigabytes (MB to GB)</a></li>
+        <li><a href="/gb-to-mb">Gigabytes to Megabytes (GB to MB)</a></li>
+        <li><a href="/gallons-to-liters">Gallons to Liters (gal to L)</a></li>
+        <li><a href="/acres-to-sq-ft">Acres to Square Feet</a></li>
+        <li><a href="/mph-to-kph">MPH to KPH</a></li>
+        <li><a href="/psi-to-bar">PSI to Bar</a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <div class="group-heading">ASPECT RATIO CALCULATORS</div>
+      <ul>
+        <li><a href="/aspect-ratio/9-16">9:16 Aspect Ratio (TikTok, Reels, Shorts)</a></li>
+        <li><a href="/aspect-ratio/16-9">16:9 Aspect Ratio (Widescreen, YouTube)</a></li>
+        <li><a href="/aspect-ratio/4-5">4:5 Aspect Ratio (Instagram Portrait)</a></li>
+        <li><a href="/aspect-ratio/1-1">1:1 Aspect Ratio (Square & Avatar)</a></li>
+        <li><a href="/aspect-ratio/3-2">3:2 Aspect Ratio (DSLR Photo & Print)</a></li>
+        <li><a href="/aspect-ratio/21-9">21:9 Aspect Ratio (Ultrawide & Cinema)</a></li>
+        <li><a href="/aspect-ratio/4-3">4:3 Aspect Ratio (Standard Display & iPad)</a></li>
+        <li><a href="/aspect-ratio/2-3">2:3 Aspect Ratio (Pinterest Pin)</a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <div class="group-heading">QR CODE GENERATORS</div>
+      <ul>
+        <li><a href="/qr-code-generator/url">Website URL QR Code Generator</a></li>
+        <li><a href="/qr-code-generator/wifi">Wi-Fi Network QR Code Generator</a></li>
+        <li><a href="/qr-code-generator/vcard">vCard Contact Card QR Code Generator</a></li>
+        <li><a href="/qr-code-generator/email">Email Message QR Code Generator</a></li>
+        <li><a href="/qr-code-generator/text">Plain Text QR Code Generator</a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <div class="group-heading">CALORIE & NUTRITION CALCULATORS</div>
+      <ul>
+        <li><a href="/bmr-calculator">BMR Calculator (Basal Metabolic Rate)</a></li>
+        <li><a href="/tdee-calculator">TDEE Calculator (Total Daily Energy)</a></li>
+        <li><a href="/macro-calculator">Macro Calculator (Protein/Carb/Fat Split)</a></li>
+        <li><a href="/protein-calculator">Daily Protein Intake Calculator</a></li>
+        <li><a href="/calorie-deficit-calculator">Calorie Deficit Calculator (Weight Loss)</a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <div class="group-heading">PREGNANCY & FERTILITY CALCULATORS</div>
+      <ul>
+        <li><a href="/due-date-calculator">Due Date Calculator (Naegele's Rule)</a></li>
+        <li><a href="/ovulation-calculator">Ovulation & Fertile Window Calculator</a></li>
+        <li><a href="/conception-date-calculator">Estimated Conception Date Calculator</a></li>
+        <li><a href="/pregnancy-week-calculator">Pregnancy Week-by-Week Calculator</a></li>
+        <li><a href="/pregnancy-weight-gain-calculator">Pregnancy Weight Gain Calculator (IOM)</a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <div class="group-heading">SITE PAGES</div>
+      <ul>
+        {otherPages.map((p) => (
+          <li><a href={p.slug}>{p.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page { max-width: 720px; margin: 0 auto; padding: 48px 20px 60px; }
+  h1 { font-size: clamp(26px, 4vw, 36px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .intro { font-size: 14px; color: var(--ink-dim); line-height: 1.6; margin-bottom: 32px; }
+  .accent-link { color: var(--accent); font-weight: 700; text-decoration: none; }
+  .group { margin-bottom: 28px; }
+  .group-heading { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; color: var(--ink-faint); margin-bottom: 10px; }
+  ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  ul a { font-size: 14px; color: var(--ink); text-decoration: none; font-weight: 600; }
+  ul a:hover { color: var(--accent); }
+</style>

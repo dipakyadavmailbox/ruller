@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+import ColorTools from '../../components/react/colortools/ColorTools.jsx'
+
+const title = 'Color Picker & Palette Generator — HEX, RGB, HSL, HSV | Rocking Tools'
+const description =
+  'Pick any color and instantly get HEX, RGB, HSL, and HSV values. Generate complementary, analogous, triadic, tetradic, and monochromatic palettes. Export to CSS variables, Tailwind config, or JSON — 100% in your browser.'
+const keywords =
+  'color picker, color palette generator, hex to rgb, rgb to hsl, complementary colors, color palette css, tailwind color generator, online color picker, hsv color, monochromatic palette, triadic color scheme, analogous colors'
+
+const faqItems = [
+  {
+    q: 'Which color formats does the picker support?',
+    a: 'HEX, RGB, HSL, and HSV. All formats stay synchronized in real time — editing any one input (or using the native color picker swatch) instantly updates all the others.',
+  },
+  {
+    q: 'What palette harmony modes are available?',
+    a: 'Five modes: Complementary (2 colors, 180° apart), Analogous (5 colors, ±30°/60°), Triadic (3 colors, 120° apart), Tetradic (4 colors, 90° apart), and Monochromatic (5 lightness variations of the same hue).',
+  },
+  {
+    q: 'How do I export a palette for my project?',
+    a: 'The Export panel below the palette offers three formats: CSS Variables (a :root block with --color-N variables), Tailwind Config (a colors: {} object ready to paste), and JSON (a plain array of HEX strings). Click "Copy Code" to copy the full snippet.',
+  },
+  {
+    q: 'What does the Randomize button do?',
+    a: 'It generates a random aesthetically pleasing base color using the HSL model — high saturation (60–90%) and mid-range lightness (40–60%) — then immediately re-generates the palette in your selected harmony mode.',
+  },
+  {
+    q: 'Is any color data uploaded or shared?',
+    a: 'No. All color conversion math and palette generation runs in JavaScript directly in your browser. Nothing is sent to any server — your colors stay completely private.',
+  },
+]
+---
+
+<BaseLayout title={title} description={description} path="/color-tools" keywords={keywords}>
+  <SoftwareApplicationSchema
+    slot="head"
+    name="Color Picker & Palette Generator"
+    description={description}
+    path="/color-tools"
+  />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Color Tools' }]} />
+
+  <div class="tool-hero">
+    <h1>Color Picker & Palette Generator</h1>
+    <p>
+      Pick any color and get instant HEX, RGB, HSL, and HSV values. Generate complementary,
+      analogous, triadic, tetradic, and monochromatic palettes — then export to CSS, Tailwind,
+      or JSON. Everything runs 100% in your browser.
+    </p>
+    <img
+      src="/og/color-tools.png"
+      alt="Color Picker and Palette Generator tool preview"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <ColorTools client:load />
+
+  <article class="tool-guide">
+    <h2>Professional Color Tools for Designers & Developers</h2>
+    <p>
+      Color is one of the most powerful tools in design. Rocking Tools provides two complementary
+      color utilities in one place — a precise color picker and an intelligent palette generator —
+      both running locally in your browser with zero uploads or tracking.
+    </p>
+
+    <h3>Color Picker Features</h3>
+    <ul>
+      <li><strong>Native OS Color Picker:</strong> Click the swatch to open your operating system's built-in color chooser</li>
+      <li><strong>Synchronized Inputs:</strong> Edit HEX, RGB (R/G/B channels), or HSL (H/S/L channels) — all update in real time</li>
+      <li><strong>All Output Formats:</strong> HEX, RGB, HSL, HSV, and a CSS variable snippet — each with an individual copy button</li>
+      <li><strong>Shade Strip:</strong> 9 lightness variations from 10% → 90% L, clickable to set the active color</li>
+    </ul>
+
+    <h3>Palette Generator Features</h3>
+    <ul>
+      <li><strong>Complementary:</strong> The exact opposite hue on the color wheel — perfect for high-contrast duos</li>
+      <li><strong>Analogous:</strong> Five colors spanning 120° of the color wheel — natural and harmonious</li>
+      <li><strong>Triadic:</strong> Three colors evenly spaced at 120° — vibrant and balanced</li>
+      <li><strong>Tetradic:</strong> Four colors at 90° intervals — rich, complex palettes</li>
+      <li><strong>Monochromatic:</strong> Five tones of the same hue at different lightness levels — clean and professional</li>
+    </ul>
+
+    <h3>Color Export Options</h3>
+    <ul>
+      <li><strong>CSS Variables:</strong> Outputs a <code>:root</code> block with <code>--color-N</code> custom properties — works in any CSS project</li>
+      <li><strong>Tailwind Config:</strong> A <code>colors:</code> object with named keys — paste directly into <code>tailwind.config.js</code></li>
+      <li><strong>JSON Array:</strong> A plain <code>["#hex1", "#hex2"]</code> array — for programmatic use or documentation</li>
+    </ul>
+
+    <PrivacyComparisonTable toolName="Color Picking" competitorLabel="Other Color Tools" />
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <RelatedTools currentSlug="/color-tools" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .tool-guide {
+    max-width: 900px; margin: 40px auto; padding: 32px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px;
+  }
+  .tool-guide h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 12px; }
+  .tool-guide h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin-top: 24px; margin-bottom: 8px; }
+  .tool-guide p, .tool-guide li { font-size: 14px; color: var(--ink-dim); line-height: 1.65; }
+  .tool-guide ul { padding-left: 20px; margin-bottom: 16px; }
+  .tool-guide li { margin-bottom: 6px; }
+  .tool-guide code {
+    font-family: var(--font-mono); font-size: 13px;
+    background: var(--btn-idle-bg); border: 1px solid var(--panel-border);
+    border-radius: 4px; padding: 1px 6px; color: var(--accent);
+  }
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .faq-item p { margin: 0; }
+</style>
