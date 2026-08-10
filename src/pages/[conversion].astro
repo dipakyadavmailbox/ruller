@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Breadcrumb from '../components/astro/Breadcrumb.astro'
+import RelatedTools from '../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../components/astro/SoftwareApplicationSchema.astro'
+import FaqSchema from '../components/astro/FaqSchema.astro'
+import UnitConverter from '../components/react/unitconverter/UnitConverter.jsx'
+import { CONVERSIONS_DATA, getConversionBySlug } from '../data/conversionsData.js'
+import { UNIT_CATEGORIES_DATA } from '../data/unitCategoriesData.js'
+import { UNIT_CATEGORIES, convertUnits, formatResult } from '../components/react/unitconverter/unitData.js'
+
+export function getStaticPaths() {
+  return CONVERSIONS_DATA.map((conv) => ({
+    params: { conversion: conv.slug },
+  }))
+}
+
+const { conversion: slugParam } = Astro.params
+const conv = getConversionBySlug(slugParam) || CONVERSIONS_DATA[0]
+const categoryData = UNIT_CATEGORIES_DATA[conv.categoryId] || UNIT_CATEGORIES_DATA.weight
+const catObj = UNIT_CATEGORIES.find((c) => c.id === conv.categoryId)
+
+const title = conv.title
+const description = conv.description
+const keywords = conv.keywords
+const canonicalPath = `/${conv.slug}`
+
+const faqItems = conv.faqs || []
+
+// Generate conversion table rows dynamically using convertUnits math
+const tableData = (conv.tableValues || [1, 2, 5, 10, 20, 50, 100]).map((val) => {
+  const result = convertUnits(val, conv.fromUnit, conv.toUnit, catObj)
+  return {
+    from: `${val} ${conv.fromSymbol}`,
+    to: `${formatResult(result)} ${conv.toSymbol}`,
+  }
+})
+
+// Find related conversion objects
+const relatedConversions = (conv.relatedSlugs || [])
+  .map((s) => getConversionBySlug(s))
+  .filter(Boolean)
+---
+
+<BaseLayout title={title} description={description} path={canonicalPath} keywords={keywords}>
+  <SoftwareApplicationSchema
+    slot="head"
+    name={`${conv.fromLabel} to ${conv.toLabel} Converter`}
+    description={description}
+    path={canonicalPath}
+  />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb
+    items={[
+      { label: 'Home', path: '/' },
+      { label: 'Unit Converter', path: '/unit-converter' },
+      { label: `${categoryData.name}`, path: `/unit-converter/${conv.categoryId}` },
+      { label: `${conv.fromLabel} to ${conv.toLabel}` },
+    ]}
+  />
+
+  <div class="tool-hero">
+    <h1>{conv.fromLabel} to {conv.toLabel} ({conv.fromSymbol} to {conv.toSymbol}) Converter</h1>
+    <p>
+      Convert {conv.fromLabel.toLowerCase()} to {conv.toLabel.toLowerCase()} instantly.
+      Use our live calculator, see the exact conversion formula, view the step-by-step lookup table, and review practical examples.
+    </p>
+  </div>
+
+  <UnitConverter
+    client:load
+    initialCategory={conv.categoryId}
+    initialFromUnit={conv.fromUnit}
+    initialToUnit={conv.toUnit}
+  />
+
+  <article class="tool-guide">
+    <div class="formula-box">
+      <div class="formula-label">EXACT CONVERSION FORMULA</div>
+      <div class="formula-text">{conv.formula}</div>
+      <p class="formula-desc">{conv.formulaExplanation}</p>
+    </div>
+
+    <h2>{conv.fromLabel} to {conv.toLabel} Conversion Table</h2>
+    <p>Quick reference lookup table for converting common values from {conv.fromLabel.toLowerCase()} to {conv.toLabel.toLowerCase()}:</p>
+
+    <div class="table-wrapper">
+      <table class="conversion-table">
+        <thead>
+          <tr>
+            <th>{conv.fromLabel} ({conv.fromSymbol})</th>
+            <th>{conv.toLabel} ({conv.toSymbol})</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData.map((row) => (
+            <tr>
+              <td class="font-mono">{row.from}</td>
+              <td class="font-mono highlight">{row.to}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {conv.examples && conv.examples.length > 0 && (
+      <>
+        <h2>Practical Examples</h2>
+        <div class="examples-grid">
+          {conv.examples.map((ex) => (
+            <div class="example-card">
+              <div class="example-math">{ex.input} = <span class="accent">{ex.result}</span></div>
+              <div class="example-desc">{ex.desc}</div>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+
+    {faqItems.length > 0 && (
+      <>
+        <h2>Frequently Asked Questions</h2>
+        {faqItems.map((faq) => (
+          <div class="faq-item">
+            <h4>{faq.q}</h4>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </>
+    )}
+
+    {relatedConversions.length > 0 && (
+      <div class="related-section">
+        <h2>Related {categoryData.name} Conversions</h2>
+        <div class="related-grid">
+          {relatedConversions.map((r) => (
+            <a href={`/${r.slug}`} class="related-card">
+              <span>⇄</span> {r.fromLabel} to {r.toLabel}
+            </a>
+          ))}
+          <a href={`/unit-converter/${conv.categoryId}`} class="related-card cat-link">
+            <span>📁</span> All {categoryData.name} Units →
+          </a>
+        </div>
+      </div>
+    )}
+  </article>
+
+  <RelatedTools currentSlug="/unit-converter" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(22px, 4vw, 32px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+
+  .tool-guide {
+    max-width: 900px; margin: 40px auto; padding: 32px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px;
+  }
+  .tool-guide h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-top: 32px; margin-bottom: 12px; }
+  .tool-guide h2:first-child { margin-top: 0; }
+  .tool-guide p { font-size: 14px; color: var(--ink-dim); line-height: 1.65; }
+
+  .formula-box {
+    background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 12px; padding: 20px; margin-bottom: 28px;
+  }
+  .formula-label { font-size: 11px; font-weight: 800; letter-spacing: 0.8px; color: var(--accent); margin-bottom: 6px; }
+  .formula-text { font-size: 18px; font-weight: 800; color: var(--ink); font-family: var(--font-mono); margin-bottom: 8px; }
+  .formula-desc { font-size: 13px; color: var(--ink-dim); margin: 0; }
+
+  .table-wrapper { overflow-x: auto; margin-bottom: 24px; border-radius: 10px; border: 1px solid var(--panel-border); }
+  .conversion-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px; }
+  .conversion-table th { background: rgba(255, 255, 255, 0.03); padding: 12px 16px; font-weight: 700; color: var(--ink-dim); border-bottom: 1px solid var(--panel-border); }
+  .conversion-table td { padding: 10px 16px; border-bottom: 1px solid var(--panel-border); color: var(--ink); }
+  .conversion-table tr:last-child td { border-bottom: none; }
+  .font-mono { font-family: var(--font-mono); }
+  .highlight { font-weight: 700; color: var(--accent); }
+
+  .examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .example-card { padding: 14px 16px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--panel-border); border-radius: 10px; }
+  .example-math { font-size: 15px; font-weight: 700; font-family: var(--font-mono); color: var(--ink); margin-bottom: 4px; }
+  .example-math .accent { color: var(--accent); }
+  .example-desc { font-size: 12px; color: var(--ink-dim); }
+
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .faq-item p { margin: 0; }
+
+  .related-section { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--panel-border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .related-card {
+    display: flex; alignItems: center; gap: 8px; padding: 10px 14px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 10px;
+    color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600; transition: all 150ms ease;
+  }
+  .related-card:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .cat-link { background: rgba(99, 102, 241, 0.08); color: var(--accent); border-color: rgba(99, 102, 241, 0.2); }
+</style>

@@ -9,14 +9,14 @@ const AFFILIATE_ITEMS = [
   { name: 'Mirrorless camera bodies', blurb: 'Shoot in-camera aspect-ratio guides for social-ready framing.', href: '#', cta: 'Shop →' },
 ]
 
-export default function AspectRatioCalculator() {
+export default function AspectRatioCalculator({ initialRatioW = 16, initialRatioH = 9 }) {
   const [mode, setMode] = useState('dimensions') // 'dimensions' | 'crop' | 'presets'
 
   // Dimension Calculator state
   const [calcBase, setCalcBase] = useState('width') // 'width' | 'height'
   const [knownValue, setKnownValue] = useState(1920)
-  const [customRatioW, setCustomRatioW] = useState(16)
-  const [customRatioH, setCustomRatioH] = useState(9)
+  const [customRatioW, setCustomRatioW] = useState(initialRatioW)
+  const [customRatioH, setCustomRatioH] = useState(initialRatioH)
 
   // Crop Calculator state
   const [origWidth, setOrigWidth] = useState(4000)

@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import UnitConverter from '../../components/react/unitconverter/UnitConverter.jsx'
+import { UNIT_CATEGORIES_DATA } from '../../data/unitCategoriesData.js'
+
+export function getStaticPaths() {
+  return Object.keys(UNIT_CATEGORIES_DATA).map((catKey) => ({
+    params: { category: catKey },
+  }))
+}
+
+const { category: catParam } = Astro.params
+const categoryData = UNIT_CATEGORIES_DATA[catParam] || UNIT_CATEGORIES_DATA.length
+
+const title = categoryData.title
+const description = categoryData.description
+const keywords = categoryData.keywords
+const canonicalPath = `/unit-converter/${categoryData.id}`
+
+const faqItems = categoryData.faqs || []
+---
+
+<BaseLayout title={title} description={description} path={canonicalPath} keywords={keywords}>
+  <SoftwareApplicationSchema
+    slot="head"
+    name={`${categoryData.name} Unit Converter`}
+    description={description}
+    path={canonicalPath}
+  />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb
+    items={[
+      { label: 'Home', path: '/' },
+      { label: 'Unit Converter', path: '/unit-converter' },
+      { label: `${categoryData.name} Converter` },
+    ]}
+  />
+
+  <div class="tool-hero">
+    <h1>{categoryData.icon} {categoryData.name} Unit Converter</h1>
+    <p>{categoryData.intro}</p>
+  </div>
+
+  <UnitConverter client:load initialCategory={categoryData.id} />
+
+  {categoryData.featuredConversions && categoryData.featuredConversions.length > 0 && (
+    <div class="featured-conversions">
+      <h3>Popular {categoryData.singularName} Conversions</h3>
+      <div class="conversions-grid">
+        {categoryData.featuredConversions.map((conv) => (
+          <a href={`/${conv.slug}`} class="conversion-card">
+            <span>⇄</span> {conv.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <article class="tool-guide">
+    <h2>Supported {categoryData.name} Units</h2>
+    <ul>
+      {categoryData.unitsList.map((u) => (
+        <li><strong>{u.name}:</strong> {u.desc}</li>
+      ))}
+    </ul>
+
+    <h2>How {categoryData.name} Conversion Works</h2>
+    <p>{categoryData.formulaOverview}</p>
+
+    {faqItems.length > 0 && (
+      <>
+        <h2>Frequently Asked Questions</h2>
+        {faqItems.map((faq) => (
+          <div class="faq-item">
+            <h4>{faq.q}</h4>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </>
+    )}
+  </article>
+
+  <RelatedTools currentSlug="/unit-converter" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+
+  .featured-conversions {
+    max-width: 900px; margin: 32px auto 0; padding: 0 20px;
+  }
+  .featured-conversions h3 { font-size: 15px; font-weight: 800; color: var(--ink); margin-bottom: 12px; }
+  .conversions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .conversion-card {
+    display: flex; alignItems: center; gap: 8px; padding: 10px 14px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 10px;
+    color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600;
+    transition: all 150ms ease;
+  }
+  .conversion-card:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .tool-guide {
+    max-width: 900px; margin: 40px auto; padding: 32px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px;
+  }
+  .tool-guide h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-top: 24px; margin-bottom: 12px; }
+  .tool-guide h2:first-child { margin-top: 0; }
+  .tool-guide p, .tool-guide li { font-size: 14px; color: var(--ink-dim); line-height: 1.65; }
+  .tool-guide ul { padding-left: 20px; margin-bottom: 16px; }
+  .tool-guide li { margin-bottom: 6px; }
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .faq-item p { margin: 0; }
+</style>

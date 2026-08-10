@@ -1,8 +1,13 @@
 import { useState, useCallback } from 'react'
 import { UNIT_CATEGORIES, convertUnits, formatResult } from './unitData.js'
 
-export default function UnitConverter() {
-  const [activeCat, setActiveCat] = useState(UNIT_CATEGORIES[0].id)
+export default function UnitConverter({ initialCategory, initialFromUnit, initialToUnit }) {
+  const [activeCat, setActiveCat] = useState(() => {
+    if (initialCategory && UNIT_CATEGORIES.some((c) => c.id === initialCategory)) {
+      return initialCategory
+    }
+    return UNIT_CATEGORIES[0].id
+  })
 
   const category = UNIT_CATEGORIES.find((c) => c.id === activeCat)
 
@@ -41,19 +46,26 @@ export default function UnitConverter() {
         aria-labelledby={`unit-tab-${activeCat}`}
         style={styles.panel}
       >
-        <UnitPanel key={activeCat} category={category} />
+        <UnitPanel
+          key={activeCat}
+          category={category}
+          initialFromUnit={activeCat === initialCategory ? initialFromUnit : undefined}
+          initialToUnit={activeCat === initialCategory ? initialToUnit : undefined}
+        />
       </div>
     </div>
   )
 }
 
 // ─── Unit Panel (per-category) ─────────────────────────────────────────────────
-function UnitPanel({ category }) {
-  const [fromUnit, setFromUnit] = useState(category.defaults[0])
-  const [toUnit,   setToUnit]   = useState(category.defaults[1])
+function UnitPanel({ category, initialFromUnit, initialToUnit }) {
+  const defaultFrom = initialFromUnit && category.units.some(u => u.id === initialFromUnit) ? initialFromUnit : category.defaults[0]
+  const defaultTo = initialToUnit && category.units.some(u => u.id === initialToUnit) ? initialToUnit : category.defaults[1]
+  const [fromUnit, setFromUnit] = useState(defaultFrom)
+  const [toUnit,   setToUnit]   = useState(defaultTo)
   const [fromVal,  setFromVal]  = useState('1')
   const [toVal,    setToVal]    = useState(() =>
-    formatResult(convertUnits(1, category.defaults[0], category.defaults[1], category))
+    formatResult(convertUnits(1, defaultFrom, defaultTo, category))
   )
   const [copied, setCopied] = useState(false)
 

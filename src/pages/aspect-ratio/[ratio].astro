@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import AspectRatioCalculator from '../../components/react/aspect/AspectRatioCalculator.jsx'
+import { ASPECT_RATIO_PAGES_DATA, getAspectRatioPageBySlug } from '../../data/aspectRatioPagesData.js'
+
+export function getStaticPaths() {
+  return ASPECT_RATIO_PAGES_DATA.map((r) => ({
+    params: { ratio: r.slug },
+  }))
+}
+
+const { ratio: slugParam } = Astro.params
+const rData = getAspectRatioPageBySlug(slugParam) || ASPECT_RATIO_PAGES_DATA[0]
+
+const title = rData.title
+const description = rData.description
+const keywords = rData.keywords
+const canonicalPath = `/aspect-ratio/${rData.slug}`
+
+const faqItems = rData.faqs || []
+
+const relatedRatioObjs = (rData.relatedSlugs || [])
+  .map((s) => getAspectRatioPageBySlug(s))
+  .filter(Boolean)
+---
+
+<BaseLayout title={title} description={description} path={canonicalPath} keywords={keywords}>
+  <SoftwareApplicationSchema
+    slot="head"
+    name={`${rData.label} Aspect Ratio Calculator`}
+    description={description}
+    path={canonicalPath}
+  />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb
+    items={[
+      { label: 'Home', path: '/' },
+      { label: 'Aspect Ratio Calculator', path: '/aspect-ratio-calculator' },
+      { label: `${rData.label}` },
+    ]}
+  />
+
+  <div class="tool-hero">
+    <h1>{rData.label} Aspect Ratio Calculator</h1>
+    <p>{rData.intro}</p>
+
+    {rData.targetPlatforms && (
+      <div class="platform-tags">
+        <span class="tag-label">Common platforms:</span>
+        {rData.targetPlatforms.map((p) => (
+          <span class="platform-tag">📱 {p}</span>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <AspectRatioCalculator
+    client:load
+    initialRatioW={rData.ratioW}
+    initialRatioH={rData.ratioH}
+  />
+
+  <article class="tool-guide">
+    <h2>Common {rData.label} Resolutions Table</h2>
+    <p>Standard pixel dimensions formatted for {rData.label} displays, video presets, and export formats:</p>
+
+    <div class="table-wrapper">
+      <table class="resolution-table">
+        <thead>
+          <tr>
+            <th>Preset / Standard</th>
+            <th>Width × Height (px)</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rData.resolutions.map((res) => (
+            <tr>
+              <td><strong>{res.name}</strong></td>
+              <td class="font-mono highlight">{res.width} × {res.height} px</td>
+              <td><span class="badge">{res.badge}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">CALCULATION FORMULA FOR {rData.label}</div>
+      <div class="formula-text">{rData.formula}</div>
+      <p class="formula-desc">{rData.formulaExplanation}</p>
+    </div>
+
+    {faqItems.length > 0 && (
+      <>
+        <h2>Frequently Asked Questions</h2>
+        {faqItems.map((faq) => (
+          <div class="faq-item">
+            <h4>{faq.q}</h4>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </>
+    )}
+
+    {relatedRatioObjs.length > 0 && (
+      <div class="related-section">
+        <h2>Other Popular Aspect Ratios</h2>
+        <div class="related-grid">
+          {relatedRatioObjs.map((r) => (
+            <a href={`/aspect-ratio/${r.slug}`} class="related-card">
+              <span>🖼️</span> {r.label}
+            </a>
+          ))}
+          <a href="/aspect-ratio-calculator" class="related-card main-link">
+            <span>📐</span> Main Aspect Ratio Calculator →
+          </a>
+        </div>
+      </div>
+    )}
+  </article>
+
+  <RelatedTools currentSlug="/aspect-ratio-calculator" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 820px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+
+  .platform-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .tag-label { font-size: 12px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.5px; }
+  .platform-tag {
+    font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04); border: 1px solid var(--panel-border); color: var(--ink);
+  }
+
+  .tool-guide {
+    max-width: 820px; margin: 40px auto; padding: 32px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px;
+  }
+  .tool-guide h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-top: 32px; margin-bottom: 12px; }
+  .tool-guide h2:first-child { margin-top: 0; }
+  .tool-guide p { font-size: 14px; color: var(--ink-dim); line-height: 1.65; }
+
+  .table-wrapper { overflow-x: auto; margin-bottom: 28px; border-radius: 10px; border: 1px solid var(--panel-border); }
+  .resolution-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 13.5px; }
+  .resolution-table th { background: rgba(255, 255, 255, 0.03); padding: 12px 16px; font-weight: 700; color: var(--ink-dim); border-bottom: 1px solid var(--panel-border); }
+  .resolution-table td { padding: 10px 16px; border-bottom: 1px solid var(--panel-border); color: var(--ink); }
+  .resolution-table tr:last-child td { border-bottom: none; }
+  .font-mono { font-family: var(--font-mono); }
+  .highlight { font-weight: 700; color: var(--accent); }
+  .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: rgba(99, 102, 241, 0.15); color: var(--accent); }
+
+  .formula-box {
+    background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 12px; padding: 20px; margin-bottom: 28px;
+  }
+  .formula-label { font-size: 11px; font-weight: 800; letter-spacing: 0.8px; color: var(--accent); margin-bottom: 6px; }
+  .formula-text { font-size: 17px; font-weight: 800; color: var(--ink); font-family: var(--font-mono); margin-bottom: 8px; }
+  .formula-desc { font-size: 13px; color: var(--ink-dim); margin: 0; }
+
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .faq-item p { margin: 0; }
+
+  .related-section { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--panel-border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .related-card {
+    display: flex; alignItems: center; gap: 8px; padding: 10px 14px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 10px;
+    color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600; transition: all 150ms ease;
+  }
+  .related-card:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .main-link { background: rgba(99, 102, 241, 0.08); color: var(--accent); border-color: rgba(99, 102, 241, 0.2); }
+</style>
