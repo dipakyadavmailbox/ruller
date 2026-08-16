@@ -31,7 +31,10 @@ const catObj = conv ? UNIT_CATEGORIES.find((c) => c.id === conv.categoryId) : nu
 const title = isCategory ? categoryData.title : (conv ? conv.title : 'Unit Converter')
 const description = isCategory ? categoryData.description : (conv ? conv.description : '')
 const keywords = isCategory ? categoryData.keywords : (conv ? conv.keywords : '')
-const canonicalPath = `/unit-converter/${slugParam}`
+// Category pages (e.g. /unit-converter/weight) keep their own canonical.
+// Conversion pair pages (e.g. /unit-converter/kg-to-lbs) point their canonical
+// to the standalone version (/{slug}) to eliminate duplicate content.
+const canonicalPath = isCategory ? `/unit-converter/${slugParam}` : `/${slugParam}`
 
 const faqItems = isCategory ? categoryData.faqs : (conv ? conv.faqs : [])
 
