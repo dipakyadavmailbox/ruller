@@ -46,12 +46,32 @@ const faqItems = [
     <p>Generate scannable codes for any digital touchpoint with customizable aesthetics and zero tracking.</p>
 
     <h3>Specialized QR Code Generators</h3>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 24px;">
-      <a href="/qr-code-generator/url" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🌐 Website URL QR Generator</a>
-      <a href="/qr-code-generator/wifi" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📶 Wi-Fi Network QR Generator</a>
-      <a href="/qr-code-generator/vcard" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📇 vCard Contact Card QR Generator</a>
-      <a href="/qr-code-generator/email" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">✉️ Email Message QR Generator</a>
-      <a href="/qr-code-generator/text" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📝 Plain Text QR Generator</a>
+    <p>Create tailored QR codes for specific communication channels and devices:</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-bottom: 24px;">
+      <a href="/qr-code-generator/url" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🌐</span><strong style="font-size: 14px; color: var(--ink);">Website URL QR</strong></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Direct scans to websites, landing pages, social profiles, and YouTube links.</p>
+      </a>
+      <a href="/qr-code-generator/wifi" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">📶</span><strong style="font-size: 14px; color: var(--ink);">Wi-Fi Access QR</strong></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Let guests scan to join WPA/WPA2/WPA3 Wi-Fi networks without typing passwords.</p>
+      </a>
+      <a href="/qr-code-generator/vcard" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">📇</span><strong style="font-size: 14px; color: var(--ink);">Digital vCard Contact</strong></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Add complete address book contact info to smartphone address books in 1 tap.</p>
+      </a>
+      <a href="/qr-code-generator/sms" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">💬</span><strong style="font-size: 14px; color: var(--ink);">SMS & Phone Call</strong></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Pre-fill SMS text messages or phone numbers for direct customer support.</p>
+      </a>
+      <a href="/qr-code-generator/email" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">✉️</span><strong style="font-size: 14px; color: var(--ink);">Email Draft QR</strong></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Open user email app with pre-filled recipient address, subject, and body text.</p>
+      </a>
+      <a href="/qr-code-generator/text" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">📝</span><strong style="font-size: 14px; color: var(--ink);">Plain Text Notes</strong></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Encode serial codes, inventory IDs, and offline text messages.</p>
+      </a>
     </div>
 
     <PrivacyComparisonTable toolName="QR Code Generation" competitorLabel="Other QR Generators" />

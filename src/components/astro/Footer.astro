@@ -1,6 +1,32 @@
 ---
 import { SITE_CONFIG } from '../../siteConfig.js'
 import { CATEGORIES } from '../../data/tools.js'
+
+const POPULAR_PRESETS = [
+  { label: 'Passport Photo Resizer', slug: '/image-resizer/passport-photo' },
+  { label: 'Merge PDF Online', slug: '/pdf-tools/merge-pdf' },
+  { label: 'Split PDF Pages', slug: '/pdf-tools/split-pdf' },
+  { label: 'JSON to CSV Converter', slug: '/data-converter/json-to-csv' },
+  { label: 'Base64 Encoder / Decoder', slug: '/data-converter/base64-encode' },
+  { label: 'Password Generator', slug: '/password-checker/password-generator' },
+  { label: 'Email Regex Validator', slug: '/regex-tester/email-regex' },
+  { label: 'Cron Expression Schedule', slug: '/cron-expression-builder/every-5-minutes' },
+  { label: '300 DPI Print Sizing', slug: '/dpi-calculator/300-dpi' },
+  { label: 'Wi-Fi QR Code Maker', slug: '/qr-code-generator/wifi' },
+]
+
+const POPULAR_CONVERSIONS_HEALTH = [
+  { label: 'All 98+ Unit Conversions', slug: '/conversions' },
+  { label: 'Kilograms to Pounds (kg to lbs)', slug: '/kg-to-lbs' },
+  { label: 'Centimeters to Inches (cm to in)', slug: '/cm-to-inches' },
+  { label: 'Celsius to Fahrenheit (°C to °F)', slug: '/celsius-to-fahrenheit' },
+  { label: 'Grams to Ounces (g to oz)', slug: '/g-to-oz' },
+  { label: 'Meters to Feet (m to ft)', slug: '/meters-to-feet' },
+  { label: 'BMR & TDEE Calculator', slug: '/bmr-calculator' },
+  { label: 'Calorie Deficit Calculator', slug: '/calorie-deficit-calculator' },
+  { label: 'Pregnancy Due Date Calculator', slug: '/due-date-calculator' },
+  { label: 'Ovulation & Fertility Window', slug: '/ovulation-calculator' },
+]
 ---
 
 <footer class="site-footer">
@@ -11,15 +37,52 @@ import { CATEGORIES } from '../../data/tools.js'
         <span class="logo-title">Rocking Tools</span>
       </div>
       <p class="footer-tagline">
-        Studio-grade browser utilities. 100% private &amp; client-side.
+        Studio-grade browser utilities, programmatic format converters, and scientific calculators. 100% private, instantaneous, and client-side.
       </p>
       <div class="privacy-badge">
-        🔒 100% Private — No Data Ever Leaves Your Browser
+        🔒 100% Private — Zero Data Leaves Your Machine
+      </div>
+
+      <div class="footer-hubs-block">
+        <span class="hubs-title">TOOL SUITES:</span>
+        <div class="hubs-badges">
+          <a href="/conversions">🔄 Conversions</a>
+          <a href="/pdf-tools">📄 PDF Tools</a>
+          <a href="/image-resizer">🖼️ Image Resizer</a>
+          <a href="/data-converter">📊 Data Tools</a>
+          <a href="/password-checker">🔒 Security</a>
+          <a href="/regex-tester">⚡ Regex</a>
+          <a href="/cron-expression-builder">🕐 Cron</a>
+          <a href="/dpi-calculator">🖨️ DPI</a>
+          <a href="/ruler">📏 Screen Ruler</a>
+          <a href="/color-tools">🎨 Color</a>
+          <a href="/qr-code-generator">📱 QR Codes</a>
+          <a href="/calorie-calculator">🥗 Fitness</a>
+          <a href="/pregnancy-calculator">👶 Pregnancy</a>
+        </div>
       </div>
     </div>
 
     <div class="footer-nav-grid">
-      {CATEGORIES.map((cat) => (
+      <div class="footer-col">
+        <div class="col-title">Popular Tools</div>
+        <ul class="col-list">
+          {POPULAR_PRESETS.map((item) => (
+            <li><a href={item.slug}>{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="col-title">Conversions &amp; Health</div>
+        <ul class="col-list">
+          {POPULAR_CONVERSIONS_HEALTH.map((item) => (
+            <li><a href={item.slug}>{item.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      {CATEGORIES.slice(0, 2).map((cat) => (
         <div class="footer-col">
           <div class="col-title">{cat.heading}</div>
           <ul class="col-list">
@@ -31,10 +94,11 @@ import { CATEGORIES } from '../../data/tools.js'
       ))}
 
       <div class="footer-col">
-        <div class="col-title">Legal &amp; Contact</div>
+        <div class="col-title">Platform &amp; Legal</div>
         <ul class="col-list">
           <li><a href="/about">About Us</a></li>
           <li><a href="/faq">FAQ</a></li>
+          <li><a href="/sitemap">HTML Sitemap</a></li>
           <li><a href="/contact">Contact Support</a></li>
           <li><a href="/privacy">Privacy Policy</a></li>
           <li><a href="/terms">Terms of Service</a></li>
@@ -47,11 +111,13 @@ import { CATEGORIES } from '../../data/tools.js'
   </div>
 
   <div class="footer-bottom">
-    <div>© {new Date().getFullYear()} {SITE_CONFIG.siteName}. All rights reserved.</div>
+    <div>© {new Date().getFullYear()} {SITE_CONFIG.siteName}. All calculations processed locally.</div>
     <div class="footer-bottom-links">
-      <span>Built with Astro &amp; React</span>
+      <span>Fast Static Astro Architecture</span>
       <span>•</span>
-      <a href="/sitemap">Sitemap</a>
+      <a href="/sitemap">Directory</a>
+      <span>•</span>
+      <a href="/sitemap-index.xml">XML Index</a>
     </div>
   </div>
 </footer>
@@ -65,13 +131,13 @@ import { CATEGORIES } from '../../data/tools.js'
     padding: 60px 32px 32px;
   }
   .footer-container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1.1fr 2.9fr;
     gap: 48px;
   }
-  @media (max-width: 860px) {
+  @media (max-width: 1024px) {
     .footer-container {
       grid-template-columns: 1fr;
     }
@@ -85,7 +151,7 @@ import { CATEGORIES } from '../../data/tools.js'
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 900;
     letter-spacing: 1px;
     color: var(--ink);
@@ -109,9 +175,42 @@ import { CATEGORIES } from '../../data/tools.js'
     border: 1px solid rgba(16, 185, 129, 0.2);
     width: fit-content;
   }
+  .footer-hubs-block {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hubs-title {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--accent);
+  }
+  .hubs-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .hubs-badges a {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-dim);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--panel-border);
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .hubs-badges a:hover {
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+
   .footer-nav-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 28px;
   }
   .col-title {
@@ -131,16 +230,18 @@ import { CATEGORIES } from '../../data/tools.js'
     gap: 8px;
   }
   .col-list a {
-    font-size: 13px;
+    font-size: 12.5px;
     color: var(--ink-dim);
-    font-weight: 600;
+    font-weight: 500;
     transition: color 150ms ease;
+    text-decoration: none;
+    line-height: 1.4;
   }
   .col-list a:hover {
     color: var(--ink);
   }
   .footer-bottom {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 48px auto 0;
     padding-top: 24px;
     border-top: 1px solid var(--panel-border);

@@ -48,13 +48,45 @@ const faqItems = [
   <MedicalDisclaimer topic="Calorie & Nutrition" />
 
   <article class="tool-guide">
-    <h2>Specific Calorie & Metabolism Calculators</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 24px;">
-      <a href="/bmr-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🔥 BMR Calculator (Basal Metabolic Rate)</a>
-      <a href="/tdee-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">⚡ TDEE Calculator (Total Daily Energy)</a>
-      <a href="/macro-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🥗 Macro Calculator (Protein/Carb/Fat Split)</a>
-      <a href="/protein-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🥩 Protein Intake Calculator</a>
-      <a href="/calorie-deficit-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📉 Calorie Deficit Calculator (Weight Loss)</a>
+    <h2>Specific Calorie, Fitness & Nutrition Calculators</h2>
+    <p>Jump directly to specialized fitness, metabolism, and body composition calculators:</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-bottom: 28px;">
+      <a href="/bmr-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🔥</span><strong style="font-size: 14px; color: var(--ink);">BMR Calculator</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Resting</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Calculate baseline calories burned strictly at rest via the clinical Mifflin-St Jeor formula.</p>
+      </a>
+      <a href="/tdee-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">⚡</span><strong style="font-size: 14px; color: var(--ink);">TDEE Calculator</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Daily Burn</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Determine total daily calories burned with lifestyle movement and exercise multipliers.</p>
+      </a>
+      <a href="/macro-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🥗</span><strong style="font-size: 14px; color: var(--ink);">Macro Calculator</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Grams</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Target daily protein, carbohydrate, and fat gram ratios for muscle growth or fat loss.</p>
+      </a>
+      <a href="/protein-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🥩</span><strong style="font-size: 14px; color: var(--ink);">Protein Intake</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">ISSN</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Optimal daily grams of dietary protein customized by body weight and workout frequency.</p>
+      </a>
+      <a href="/calorie-deficit-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">📉</span><strong style="font-size: 14px; color: var(--ink);">Calorie Deficit Target</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Weight Loss</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Safe, sustainable fat loss targets (300-500 kcal deficit) to preserve lean muscle mass.</p>
+      </a>
+      <a href="/body-fat-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">📐</span><strong style="font-size: 14px; color: var(--ink);">Body Fat % (Navy Tape)</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">US Navy</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Estimate fat mass and lean muscle percentage using neck, waist, and hip measurements.</p>
+      </a>
+      <a href="/ideal-weight-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">⚖️</span><strong style="font-size: 14px; color: var(--ink);">Ideal Body Weight</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Devine IBW</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Clinical healthy weight target based on height and biological sex.</p>
+      </a>
+      <a href="/water-intake-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">💧</span><strong style="font-size: 14px; color: var(--ink);">Daily Water Intake</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Hydration</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Calculate optimal daily fluid volume in liters and ounces customized for workout activity.</p>
+      </a>
+      <a href="/intermittent-fasting-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">⏳</span><strong style="font-size: 14px; color: var(--ink);">Intermittent Fasting</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">16:8 / 18:6</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Schedule eating and fasting windows for 16:8, 18:6, 20:4, and OMAD protocols.</p>
+      </a>
     </div>
 
     <h2>Understanding TDEE, BMR & Daily Calorie Needs</h2>

@@ -45,12 +45,40 @@ const faqItems = [
 
   <article class="tool-guide">
     <h2>Specific Pregnancy & Fertility Calculators</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 24px;">
-      <a href="/due-date-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">👶 Due Date Calculator (Naegele's Rule)</a>
-      <a href="/ovulation-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🌸 Ovulation & Fertile Window Calculator</a>
-      <a href="/conception-date-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🗓️ Estimated Conception Date Calculator</a>
-      <a href="/pregnancy-week-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📊 Pregnancy Week-by-Week Calculator</a>
-      <a href="/pregnancy-weight-gain-calculator" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">⚖️ Pregnancy Weight Gain Calculator (IOM)</a>
+    <p>Jump directly to specialized obstetrics, trimester, and fertility milestone tools:</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-bottom: 28px;">
+      <a href="/due-date-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">👶</span><strong style="font-size: 14px; color: var(--ink);">Due Date Calculator</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Naegele</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Estimate your expected delivery date using Naegele's 280-day rule from LMP.</p>
+      </a>
+      <a href="/ovulation-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🌸</span><strong style="font-size: 14px; color: var(--ink);">Ovulation & Fertile Window</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Fertility</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Identify the 6-day fertile window and peak ovulation dates for family planning.</p>
+      </a>
+      <a href="/conception-date-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🗓️</span><strong style="font-size: 14px; color: var(--ink);">Conception Date</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Estimate</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Calculate the estimated date of fertilization based on due date or cycle length.</p>
+      </a>
+      <a href="/pregnancy-week-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">📊</span><strong style="font-size: 14px; color: var(--ink);">Week-by-Week Progress</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">Weeks+Days</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Track your current completed gestational weeks, days, and developmental milestones.</p>
+      </a>
+      <a href="/pregnancy-weight-gain-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">⚖️</span><strong style="font-size: 14px; color: var(--ink);">Healthy Weight Gain</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">IOM 2009</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Target gestational weight gain ranges personalized by pre-pregnancy BMI.</p>
+      </a>
+      <a href="/trimester-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">📅</span><strong style="font-size: 14px; color: var(--ink);">Trimester Dates</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">1st/2nd/3rd</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Calculate exact calendar start and end dates for 1st, 2nd, and 3rd trimesters.</p>
+      </a>
+      <a href="/implantation-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🩺</span><strong style="font-size: 14px; color: var(--ink);">Implantation Window</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">6-12 DPO</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Estimated embryo implantation dates and optimal days to take a home pregnancy test.</p>
+      </a>
+      <a href="/ivf-due-date-calculator" style="display: flex; flex-direction: column; padding: 16px; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 12px; text-decoration: none; transition: all 150ms ease;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;"><span style="font-size: 18px;">🔬</span><strong style="font-size: 14px; color: var(--ink);">IVF Due Date</strong><span style="font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-light); padding: 2px 6px; border-radius: 6px; margin-left: auto;">FET Transfer</span></div>
+        <p style="font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5;">Calculate delivery dates for 3-day and 5-day blastocyst embryo transfer cycles.</p>
+      </a>
     </div>
 
     <h2>Understanding Pregnancy Timeline & Trimesters</h2>

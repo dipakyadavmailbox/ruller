@@ -57,6 +57,39 @@ const faqItems = [
       <li><strong>72–96 DPI:</strong> Standard screen display and web graphics. Not suitable for any physical printing.</li>
     </ul>
 
+    <h3>Popular Print Sizing & DPI Calculators</h3>
+    <p>Jump directly to standard photo frame sizes and resolution calculators:</p>
+    <div class="dpi-subtools-grid">
+      <a href="/dpi-calculator/300-dpi" class="dpi-subtool-card">
+        <div class="dpi-card-header"><span class="dpi-card-icon">🖨️</span><strong>300 DPI Calculator</strong><span class="dpi-tag">Photo Lab</span></div>
+        <p>Standard high-quality photo lab resolution for gallery prints and albums.</p>
+      </a>
+      <a href="/dpi-calculator/150-dpi" class="dpi-subtool-card">
+        <div class="dpi-card-header"><span class="dpi-card-icon">🖼️</span><strong>150 DPI Large Format</strong><span class="dpi-tag">Poster/Canvas</span></div>
+        <p>Optimal resolution for wall posters and canvas prints viewed from 3+ feet.</p>
+      </a>
+      <a href="/dpi-calculator/4x6-print" class="dpi-subtool-card">
+        <div class="dpi-card-header"><span class="dpi-card-icon">📷</span><strong>4×6 Photo Print Size</strong><span class="dpi-tag">1200×1800 px</span></div>
+        <p>Exact pixel dimensions for standard 4×6 photo album prints at 300 DPI.</p>
+      </a>
+      <a href="/dpi-calculator/5x7-print" class="dpi-subtool-card">
+        <div class="dpi-card-header"><span class="dpi-card-icon">🖼️</span><strong>5×7 Framed Print Size</strong><span class="dpi-tag">1500×2100 px</span></div>
+        <p>Pixel requirements for senior portraits, wedding frames, and invitations.</p>
+      </a>
+      <a href="/dpi-calculator/8x10-print" class="dpi-subtool-card">
+        <div class="dpi-card-header"><span class="dpi-card-icon">🖼️</span><strong>8×10 Photo Frame Size</strong><span class="dpi-tag">2400×3000 px</span></div>
+        <p>Pixel resolution for standard 8×10 inch portrait frames and wall art.</p>
+      </a>
+      <a href="/dpi-calculator/a4-print" class="dpi-subtool-card">
+        <div class="dpi-card-header"><span class="dpi-card-icon">📄</span><strong>A4 Sheet in Pixels</strong><span class="dpi-tag">2480×3508 px</span></div>
+        <p>International standard ISO 216 A4 paper resolution at 300, 150, and 72 DPI.</p>
+      </a>
+      <a href="/dpi-calculator/poster-size" class="dpi-subtool-card">
+        <div class="dpi-card-header"><span class="dpi-card-icon">🎬</span><strong>24×36 Poster Size</strong><span class="dpi-tag">3600×5400 px</span></div>
+        <p>Full-size movie, theatrical, and concert poster resolution calculator.</p>
+      </a>
+    </div>
+
     <PrivacyComparisonTable toolName="DPI & Print Resolution Calculation" competitorLabel="Other Resolution Calculators" />
 
     <h3>Frequently Asked Questions</h3>
@@ -72,8 +105,57 @@ const faqItems = [
 </BaseLayout>
 
 <style>
-  .tool-hero { max-width: 720px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero { max-width: 780px; margin: 0 auto; padding: 32px 20px 0; }
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
   .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
   .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .dpi-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .dpi-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .dpi-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .dpi-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .dpi-card-icon { font-size: 18px; }
+  .dpi-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .dpi-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .dpi-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
 </style>

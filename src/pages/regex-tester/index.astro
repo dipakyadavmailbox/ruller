@@ -64,6 +64,43 @@ const faqItems = [
       <li><code>s</code> (DotAll): Allows dot (<code>.</code>) to match newline characters.</li>
     </ul>
 
+    <h3>Popular Regular Expression Patterns</h3>
+    <p>Test and copy validated regex patterns for common input validation tasks:</p>
+    <div class="regex-subtools-grid">
+      <a href="/regex-tester/email-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">✉️</span><strong>Email Validation</strong><span class="regex-tag">RFC Standard</span></div>
+        <p>Validate email addresses with username, domain, and modern TLD checks.</p>
+      </a>
+      <a href="/regex-tester/phone-number-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">📞</span><strong>Phone Number Regex</strong><span class="regex-tag">US & Intl</span></div>
+        <p>Matches phone numbers with optional parentheses, hyphens, dots, and country codes.</p>
+      </a>
+      <a href="/regex-tester/url-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">🌐</span><strong>URL / Web Address</strong><span class="regex-tag">HTTP/HTTPS</span></div>
+        <p>Validate website links, port numbers, query strings, and path parameters.</p>
+      </a>
+      <a href="/regex-tester/ipv4-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">🖥️</span><strong>IPv4 Address Regex</strong><span class="regex-tag">0-255 Octet</span></div>
+        <p>Enforce 0-255 octet boundaries for standard dotted decimal IP addresses.</p>
+      </a>
+      <a href="/regex-tester/date-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">📅</span><strong>Date (YYYY-MM-DD)</strong><span class="regex-tag">ISO 8601</span></div>
+        <p>Validate ISO date strings with valid month (01-12) and day (01-31) ranges.</p>
+      </a>
+      <a href="/regex-tester/password-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">🔒</span><strong>Strong Password Policy</strong><span class="regex-tag">Lookahead</span></div>
+        <p>Enforce uppercase, lowercase, numbers, and symbols with positive lookaheads.</p>
+      </a>
+      <a href="/regex-tester/uuid-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">🔑</span><strong>UUID v4 / GUID</strong><span class="regex-tag">36-Char</span></div>
+        <p>Validate standard 128-bit universally unique identifiers and database keys.</p>
+      </a>
+      <a href="/regex-tester/hex-color-regex" class="regex-subtool-card">
+        <div class="regex-card-header"><span class="regex-card-icon">🎨</span><strong>Hex Color Code</strong><span class="regex-tag">#RRGGBB</span></div>
+        <p>Match 3-digit and 6-digit CSS hexadecimal color notation codes.</p>
+      </a>
+    </div>
+
     <PrivacyComparisonTable toolName="Regex Testing & Debugging" competitorLabel="Other Regex Testers" />
 
     <h3>Frequently Asked Questions</h3>
@@ -83,5 +120,54 @@ const faqItems = [
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
   .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
   .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .regex-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .regex-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .regex-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .regex-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .regex-card-icon { font-size: 18px; }
+  .regex-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .regex-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .regex-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
 </style>
 

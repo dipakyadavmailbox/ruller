@@ -58,7 +58,32 @@ const faqItems = [
       <li><strong>Check Breach Databases:</strong> Services like HaveIBeenPwned let you check if your email appeared in known data breaches.</li>
     </ul>
 
-    <PrivacyComparisonTable toolName="Password Security Testing" competitorLabel="Other Password Checkers" />
+    <h3>Dedicated Password & Security Utilities</h3>
+    <p>Jump directly to specialized password generation and testing tools:</p>
+    <div class="pwd-subtools-grid">
+      <a href="/password-checker/password-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">🔑</span><strong>Random Password Generator</strong><span class="pwd-tag">16 Char</span></div>
+        <p>Generate high-entropy random passwords with mixed cases, numbers, and symbols.</p>
+      </a>
+      <a href="/password-checker/strong-password-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">🛡️</span><strong>24+ Character Max Security</strong><span class="pwd-tag">High Entropy</span></div>
+        <p>Generate military-grade 24-character master keys for root servers and password vaults.</p>
+      </a>
+      <a href="/password-checker/pin-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">🔢</span><strong>Random PIN Generator</strong><span class="pwd-tag">4 & 6 Digit</span></div>
+        <p>Generate unpredictable numeric PIN codes for ATM cards, phone locks, and keypads.</p>
+      </a>
+      <a href="/password-checker/passphrase-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">📝</span><strong>Memorable Passphrase Maker</strong><span class="pwd-tag">Diceware</span></div>
+        <p>Create easy-to-remember multi-word passphrases (e.g. correct-horse-battery-staple).</p>
+      </a>
+      <a href="/password-checker/password-strength-test" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">⚡</span><strong>Password Strength Tester</strong><span class="pwd-tag">Audit</span></div>
+        <p>Test password entropy and calculate real-time GPU cluster crack duration estimates.</p>
+      </a>
+    </div>
+
+    <PrivacyComparisonTable toolName="Password Strength Checking" competitorLabel="Other Password Checkers" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (
@@ -91,4 +116,53 @@ const faqItems = [
     margin-bottom: 16px;
   }
   .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .pwd-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .pwd-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .pwd-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .pwd-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .pwd-card-icon { font-size: 18px; }
+  .pwd-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .pwd-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .pwd-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
 </style>

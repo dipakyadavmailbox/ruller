@@ -104,6 +104,31 @@ const faqItems = [
       <li><strong>Output:</strong> ZIP archive (all-pages) or single PDF (range mode)</li>
     </ul>
 
+    <h3>Dedicated Free PDF Tools</h3>
+    <p>Jump directly to our dedicated, single-purpose PDF utilities:</p>
+    <div class="pdf-subtools-grid">
+      <a href="/pdf-tools/merge-pdf" class="pdf-subtool-card">
+        <div class="pdf-card-header"><span class="pdf-card-icon">🔗</span><strong>Merge PDF Files</strong><span class="pdf-tag">Combine</span></div>
+        <p>Combine multiple PDF documents into one organized file in seconds.</p>
+      </a>
+      <a href="/pdf-tools/split-pdf" class="pdf-subtool-card">
+        <div class="pdf-card-header"><span class="pdf-card-icon">✂️</span><strong>Split & Extract Pages</strong><span class="pdf-tag">Extract</span></div>
+        <p>Extract specific page numbers, custom ranges (1-4, 8), or save every page as a separate PDF.</p>
+      </a>
+      <a href="/pdf-tools/image-to-pdf" class="pdf-subtool-card">
+        <div class="pdf-card-header"><span class="pdf-card-icon">🖼️</span><strong>Images to PDF</strong><span class="pdf-tag">Batch</span></div>
+        <p>Turn JPG, PNG, and WebP photo collections into a clean, unified PDF presentation.</p>
+      </a>
+      <a href="/pdf-tools/jpg-to-pdf" class="pdf-subtool-card">
+        <div class="pdf-card-header"><span class="pdf-card-icon">📷</span><strong>JPG to PDF</strong><span class="pdf-tag">JPEG</span></div>
+        <p>Convert camera photo scans and receipts into standard PDF documents.</p>
+      </a>
+      <a href="/pdf-tools/png-to-pdf" class="pdf-subtool-card">
+        <div class="pdf-card-header"><span class="pdf-card-icon">🎨</span><strong>PNG to PDF</strong><span class="pdf-tag">High-Res</span></div>
+        <p>Convert transparent diagrams and design exports into sharp vector-grade PDFs.</p>
+      </a>
+    </div>
+
     <PrivacyComparisonTable toolName="PDF Processing" competitorLabel="Other Online PDF Tools" />
 
     <h3>Frequently Asked Questions</h3>
@@ -135,4 +160,53 @@ const faqItems = [
   .faq-item { margin-bottom: 20px; }
   .faq-item h4 { font-size: 14px; font-weight: 800; color: var(--ink); margin: 0 0 6px; }
   .faq-item p  { font-size: 14px; color: var(--ink-dim); line-height: 1.65; margin: 0; }
+
+  .pdf-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .pdf-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .pdf-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .pdf-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .pdf-card-icon { font-size: 18px; }
+  .pdf-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .pdf-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .pdf-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
 </style>

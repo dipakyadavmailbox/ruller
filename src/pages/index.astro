@@ -121,27 +121,78 @@ const itemListSchema = {
 
   <ToolGrid client:load />
 
-  {/* Static tool links for Googlebot — ensures full indexability and sitelink generation */}
-  <nav aria-label="All Tools Directory" class="seo-tool-directory">
-    <h2>All Free Online Tools</h2>
-    <ul class="seo-tool-list">
-      <li><a href="/ruler">📏 Online Screen Ruler — Real Physical Scale Calibration (mm, cm, in)</a></li>
-      <li><a href="/dpi-calculator">🖨️ DPI / PPI Print Size Calculator & Pixel Converter</a></li>
-      <li><a href="/image-resizer">🖼️ Image Compressor & Resizer (WebP, PNG, JPG)</a></li>
-      <li><a href="/aspect-ratio-calculator">📐 Aspect Ratio & Crop Box Calculator (16:9, 9:16, 4:5, 1:1)</a></li>
-      <li><a href="/password-checker">🔒 Password Strength Checker & Cryptographic Generator</a></li>
-      <li><a href="/calorie-calculator">🥗 Calorie & TDEE Calculator (Mifflin-St Jeor Formula)</a></li>
-      <li><a href="/pregnancy-calculator">🤰 Pregnancy Due Date & Ovulation Calculator (Naegele Rule)</a></li>
-      <li><a href="/regex-tester">⚙️ Regex Tester & Cheatsheet (JavaScript Regular Expressions)</a></li>
-      <li><a href="/cron-expression-builder">🕐 Cron Expression Builder & Schedule Validator</a></li>
-      <li><a href="/data-converter">🔄 JSON ⇄ CSV ⇄ YAML Data Format Converter</a></li>
-      <li><a href="/qr-code-generator">📱 Free Online QR Code Generator (PNG, SVG, Custom Colors & WiFi)</a></li>
-      <li><a href="/pdf-tools">📄 PDF Converter, Merger & Splitter — 100% Browser-Based, Zero Upload</a></li>
-      <li><a href="/color-tools">🎨 Color Picker & Palette Generator — HEX, RGB, HSL, HSV</a></li>
-      <li><a href="/unit-converter">📐 Unit Converter — Length, Weight, Temperature & 7 More</a></li>
-      <li><a href="/conversions">🔄 All Unit Conversions Directory — 98+ Instant Conversion Calculators</a></li>
-    </ul>
-  </nav>
+  {/* Comprehensive static tool directory for search engines and user discovery */}
+  <section aria-label="All Tools & Utilities Directory" class="seo-tool-directory">
+    <div class="dir-header">
+      <span class="dir-badge">EXPLORE DIRECTORY</span>
+      <h2>All Free Online Tools &amp; Specialized Utilities</h2>
+      <p class="dir-intro">Studio-grade client-side utilities engineered for zero latency, 100% data privacy, and exact mathematical precision.</p>
+    </div>
+
+    <div class="dir-category-grid">
+      <!-- Media & Graphics -->
+      <div class="dir-cat-card">
+        <div class="dir-cat-title"><span class="cat-icon">🖼️</span><h3>Image &amp; Display Tools</h3></div>
+        <ul class="dir-links-list">
+          <li><a href="/image-resizer"><strong>Image Resizer &amp; Compressor</strong> — WebP, PNG, JPG optimizer</a></li>
+          <li><a href="/image-resizer/passport-photo">Passport Photo Resizer (2×2 in / 600×600 px)</a></li>
+          <li><a href="/image-resizer/instagram">Instagram Post &amp; Story Dimensions</a></li>
+          <li><a href="/dpi-calculator"><strong>DPI &amp; PPI Print Calculator</strong> — Pixel to print sizing</a></li>
+          <li><a href="/dpi-calculator/300-dpi">300 DPI Photo Resolution Checker</a></li>
+          <li><a href="/aspect-ratio-calculator"><strong>Aspect Ratio Calculator</strong> — Dimension cropper</a></li>
+          <li><a href="/aspect-ratio/16-9">16:9 Widescreen &amp; 9:16 Vertical Video</a></li>
+          <li><a href="/ruler"><strong>Online Screen Ruler</strong> — 1:1 true scale physical ruler</a></li>
+          <li><a href="/color-tools"><strong>Color Picker &amp; Palette Generator</strong> — HEX, RGB, HSL</a></li>
+        </ul>
+      </div>
+
+      <!-- Developer & DevOps -->
+      <div class="dir-cat-card">
+        <div class="dir-cat-title"><span class="cat-icon">⚡</span><h3>Developer &amp; Security Tools</h3></div>
+        <ul class="dir-links-list">
+          <li><a href="/regex-tester"><strong>Regex Tester &amp; Cheatsheet</strong> — Real-time highlighter</a></li>
+          <li><a href="/regex-tester/email-regex">Email Validation Regex Pattern</a></li>
+          <li><a href="/regex-tester/phone-number-regex">Phone Number Regex Pattern</a></li>
+          <li><a href="/cron-expression-builder"><strong>Cron Expression Builder</strong> — Schedule generator</a></li>
+          <li><a href="/cron-expression-builder/every-5-minutes">Every 5 Minutes Cron Schedule</a></li>
+          <li><a href="/password-checker"><strong>Password Strength Tester</strong> — Entropy &amp; crack time</a></li>
+          <li><a href="/password-checker/strong-password-generator">24-Char Strong Password Generator</a></li>
+          <li><a href="/data-converter"><strong>JSON ⇄ CSV ⇄ YAML Converter</strong> — Table &amp; config parser</a></li>
+          <li><a href="/data-converter/json-to-csv">JSON to CSV Converter for Excel</a></li>
+          <li><a href="/data-converter/jwt-decoder">JWT Token &amp; Claims Decoder</a></li>
+          <li><a href="/qr-code-generator"><strong>QR Code Generator</strong> — PNG, SVG, Wi-Fi &amp; vCard</a></li>
+        </ul>
+      </div>
+
+      <!-- Document & PDF -->
+      <div class="dir-cat-card">
+        <div class="dir-cat-title"><span class="cat-icon">📄</span><h3>Document &amp; PDF Tools</h3></div>
+        <ul class="dir-links-list">
+          <li><a href="/pdf-tools"><strong>PDF Tools Suite</strong> — 100% private browser processing</a></li>
+          <li><a href="/pdf-tools/merge-pdf">Merge Multiple PDFs into One Document</a></li>
+          <li><a href="/pdf-tools/split-pdf">Split &amp; Extract PDF Pages</a></li>
+          <li><a href="/pdf-tools/image-to-pdf">Images to PDF Converter (JPG &amp; PNG)</a></li>
+          <li><a href="/workspace"><strong>Multi-Tool Workspace</strong> — Run tools side-by-side</a></li>
+        </ul>
+      </div>
+
+      <!-- Health & Scientific -->
+      <div class="dir-cat-card">
+        <div class="dir-cat-title"><span class="cat-icon">🥗</span><h3>Health, Nutrition &amp; Science</h3></div>
+        <ul class="dir-links-list">
+          <li><a href="/calorie-calculator"><strong>Calorie &amp; TDEE Calculator</strong> — Mifflin-St Jeor daily burn</a></li>
+          <li><a href="/bmr-calculator">BMR (Basal Metabolic Rate) Calculator</a></li>
+          <li><a href="/calorie-deficit-calculator">Calorie Deficit Target for Fat Loss</a></li>
+          <li><a href="/macro-calculator">Macro Calculator (Protein, Carbs, Fats)</a></li>
+          <li><a href="/pregnancy-calculator"><strong>Pregnancy Due Date Calculator</strong> — Naegele's rule</a></li>
+          <li><a href="/ovulation-calculator">Ovulation Calendar &amp; Fertile Window</a></li>
+          <li><a href="/conversions"><strong>All 98+ Unit Conversions Directory</strong></a></li>
+          <li><a href="/kg-to-lbs">Kilograms to Pounds (kg to lbs)</a></li>
+          <li><a href="/celsius-to-fahrenheit">Celsius to Fahrenheit (°C to °F)</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -254,42 +305,91 @@ const itemListSchema = {
   }
   /* SEO Tool Directory — visible to users and Googlebot alike */
   .seo-tool-directory {
-    max-width: 860px;
-    margin: 0 auto 60px;
+    max-width: 1100px;
+    margin: 40px auto 60px;
     padding: 40px 20px 0;
+    border-top: 1px solid var(--panel-border);
   }
-  .seo-tool-directory h2 {
-    font-size: 13px;
+  .dir-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 32px;
+  }
+  .dir-badge {
+    display: inline-block;
+    font-size: 10.5px;
     font-weight: 800;
-    color: var(--ink-faint);
     letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin: 0 0 16px 0;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
   }
-  .seo-tool-list {
+  .dir-header h2 {
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0 0 8px 0;
+  }
+  .dir-intro {
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .dir-category-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .dir-cat-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 14px;
+  }
+  .dir-cat-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--panel-border);
+  }
+  .dir-cat-title .cat-icon { font-size: 20px; }
+  .dir-cat-title h3 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+  }
+  .dir-links-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
-  .seo-tool-list li a {
-    display: block;
-    padding: 10px 14px;
-    border-radius: 10px;
-    background: var(--panel-bg);
-    border: 1px solid var(--panel-border);
+  .dir-links-list li a {
+    font-size: 12.5px;
     color: var(--ink-dim);
     text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-    transition: border-color 0.15s, color 0.15s, background 0.15s;
+    line-height: 1.4;
+    transition: color 150ms ease;
   }
-  .seo-tool-list li a:hover {
-    border-color: var(--accent);
+  .dir-links-list li a strong {
     color: var(--ink);
-    background: var(--accent-light);
+  }
+  .dir-links-list li a:hover {
+    color: var(--accent);
+  }
+  .dir-links-list li a:hover strong {
+    color: var(--accent);
   }
 </style>
 

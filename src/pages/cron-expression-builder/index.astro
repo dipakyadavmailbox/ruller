@@ -53,6 +53,43 @@ const faqItems = [
       <li><code>/</code> = Step values (e.g., <code>*/15</code> for every 15 units)</li>
     </ul>
 
+    <h3>Popular Cron Schedules & Expressions</h3>
+    <p>Jump directly to pre-configured cron expressions with plain-English breakdowns:</p>
+    <div class="cron-subtools-grid">
+      <a href="/cron-expression-builder/every-5-minutes" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">⏱️</span><strong>Every 5 Minutes</strong><span class="cron-tag">*/5 * * * *</span></div>
+        <p>Run tasks at 5-minute intervals for API polling and webhook triggers.</p>
+      </a>
+      <a href="/cron-expression-builder/every-15-minutes" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">⏰</span><strong>Every 15 Minutes</strong><span class="cron-tag">*/15 * * * *</span></div>
+        <p>Quarter-hour intervals for cache warmups and queue batch processing.</p>
+      </a>
+      <a href="/cron-expression-builder/every-hour" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">🕐</span><strong>Every Hour</strong><span class="cron-tag">0 * * * *</span></div>
+        <p>Hourly execution at the top of the hour (minute 0) for metric aggregation.</p>
+      </a>
+      <a href="/cron-expression-builder/everyday-at-midnight" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">🌙</span><strong>Everyday at Midnight</strong><span class="cron-tag">0 0 * * *</span></div>
+        <p>Daily maintenance, log rotation, and automated database backups at 00:00.</p>
+      </a>
+      <a href="/cron-expression-builder/everyday-at-noon" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">☀️</span><strong>Everyday at Noon</strong><span class="cron-tag">0 12 * * *</span></div>
+        <p>Midday triggers for lunch digest emails and daily report summaries.</p>
+      </a>
+      <a href="/cron-expression-builder/every-monday" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">📅</span><strong>Every Monday</strong><span class="cron-tag">0 0 * * 1</span></div>
+        <p>Weekly newsletter dispatches and weekly credit/quota resets.</p>
+      </a>
+      <a href="/cron-expression-builder/every-weekday" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">💼</span><strong>Every Weekday (M–F)</strong><span class="cron-tag">0 9 * * 1-5</span></div>
+        <p>Business day schedule running Monday through Friday at 9:00 AM.</p>
+      </a>
+      <a href="/cron-expression-builder/first-day-of-month" class="cron-subtool-card">
+        <div class="cron-card-header"><span class="cron-card-icon">🗓️</span><strong>1st Day of Month</strong><span class="cron-tag">0 0 1 * *</span></div>
+        <p>Monthly recurring subscription billing and quota allocation renewal.</p>
+      </a>
+    </div>
+
     <PrivacyComparisonTable toolName="Cron Expression Building" competitorLabel="Other Cron Builders" />
 
     <h3>Frequently Asked Questions</h3>
@@ -72,4 +109,53 @@ const faqItems = [
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
   .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
   .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .cron-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .cron-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .cron-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .cron-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .cron-card-icon { font-size: 18px; }
+  .cron-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .cron-tag {
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .cron-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
 </style>

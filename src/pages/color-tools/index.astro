@@ -100,6 +100,31 @@ const faqItems = [
       <li><strong>JSON Array:</strong> A plain <code>["#hex1", "#hex2"]</code> array — for programmatic use or documentation</li>
     </ul>
 
+    <h3>Dedicated Color Converters & Palette Tools</h3>
+    <p>Jump directly to specialized color space converters and palette generators:</p>
+    <div class="color-subtools-grid">
+      <a href="/color-tools/hex-to-rgb" class="color-subtool-card">
+        <div class="color-card-header"><span class="color-card-icon">🎨</span><strong>HEX to RGB Converter</strong><span class="color-tag">CSS</span></div>
+        <p>Convert 6-digit hexadecimal color codes to RGB/RGBA decimal values.</p>
+      </a>
+      <a href="/color-tools/rgb-to-hex" class="color-subtool-card">
+        <div class="color-card-header"><span class="color-card-icon">🌈</span><strong>RGB to HEX Converter</strong><span class="color-tag">Hexadecimal</span></div>
+        <p>Convert RGB decimal values (0-255) to clean 6-digit #RRGGBB strings.</p>
+      </a>
+      <a href="/color-tools/hex-to-hsl" class="color-subtool-card">
+        <div class="color-card-header"><span class="color-card-icon">🎛️</span><strong>HEX to HSL Converter</strong><span class="color-tag">Hue/Sat/Light</span></div>
+        <p>Convert HEX codes to Hue, Saturation, and Lightness degrees & percentages.</p>
+      </a>
+      <a href="/color-tools/palette-generator" class="color-subtool-card">
+        <div class="color-card-header"><span class="color-card-icon">🖌️</span><strong>Palette Generator</strong><span class="color-tag">5 Harmonies</span></div>
+        <p>Generate harmonious 5-color palettes with 1-click Tailwind and CSS export.</p>
+      </a>
+      <a href="/color-tools/complementary-color" class="color-subtool-card">
+        <div class="color-card-header"><span class="color-card-icon">⚡</span><strong>Complementary Color</strong><span class="color-tag">Opposite Hue</span></div>
+        <p>Calculate the 180° opposite color on the color wheel for high-contrast CTA accents.</p>
+      </a>
+    </div>
+
     <PrivacyComparisonTable toolName="Color Picking" competitorLabel="Other Color Tools" />
 
     <h3>Frequently Asked Questions</h3>
@@ -134,6 +159,56 @@ const faqItems = [
     background: var(--btn-idle-bg); border: 1px solid var(--panel-border);
     border-radius: 4px; padding: 1px 6px; color: var(--accent);
   }
+
+  .color-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .color-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .color-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .color-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .color-card-icon { font-size: 18px; }
+  .color-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .color-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .color-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+
   .faq-item { margin-bottom: 16px; }
   .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
   .faq-item p { margin: 0; }

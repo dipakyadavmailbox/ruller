@@ -53,12 +53,42 @@ const faqItems = [
       <li><strong>WebP & Modern Format Conversion:</strong> Effortlessly convert heavy PNGs or JPEGs into optimized WebP images for fast Core Web Vitals performance.</li>
     </ul>
 
-    <h3>Best Practices for Web Image Sizing</h3>
-    <ul>
-      <li><strong>Blog & Website Content:</strong> Maximum width 1200px to 1600px at 75–85% WebP quality.</li>
-      <li><strong>Hero Banners & Backgrounds:</strong> Maximum width 1920px at 80% compression.</li>
-      <li><strong>Thumbnails & Avatars:</strong> 300px to 600px square at 80% WebP quality.</li>
-    </ul>
+    <h3>Popular Image Resizing Presets & Sizing Tools</h3>
+    <p>Need exact pixel dimensions for social media or documents? Use our instant dedicated resizing presets:</p>
+    <div class="presets-feature-grid">
+      <a href="/image-resizer/passport-photo" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">📐</span><strong>Passport Photo Size</strong><span class="preset-tag">600×600 px</span></div>
+        <p>Exact 2×2 inches (51×51 mm) at 300 DPI for US passport, visa, and ID cards.</p>
+      </a>
+      <a href="/image-resizer/instagram" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">📸</span><strong>Instagram Post & Story</strong><span class="preset-tag">1080×1080 px</span></div>
+        <p>Resize for square feed posts (1080×1080), portrait (1080×1350), and Stories (1080×1920).</p>
+      </a>
+      <a href="/image-resizer/youtube-thumbnail" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">🎬</span><strong>YouTube Thumbnail</strong><span class="preset-tag">1280×720 px</span></div>
+        <p>16:9 standard video thumbnail resolution compressed under the 2MB YouTube limit.</p>
+      </a>
+      <a href="/image-resizer/linkedin" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">💼</span><strong>LinkedIn Profile & Cover</strong><span class="preset-tag">400×400 px</span></div>
+        <p>Square profile avatar and 1584×396 cover banner image sizing.</p>
+      </a>
+      <a href="/image-resizer/twitter" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">🐦</span><strong>Twitter/X Images</strong><span class="preset-tag">1200×675 px</span></div>
+        <p>Header banner (1500×500) and in-stream single photo post dimensions.</p>
+      </a>
+      <a href="/image-resizer/facebook" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">👥</span><strong>Facebook Post & Cover</strong><span class="preset-tag">1200×630 px</span></div>
+        <p>News feed image posts (1.91:1) and desktop cover photo dimensions (820×312).</p>
+      </a>
+      <a href="/image-resizer/100kb" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">⚡</span><strong>Compress to Under 100KB</strong><span class="preset-tag">&lt; 100 KB</span></div>
+        <p>Reduce image file size for government forms, email attachments, and job portals.</p>
+      </a>
+      <a href="/image-resizer/2x2" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">🔲</span><strong>2×2 Inch Photo Resizer</strong><span class="preset-tag">300 DPI</span></div>
+        <p>High-resolution print size converter for standard 2×2 inch photo prints.</p>
+      </a>
+    </div>
 
     <PrivacyComparisonTable toolName="Image Compression & Resizing" competitorLabel="Other Online Image Tools" />
 
@@ -79,5 +109,54 @@ const faqItems = [
   .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
   .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
   .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .presets-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .preset-feature-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .preset-feature-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .preset-feature-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .preset-feature-icon { font-size: 18px; }
+  .preset-feature-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .preset-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .preset-feature-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
 </style>
 
