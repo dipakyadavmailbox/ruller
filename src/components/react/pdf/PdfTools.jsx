@@ -11,8 +11,8 @@ const TABS = [
   { id: 'split',   label: '✂️ Split',    sublabel: 'Extract Pages' },
 ]
 
-export default function PdfTools() {
-  const [activeTab, setActiveTab] = useState('convert')
+export default function PdfTools({ initialTab = 'convert' } = {}) {
+  const [activeTab, setActiveTab] = useState(initialTab || 'convert')
   const [handoff,   setHandoff]   = useState(() => readHandoff('/pdf-tools'))
 
   // Pre-select tab from workspace handoff

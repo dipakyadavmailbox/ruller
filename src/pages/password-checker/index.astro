@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import PasswordChecker from '../../components/react/password/PasswordChecker.jsx'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+
+const title = 'Password Strength Checker & Generator — Free, Private | Rocking Tools'
+const description = 'Instantly check your password strength, entropy, and estimated crack time — 100% in your browser, nothing sent to any server. Includes a free cryptographically secure random password generator.'
+const keywords = 'password strength checker, password generator, check password security, password entropy calculator, secure password tester, how strong is my password, random password generator, private password checker'
+
+const faqItems = [
+  { q: 'Is it safe to type my real password here?', a: 'Yes. All password strength calculations, entropy analysis, and random generation occur strictly in local client JavaScript. Zero network requests are made — your password never leaves your device. You can verify this by going offline before using the tool.' },
+  { q: 'How is password entropy calculated?', a: 'Password entropy (in bits) measures how unpredictable your password is. It is calculated as: Entropy = log2(charset size ^ length). A 12-character password using all character types has a charset of ~95 characters, giving ~78 bits of entropy — considered very strong against brute-force attacks.' },
+  { q: 'What makes a password strong against brute-force attacks?', a: 'Passphrases or passwords with 16+ characters combining random words or mixed character sets (lowercase, uppercase, digits, symbols) take centuries to crack even with modern GPU hardware. Length is the single most important factor.' },
+  { q: 'What is the difference between a dictionary attack and a brute-force attack?', a: 'A dictionary attack tries common words, phrases, and known leaked passwords from breach databases. A brute-force attack systematically tries every possible combination. Most attackers start with dictionary attacks because the majority of user passwords are predictable.' },
+  { q: 'How long should a secure password be?', a: 'Security experts recommend a minimum of 12 characters for regular accounts and 16+ characters for sensitive accounts (banking, email, cloud storage). Using a password manager lets you use 20+ character random passwords without memorizing them.' },
+  { q: 'What is a cryptographically secure random password?', a: "The generator uses your browser's built-in Web Crypto API (window.crypto.getRandomValues) which produces true cryptographic randomness — the same source used by SSL certificates. This is far more secure than Math.random() which is not cryptographically safe." },
+]
+---
+
+<BaseLayout title={title} description={description} path="/password-checker" keywords={keywords}>
+  <SoftwareApplicationSchema slot="head" name="Password Strength Checker & Generator" description={description} path="/password-checker" />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Password Strength Checker' }]} />
+
+  <div class="tool-hero">
+    <h1>Password Strength Checker & Generator</h1>
+    <p>Checked entirely in your browser — your password is never sent anywhere, logged, or stored.</p>
+    <img
+      src="/og/password-checker.png"
+      alt="Password Strength Checker and Generator tool preview"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <PasswordChecker client:load />
+
+  <article class="tool-guide">
+    <h2>Password Security, Entropy & Crack Time Analysis</h2>
+    <p>Understanding why passwords fail is the first step to securing your accounts. Most breaches do not happen through Hollywood-style hacking — they happen because attackers have access to billions of previously leaked passwords and test them against new accounts in seconds using automated tools.</p>
+
+    <p>This checker analyzes your password's <strong>character set variety</strong>, <strong>length</strong>, <strong>pattern predictability</strong>, and <strong>entropy in bits</strong> to estimate how long a modern GPU-based brute-force attack would take to crack it.</p>
+
+    <h3>Best Practices for Password Security</h3>
+    <ul>
+      <li><strong>Length Over Complexity:</strong> A 20-character passphrase of random words is significantly stronger than an 8-character complex string.</li>
+      <li><strong>Use a Password Manager:</strong> Generate and store unique, high-entropy passwords for every account. Never reuse passwords across sites.</li>
+      <li><strong>Enable Multi-Factor Authentication (MFA):</strong> Hardware keys or authenticator apps protect accounts even if passwords leak in a data breach.</li>
+      <li><strong>Avoid Personal Information:</strong> Birthdates, names, and dictionary words are always tested first by attackers.</li>
+      <li><strong>Check Breach Databases:</strong> Services like HaveIBeenPwned let you check if your email appeared in known data breaches.</li>
+    </ul>
+
+    <h3>Dedicated Password & Security Utilities</h3>
+    <p>Jump directly to specialized password generation and testing tools:</p>
+    <div class="pwd-subtools-grid">
+      <a href="/password-checker/password-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">🔑</span><strong>Random Password Generator</strong><span class="pwd-tag">16 Char</span></div>
+        <p>Generate high-entropy random passwords with mixed cases, numbers, and symbols.</p>
+      </a>
+      <a href="/password-checker/strong-password-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">🛡️</span><strong>24+ Character Max Security</strong><span class="pwd-tag">High Entropy</span></div>
+        <p>Generate military-grade 24-character master keys for root servers and password vaults.</p>
+      </a>
+      <a href="/password-checker/pin-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">🔢</span><strong>Random PIN Generator</strong><span class="pwd-tag">4 & 6 Digit</span></div>
+        <p>Generate unpredictable numeric PIN codes for ATM cards, phone locks, and keypads.</p>
+      </a>
+      <a href="/password-checker/passphrase-generator" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">📝</span><strong>Memorable Passphrase Maker</strong><span class="pwd-tag">Diceware</span></div>
+        <p>Create easy-to-remember multi-word passphrases (e.g. correct-horse-battery-staple).</p>
+      </a>
+      <a href="/password-checker/password-strength-test" class="pwd-subtool-card">
+        <div class="pwd-card-header"><span class="pwd-card-icon">⚡</span><strong>Password Strength Tester</strong><span class="pwd-tag">Audit</span></div>
+        <p>Test password entropy and calculate real-time GPU cluster crack duration estimates.</p>
+      </a>
+    </div>
+
+    <PrivacyComparisonTable toolName="Password Strength Checking" competitorLabel="Other Password Checkers" />
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <RelatedTools currentSlug="/password-checker" />
+</BaseLayout>
+
+<style>
+  .tool-hero {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 0;
+  }
+  .tool-hero h1 {
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .tool-hero p {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .pwd-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .pwd-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .pwd-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .pwd-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .pwd-card-icon { font-size: 18px; }
+  .pwd-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .pwd-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .pwd-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>

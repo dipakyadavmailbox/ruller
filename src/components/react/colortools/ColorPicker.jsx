@@ -7,16 +7,17 @@ import {
 
 const INITIAL_HEX = '#6366F1'
 
-export default function ColorPicker() {
-  const initRgb = hexToRgb(INITIAL_HEX)
+export default function ColorPicker({ initialHex = INITIAL_HEX } = {}) {
+  const startHex = initialHex || INITIAL_HEX
+  const initRgb = hexToRgb(startHex) || hexToRgb(INITIAL_HEX)
   const initHsl = rgbToHsl(initRgb.r, initRgb.g, initRgb.b)
   const initHsv = rgbToHsv(initRgb.r, initRgb.g, initRgb.b)
 
-  const [hex, setHex] = useState(INITIAL_HEX)
+  const [hex, setHex] = useState(startHex)
   const [rgb, setRgb] = useState(initRgb)
   const [hsl, setHsl] = useState(initHsl)
   const [hsv, setHsv] = useState(initHsv)
-  const [hexInput, setHexInput] = useState(INITIAL_HEX)
+  const [hexInput, setHexInput] = useState(startHex)
   const [copied, setCopied] = useState(null) // which format was copied
 
   // ─── Sync all values from an RGB source ──────────────────────────────────────

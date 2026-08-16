@@ -101,6 +101,82 @@ export const CALORIE_CLUSTER_DATA = [
     ],
     relatedSlugs: ['tdee-calculator', 'bmr-calculator', 'macro-calculator', 'protein-calculator'],
   },
+  {
+    slug: 'body-fat-calculator',
+    name: 'Body Fat Percentage',
+    title: 'Body Fat Percentage Calculator — U.S. Navy Method | Rocking Tools',
+    description: 'Estimate your body fat percentage, fat mass, and lean mass using the U.S. Navy circumference method with neck, waist, and hip tape measurements.',
+    keywords: 'body fat calculator, calculate body fat percentage, navy body fat formula, lean body mass calculator, body fat percentage online',
+    intro: 'Estimate your body fat percentage and lean muscle mass using the U.S. Navy circumference method — the standard military measurement formula.',
+    formulaName: 'U.S. Navy Body Fat Formula (Hodgdon & Beckett)',
+    formulaMath: 'Men: %BF = 495 / (1.0324 - 0.19077 × log10(waist - neck) + 0.15456 × log10(height)) - 450\nWomen: %BF = 495 / (1.29579 - 0.35004 × log10(waist + hip - neck) + 0.22100 × log10(height)) - 450',
+    formulaExplanation: 'Developed by the Naval Health Research Center, this method correlates body circumferences with hydrostatic weighing results with ±3-4% accuracy.',
+    references: [
+      { citation: 'Hodgdon, J. A., & Beckett, M. B. (1984). "Prediction of body fat for U.S. Navy men and women from body circumferences." Naval Health Research Center Report.', link: '#' },
+    ],
+    limitations: 'Circumference measurements are estimates. DEXA scans and hydrostatic underwater weighing remain the clinical gold standards.',
+    faqs: [
+      { q: 'What is a healthy body fat percentage?', a: 'For men: 10-20% is typical fitness/healthy range. For women: 18-28% represents the healthy average range.' },
+    ],
+    relatedSlugs: ['bmr-calculator', 'tdee-calculator', 'ideal-weight-calculator', 'calorie-deficit-calculator'],
+  },
+  {
+    slug: 'ideal-weight-calculator',
+    name: 'Ideal Body Weight (IBW)',
+    title: 'Ideal Body Weight Calculator — Devine, Robinson & Miller Formulas | Rocking Tools',
+    description: 'Calculate your clinical Ideal Body Weight (IBW) based on height, sex, and age using recognized medical formulas.',
+    keywords: 'ideal weight calculator, ideal body weight formula, devine formula ibw, healthy weight calculator for height',
+    intro: 'Determine your recommended clinical Ideal Body Weight (IBW) based on height and biological sex using the Devine, Robinson, and Miller equations.',
+    formulaName: 'Devine Clinical Formula (Medical Standard)',
+    formulaMath: 'Men: IBW (kg) = 50.0 kg + 2.3 kg per inch over 5 feet\nWomen: IBW (kg) = 45.5 kg + 2.3 kg per inch over 5 feet',
+    formulaExplanation: 'Originally published in 1974 for medical dosage calculations, the Devine formula is the most widely utilized IBW equation in clinical settings.',
+    references: [
+      { citation: 'Devine, B. J. (1974). "Gentamicin therapy." Drug Intelligence & Clinical Pharmacy, 8, 650-655.', link: '#' },
+    ],
+    limitations: 'IBW formulas do not account for muscle mass, bone density, or athletic frame size. They represent statistical averages for general populations.',
+    faqs: [
+      { q: 'What is Ideal Body Weight (IBW)?', a: 'IBW is a clinical estimate of healthy body weight corresponding to lowest mortality risk and standard medication dosing.' },
+    ],
+    relatedSlugs: ['body-fat-calculator', 'bmr-calculator', 'tdee-calculator', 'calorie-deficit-calculator'],
+  },
+  {
+    slug: 'water-intake-calculator',
+    name: 'Daily Water Intake',
+    title: 'Daily Water Intake Calculator — Optimal Hydration by Weight | Rocking Tools',
+    description: 'Calculate how many ounces or liters of water you should drink daily based on body weight, climate, and exercise activity.',
+    keywords: 'water intake calculator, daily water intake, how much water should i drink, hydration calculator, water consumption by weight',
+    intro: 'Calculate your personalized daily hydration requirement based on body mass, sweat rate, daily physical activity, and climate.',
+    formulaName: 'Clinical Hydration Baseline Formula',
+    formulaMath: 'Baseline Intake = Weight (kg) × 35 mL  (or Weight in lbs ÷ 2 in oz)\nExercise Add-on: +350-500 mL per 30 minutes of vigorous workout',
+    formulaExplanation: 'Standard physiological guidelines recommend approximately 30-35 mL of water per kilogram of body weight, plus additional fluids for sweat loss during training.',
+    references: [
+      { citation: 'Sawka, M. N., et al. (2007). "American College of Sports Medicine position stand. Exercise and fluid replacement." Medicine & Science in Sports & Exercise, 39(2), 377-390.', link: '#' },
+    ],
+    limitations: 'Individuals with kidney conditions or heart failure should follow personalized fluid restrictions prescribed by their physician.',
+    faqs: [
+      { q: 'How many glasses of water should I drink per day?', a: 'While "8 glasses a day" (64 oz / ~2 L) is a common rule of thumb, most active adults require 2.5 to 3.7 liters (85–125 oz) from all fluids and food.' },
+    ],
+    relatedSlugs: ['tdee-calculator', 'calorie-deficit-calculator', 'bmr-calculator', 'macro-calculator'],
+  },
+  {
+    slug: 'intermittent-fasting-calculator',
+    name: 'Intermittent Fasting Schedule',
+    title: 'Intermittent Fasting Calculator (16:8, 18:6, 20:4 Schedules) | Rocking Tools',
+    description: 'Calculate your eating and fasting time windows for popular intermittent fasting protocols: 16:8, 18:6, 20:4 (Warrior Diet), and OMAD.',
+    keywords: 'intermittent fasting calculator, 16 8 fasting schedule, fasting window calculator, intermittent fasting times, omad schedule calculator',
+    intro: 'Plan your eating and fasting intervals for 16:8, 18:6, 20:4, and OMAD (One Meal a Day) intermittent fasting protocols.',
+    formulaName: 'Time-Restricted Feeding (TRF) Windows',
+    formulaMath: '16:8 Protocol: 16 Hours Fasting / 8 Hours Eating Window\n18:6 Protocol: 18 Hours Fasting / 6 Hours Eating Window\n20:4 Protocol: 20 Hours Fasting / 4 Hours Eating Window',
+    formulaExplanation: 'Time-restricted eating synchronizes food consumption with your circadian rhythm, optimizing insulin sensitivity and cellular autophagy.',
+    references: [
+      { citation: 'de Cabo, R., & Mattson, M. P. (2019). "Effects of Intermittent Fasting on Health, Aging, and Disease." New England Journal of Medicine, 381(26), 2541-2551.', link: '#' },
+    ],
+    limitations: 'Fasting is not recommended for pregnant women, individuals with a history of eating disorders, or type 1 diabetics without medical supervision.',
+    faqs: [
+      { q: 'What can you drink during the fasting window?', a: 'Water, black coffee, unsweetened green or herbal tea, and plain mineral water without zero-calorie sweeteners or milk.' },
+    ],
+    relatedSlugs: ['calorie-deficit-calculator', 'tdee-calculator', 'bmr-calculator', 'water-intake-calculator'],
+  },
 ]
 
 export function getCalorieToolBySlug(slug) {

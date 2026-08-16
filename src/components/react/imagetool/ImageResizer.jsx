@@ -20,7 +20,12 @@ const FORMAT_OPTIONS = [
 
 const PRESET_PERCENTS = [100, 75, 50, 25]
 
-export default function ImageResizer() {
+export default function ImageResizer({
+  initialWidth = 0,
+  initialHeight = 0,
+  initialFormat = 'original',
+  initialQuality = 80,
+} = {}) {
   const [file, setFile] = useState(null)
   const [handoff, setHandoff] = useState(() => readHandoff('/image-resizer'))
   const [sourceImg, setSourceImg] = useState(null)
@@ -28,11 +33,11 @@ export default function ImageResizer() {
   const [originalWidth, setOriginalWidth] = useState(0)
   const [originalHeight, setOriginalHeight] = useState(0)
 
-  const [targetWidth, setTargetWidth] = useState(0)
-  const [targetHeight, setTargetHeight] = useState(0)
-  const [lockAspect, setLockAspect] = useState(true)
-  const [outputFormat, setOutputFormat] = useState('original')
-  const [quality, setQuality] = useState(80)
+  const [targetWidth, setTargetWidth] = useState(initialWidth || 0)
+  const [targetHeight, setTargetHeight] = useState(initialHeight || 0)
+  const [lockAspect, setLockAspect] = useState(initialWidth > 0 && initialHeight > 0 ? false : true)
+  const [outputFormat, setOutputFormat] = useState(initialFormat || 'original')
+  const [quality, setQuality] = useState(initialQuality || 80)
 
   const [resultUrl, setResultUrl] = useState(null)
   const [resultSize, setResultSize] = useState(0)
@@ -65,9 +70,18 @@ export default function ImageResizer() {
       setSourceUrl(url)
       setOriginalWidth(img.naturalWidth)
       setOriginalHeight(img.naturalHeight)
-      setTargetWidth(img.naturalWidth)
-      setTargetHeight(img.naturalHeight)
-      setOutputFormat('original')
+      
+      if (initialWidth > 0 && initialHeight > 0) {
+        setTargetWidth(initialWidth)
+        setTargetHeight(initialHeight)
+        setLockAspect(false)
+      } else {
+        setTargetWidth(img.naturalWidth)
+        setTargetHeight(img.naturalHeight)
+        setLockAspect(true)
+      }
+      
+      setOutputFormat(initialFormat || 'original')
       setResultUrl(null)
     } catch (e) {
       setError(e.message || 'Error loading image.')

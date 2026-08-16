@@ -151,10 +151,10 @@ export function validateCron(cronStr) {
   return { valid: true, message: 'Valid 5-part cron syntax' }
 }
 
-export default function CronBuilder() {
-  const [cron, setCron] = useState('0 9 * * 1')
+export default function CronBuilder({ initialExpression = '0 9 * * 1', initialMode = 'builder' } = {}) {
+  const [cron, setCron] = useState(initialExpression || '0 9 * * 1')
   const [copied, setCopied] = useState(false)
-  const [mode, setMode] = useState('builder') // 'builder' | 'validator'
+  const [mode, setMode] = useState(initialMode || 'builder') // 'builder' | 'validator'
 
   // Individual interactive field states
   const parts = useMemo(() => {

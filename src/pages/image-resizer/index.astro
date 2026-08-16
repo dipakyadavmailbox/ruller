@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import ImageResizer from '../../components/react/imagetool/ImageResizer.jsx'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+
+const title = 'Batch Image Resizer & WebP Compressor — Free, Private | Rocking Tools'
+const description = 'Resize, crop, and compress images (PNG, JPEG, WebP, SVG) in bulk — 100% in your browser using HTML5 Canvas. Zero upload, maximum privacy, zero quality loss.'
+const keywords = 'image resizer, image compressor, resize image online, compress photo online, webp converter, png jpeg compressor, private image resizer, image dimensions editor'
+
+const faqItems = [
+  { q: 'Are my photos or images uploaded to any server?', a: 'No. All image resizing, HTML5 canvas rendering, and WebP/JPEG compression happen 100% locally in your web browser. Your images never leave your computer or phone.' },
+  { q: 'Which image formats are supported for compression?', a: 'You can upload and compress PNG, JPEG/JPG, WebP, SVG, GIF, and BMP files.' },
+  { q: 'Why should I convert images to WebP format?', a: 'WebP offers 25–35% smaller file sizes compared to JPEG and PNG at equivalent visual quality. It is natively supported by all modern browsers and improves page load speed.' },
+  { q: 'Does resizing an image reduce its file size?', a: 'Yes. Lowering pixel dimensions (e.g. from 4000px to 1200px) or lowering quality compression percentage significantly reduces file size for web publishing.' },
+  { q: 'Is there a file size limit or daily usage cap?', a: 'No file size limit and no daily caps! Since computation runs on your local CPU instead of a server, you can process high-resolution images as fast as your device permits.' }
+]
+---
+
+<BaseLayout title={title} description={description} path="/image-resizer" keywords={keywords}>
+  <SoftwareApplicationSchema slot="head" name="Batch Image Resizer & WebP Compressor" description={description} path="/image-resizer" />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Image Resizer' }]} />
+
+  <div class="tool-hero">
+    <h1>Batch Image Resizer & WebP Compressor</h1>
+    <p>Resize dimensions, compress file sizes, and convert formats — processed 100% in your browser for absolute privacy.</p>
+    <img
+      src="/og/image-resizer.png"
+      alt="Batch Image Resizer and Compressor tool interface preview"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <ImageResizer client:load />
+
+  <article class="tool-guide">
+    <h2>Complete Guide to Client-Side Image Optimization</h2>
+    <p>Optimizing web images is crucial for website speed, mobile performance, and Search Engine Optimization (SEO). Uncompressed images are the single largest contributor to slow page load times on the web.</p>
+
+    <h3>Why In-Browser HTML5 Canvas Compression Wins</h3>
+    <ul>
+      <li><strong>100% Data Confidentiality:</strong> Personal photos, medical scans, business documents, and unreleased designs stay completely private on your machine.</li>
+      <li><strong>Zero Bandwidth Latency:</strong> No waiting for multi-megabyte files to upload over slow internet connections or queue on busy cloud servers.</li>
+      <li><strong>WebP & Modern Format Conversion:</strong> Effortlessly convert heavy PNGs or JPEGs into optimized WebP images for fast Core Web Vitals performance.</li>
+    </ul>
+
+    <h3>Popular Image Resizing Presets & Sizing Tools</h3>
+    <p>Need exact pixel dimensions for social media or documents? Use our instant dedicated resizing presets:</p>
+    <div class="presets-feature-grid">
+      <a href="/image-resizer/passport-photo" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">📐</span><strong>Passport Photo Size</strong><span class="preset-tag">600×600 px</span></div>
+        <p>Exact 2×2 inches (51×51 mm) at 300 DPI for US passport, visa, and ID cards.</p>
+      </a>
+      <a href="/image-resizer/instagram" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">📸</span><strong>Instagram Post & Story</strong><span class="preset-tag">1080×1080 px</span></div>
+        <p>Resize for square feed posts (1080×1080), portrait (1080×1350), and Stories (1080×1920).</p>
+      </a>
+      <a href="/image-resizer/youtube-thumbnail" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">🎬</span><strong>YouTube Thumbnail</strong><span class="preset-tag">1280×720 px</span></div>
+        <p>16:9 standard video thumbnail resolution compressed under the 2MB YouTube limit.</p>
+      </a>
+      <a href="/image-resizer/linkedin" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">💼</span><strong>LinkedIn Profile & Cover</strong><span class="preset-tag">400×400 px</span></div>
+        <p>Square profile avatar and 1584×396 cover banner image sizing.</p>
+      </a>
+      <a href="/image-resizer/twitter" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">🐦</span><strong>Twitter/X Images</strong><span class="preset-tag">1200×675 px</span></div>
+        <p>Header banner (1500×500) and in-stream single photo post dimensions.</p>
+      </a>
+      <a href="/image-resizer/facebook" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">👥</span><strong>Facebook Post & Cover</strong><span class="preset-tag">1200×630 px</span></div>
+        <p>News feed image posts (1.91:1) and desktop cover photo dimensions (820×312).</p>
+      </a>
+      <a href="/image-resizer/100kb" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">⚡</span><strong>Compress to Under 100KB</strong><span class="preset-tag">&lt; 100 KB</span></div>
+        <p>Reduce image file size for government forms, email attachments, and job portals.</p>
+      </a>
+      <a href="/image-resizer/2x2" class="preset-feature-card">
+        <div class="preset-feature-header"><span class="preset-feature-icon">🔲</span><strong>2×2 Inch Photo Resizer</strong><span class="preset-tag">300 DPI</span></div>
+        <p>High-resolution print size converter for standard 2×2 inch photo prints.</p>
+      </a>
+    </div>
+
+    <PrivacyComparisonTable toolName="Image Compression & Resizing" competitorLabel="Other Online Image Tools" />
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <RelatedTools currentSlug="/image-resizer" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 780px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .presets-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .preset-feature-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .preset-feature-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .preset-feature-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .preset-feature-icon { font-size: 18px; }
+  .preset-feature-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .preset-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .preset-feature-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>
+

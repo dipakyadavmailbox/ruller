@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import ColorTools from '../../components/react/colortools/ColorTools.jsx'
+import { COLOR_TOOLS_PAGES_DATA, getColorToolsPageBySlug } from '../../data/colorToolsPagesData.js'
+
+export function getStaticPaths() {
+  return COLOR_TOOLS_PAGES_DATA.map((c) => ({
+    params: { mode: c.slug },
+  }))
+}
+
+const { mode: slugParam } = Astro.params
+const pageData = getColorToolsPageBySlug(slugParam) || COLOR_TOOLS_PAGES_DATA[0]
+
+const title = pageData.title
+const description = pageData.description
+const keywords = pageData.keywords
+const canonicalPath = `/color-tools/${pageData.slug}`
+
+const faqItems = pageData.faqs || []
+const relatedPages = COLOR_TOOLS_PAGES_DATA.filter((c) => c.slug !== pageData.slug)
+---
+
+<BaseLayout title={title} description={description} path={canonicalPath} keywords={keywords}>
+  <SoftwareApplicationSchema
+    slot="head"
+    name={pageData.name}
+    description={description}
+    path={canonicalPath}
+  />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb
+    items={[
+      { label: 'Home', path: '/' },
+      { label: 'Color Tools', path: '/color-tools' },
+      { label: pageData.name },
+    ]}
+  />
+
+  <div class="tool-hero">
+    <h1>{pageData.name}</h1>
+    <p>{pageData.intro}</p>
+  </div>
+
+  <ColorTools
+    client:load
+    initialTab={pageData.tab}
+    initialHex={pageData.hex || '#6366F1'}
+  />
+
+  <article class="tool-guide">
+    <h2>Common Real-World Use Cases</h2>
+    <div class="use-cases-grid">
+      {pageData.useCases.map((uc) => (
+        <div class="use-case-card">
+          <h4>{uc.title}</h4>
+          <p>{uc.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    {faqItems.length > 0 && (
+      <>
+        <h2>Frequently Asked Questions</h2>
+        {faqItems.map((faq) => (
+          <div class="faq-item">
+            <h4>{faq.q}</h4>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </>
+    )}
+
+    <div class="related-section">
+      <h2>Other Color Converters & Tools</h2>
+      <div class="related-grid">
+        {relatedPages.map((c) => (
+          <a href={`/color-tools/${c.slug}`} class="related-card">
+            <span>🎨</span> {c.name}
+          </a>
+        ))}
+        <a href="/color-tools" class="related-card main-link">
+          <span>⚙️</span> Full Color Studio →
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <RelatedTools currentSlug="/color-tools" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+
+  .tool-guide {
+    max-width: 900px; margin: 40px auto; padding: 32px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 16px;
+  }
+  .tool-guide h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-top: 32px; margin-bottom: 12px; }
+  .tool-guide h2:first-child { margin-top: 0; }
+
+  .use-cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .use-case-card { padding: 16px; background: rgba(255,255,255,0.02); border: 1px solid var(--panel-border); border-radius: 10px; }
+  .use-case-card h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .use-case-card p { font-size: 12.5px; color: var(--ink-dim); margin: 0; line-height: 1.5; }
+
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .faq-item p { margin: 0; font-size: 14px; color: var(--ink-dim); line-height: 1.6; }
+
+  .related-section { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--panel-border); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .related-card {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 10px;
+    color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600; transition: all 150ms ease;
+  }
+  .related-card:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .main-link { background: rgba(99, 102, 241, 0.08); color: var(--accent); border-color: rgba(99, 102, 241, 0.2); }
+</style>

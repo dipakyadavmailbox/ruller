@@ -77,8 +77,25 @@ export const QR_PAGES_DATA = [
       { q: 'What is the character limit for plain text QR codes?', a: 'Standard QR codes can store up to several hundred characters comfortably, though shorter text ensures higher scan reliability.' },
     ],
   },
+  {
+    mode: 'sms',
+    title: 'SMS & Phone Number QR Code Generator — Scan to Text | Rocking Tools',
+    description: 'Create QR codes that automatically open phone SMS messages with pre-filled phone numbers and draft text. 100% private.',
+    keywords: 'sms qr code generator, text message qr code, phone number qr code, scan to text qr, call qr code',
+    intro: 'Generate QR codes that allow customers and contacts to send a pre-written SMS text message or call a phone number with a single tap of their camera.',
+    useCases: [
+      { title: 'Customer Support SMS', desc: 'Let customers text your support line directly with order details or questions.' },
+      { title: 'Contests & Text-to-Win Campaigns', desc: 'Allow event attendees to text an entry keyword to your shortcode.' },
+      { title: 'Click-to-Call Business Cards', desc: 'Make it effortless for clients to dial your office phone number.' },
+    ],
+    faqs: [
+      { q: 'Does an SMS QR code send the message automatically?', a: 'No, scanning the QR code opens the user’s default Messaging app with the number and message pre-filled. The user must tap "Send" themselves for privacy and security.' },
+      { q: 'Can I include international phone numbers?', a: 'Yes, include the full international country code (e.g. +1 for US, +44 for UK, +91 for India).' },
+    ],
+  },
 ]
 
 export function getQrPageByMode(mode) {
   return QR_PAGES_DATA.find((q) => q.mode === mode)
 }
+

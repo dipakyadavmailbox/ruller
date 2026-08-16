@@ -1,0 +1,511 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { CATEGORIES } from '../../data/tools.js'
+import { CONVERSIONS_DATA } from '../../data/conversionsData.js'
+import { IMAGE_RESIZER_PRESETS } from '../../data/imageResizerPagesData.js'
+import { PDF_PAGES_DATA } from '../../data/pdfPagesData.js'
+import { DATA_CONVERTER_PAGES_DATA } from '../../data/dataConverterPagesData.js'
+import { PASSWORD_PAGES_DATA } from '../../data/passwordPagesData.js'
+import { REGEX_PAGES_DATA } from '../../data/regexPagesData.js'
+import { CRON_PAGES_DATA } from '../../data/cronPagesData.js'
+import { DPI_PAGES_DATA } from '../../data/dpiPagesData.js'
+import { RULER_PAGES_DATA } from '../../data/rulerPagesData.js'
+import { COLOR_TOOLS_PAGES_DATA } from '../../data/colorToolsPagesData.js'
+import { CALORIE_CLUSTER_DATA } from '../../data/calorieClusterData.js'
+import { PREGNANCY_CLUSTER_DATA } from '../../data/pregnancyClusterData.js'
+import { QR_PAGES_DATA } from '../../data/qrPagesData.js'
+import { ASPECT_RATIO_PAGES_DATA } from '../../data/aspectRatioPagesData.js'
+import { SITE_CONFIG } from '../../siteConfig.js'
+
+const title = `Complete Site Directory & Sitemap — ${SITE_CONFIG.siteName}`
+const description = `Comprehensive directory of all 320+ client-side tools, unit converters, format transformers, and scientific calculators on ${SITE_CONFIG.siteName}.`
+
+const otherPages = [
+  { name: 'Home Directory', slug: '/', desc: 'Master directory of all client-side browser tools and suites' },
+  { name: 'Multi-Tool Workspace', slug: '/workspace', desc: 'Run multiple tools side-by-side in custom draggable panes' },
+  { name: 'Unit Conversions Hub', slug: '/conversions', desc: 'Browse all 98+ conversion calculators by unit dimension' },
+  { name: 'About Us', slug: '/about', desc: 'Mission, privacy principles, and local browser processing architecture' },
+  { name: 'Frequently Asked Questions', slug: '/faq', desc: 'Common questions about security, offline use, and accuracy' },
+  { name: 'Contact Support', slug: '/contact', desc: 'Get in touch with feedback, bug reports, or tool suggestions' },
+  { name: 'Support & Donate', slug: '/donate', desc: 'Support our free, ad-friendly, zero-server privacy mission' },
+  { name: 'Privacy Policy', slug: '/privacy', desc: '100% client-side data guarantee — zero tracking or telemetry' },
+  { name: 'Terms of Service', slug: '/terms', desc: 'Terms and licensing conditions for using Rocking Tools' },
+  { name: 'DMCA Policy', slug: '/dmca', desc: 'Copyright compliance and intellectual property notice' },
+  { name: 'Accessibility Statement', slug: '/accessibility', desc: 'WCAG 2.1 AA accessibility standards and keyboard support' },
+]
+---
+
+<BaseLayout title={title} description={description} path="/sitemap" noindex={true}>
+  <div class="sitemap-page">
+    <header class="sitemap-header">
+      <span class="header-badge">MASTER DIRECTORY</span>
+      <h1>Full Website Sitemap &amp; Tool Index</h1>
+      <p class="intro">
+        Explore every single utility, programmatic calculator, and format converter across the platform.
+        All tools run 100% inside your browser with zero server uploads. Looking for search crawlers? See
+        <a href="/sitemap-index.xml" class="accent-link">sitemap-index.xml</a>.
+      </p>
+    </header>
+
+    <!-- Core Tool Categories -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🛠️</span>
+        <h2>Primary Tool Suites</h2>
+      </div>
+      <div class="directory-grid">
+        {CATEGORIES.flatMap((c) => c.tools).map((t) => (
+          <a href={t.slug} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{t.icon}</span>
+              <strong>{t.name}</strong>
+              <span class="badge">{t.category}</span>
+            </div>
+            <p>{t.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- PDF Tools -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">📄</span>
+        <h2>PDF Tools &amp; Document Utilities</h2>
+      </div>
+      <div class="directory-grid">
+        {PDF_PAGES_DATA.map((p) => (
+          <a href={`/pdf-tools/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">PDF</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Data Converters -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">📊</span>
+        <h2>Data Format Converters &amp; Encoders</h2>
+      </div>
+      <div class="directory-grid">
+        {DATA_CONVERTER_PAGES_DATA.map((p) => (
+          <a href={`/data-converter/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Format</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Image Resizer Presets -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🖼️</span>
+        <h2>Image Resizing Presets &amp; Social Dimensions</h2>
+      </div>
+      <div class="directory-grid">
+        {IMAGE_RESIZER_PRESETS.map((p) => (
+          <a href={`/image-resizer/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">{p.width}×{p.height}</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Password & Security -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🔒</span>
+        <h2>Password Generators &amp; Security Tools</h2>
+      </div>
+      <div class="directory-grid">
+        {PASSWORD_PAGES_DATA.map((p) => (
+          <a href={`/password-checker/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Security</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Regex Tester Patterns -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">⚡</span>
+        <h2>Regular Expression Patterns &amp; Validators</h2>
+      </div>
+      <div class="directory-grid">
+        {REGEX_PAGES_DATA.map((p) => (
+          <a href={`/regex-tester/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Regex</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Cron Expression Schedules -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🕐</span>
+        <h2>Cron Expression Schedule Generators</h2>
+      </div>
+      <div class="directory-grid">
+        {CRON_PAGES_DATA.map((p) => (
+          <a href={`/cron-expression-builder/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">{p.expression}</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- DPI & Print Sizing -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🖨️</span>
+        <h2>DPI Resolution &amp; Print Sizing Calculators</h2>
+      </div>
+      <div class="directory-grid">
+        {DPI_PAGES_DATA.map((p) => (
+          <a href={`/dpi-calculator/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Print</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Screen Ruler Modes -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">📏</span>
+        <h2>Screen Ruler Scales &amp; Calibration</h2>
+      </div>
+      <div class="directory-grid">
+        {RULER_PAGES_DATA.map((p) => (
+          <a href={`/ruler/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">1:1 Physical</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Color Tools -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🎨</span>
+        <h2>Color Space Converters &amp; Palette Tools</h2>
+      </div>
+      <div class="directory-grid">
+        {COLOR_TOOLS_PAGES_DATA.map((p) => (
+          <a href={`/color-tools/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Color</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Health & Fitness Calculators -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🥗</span>
+        <h2>Calorie, Fitness &amp; Body Composition Calculators</h2>
+      </div>
+      <div class="directory-grid">
+        {CALORIE_CLUSTER_DATA.map((p) => (
+          <a href={`/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">🔥</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Health</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Pregnancy & Fertility -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">👶</span>
+        <h2>Pregnancy &amp; Fertility Timeline Calculators</h2>
+      </div>
+      <div class="directory-grid">
+        {PREGNANCY_CLUSTER_DATA.map((p) => (
+          <a href={`/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">🌸</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Obstetrics</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Aspect Ratio Calculators -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">📐</span>
+        <h2>Aspect Ratio &amp; Resolution Calculators</h2>
+      </div>
+      <div class="directory-grid">
+        {ASPECT_RATIO_PAGES_DATA.map((p) => (
+          <a href={`/aspect-ratio/${p.ratioSlug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">📐</span>
+              <strong>{p.name}</strong>
+              <span class="badge">{p.w}:{p.h}</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- QR Code Generators -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">📱</span>
+        <h2>QR Code Generators</h2>
+      </div>
+      <div class="directory-grid">
+        {QR_PAGES_DATA.map((p) => (
+          <a href={`/qr-code-generator/${p.slug}`} class="directory-card">
+            <div class="card-head">
+              <span class="icon">{p.icon}</span>
+              <strong>{p.name}</strong>
+              <span class="badge">QR</span>
+            </div>
+            <p>{p.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Unit Conversions (All 98+) -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🔄</span>
+        <h2>Unit Conversion Calculators ({CONVERSIONS_DATA.length} Pairs)</h2>
+      </div>
+      <div class="conversions-tag-grid">
+        {CONVERSIONS_DATA.map((c) => (
+          <a href={`/${c.slug}`} class="conversion-tag-card">
+            <span class="c-units">{c.fromSymbol} ⇄ {c.toSymbol}</span>
+            <span class="c-name">{c.fromLabel} to {c.toLabel}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- General Pages -->
+    <section class="directory-section">
+      <div class="section-title">
+        <span class="cat-icon">🌐</span>
+        <h2>Site Pages &amp; Legal Documentation</h2>
+      </div>
+      <div class="directory-grid">
+        {otherPages.map((p) => (
+          <a href={p.slug} class="directory-card">
+            <div class="card-head">
+              <span class="icon">📄</span>
+              <strong>{p.name}</strong>
+              <span class="badge">Site</span>
+            </div>
+            <p>{p.desc}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .sitemap-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  .sitemap-header {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 56px;
+  }
+  .header-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .sitemap-header h1 {
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 900;
+    color: var(--ink);
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+  .intro {
+    font-size: 15px;
+    color: var(--ink-dim);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .accent-link {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .directory-section {
+    margin-bottom: 48px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .cat-icon { font-size: 22px; }
+  .section-title h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .directory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .directory-card {
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .directory-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .card-head .icon { font-size: 20px; flex-shrink: 0; }
+  .card-head strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+    flex: 1;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+  .directory-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .conversions-tag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .conversion-tag-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 14px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .conversion-tag-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    background: var(--panel-bg-hover, rgba(255, 255, 255, 0.03));
+  }
+  .c-units {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .c-name {
+    font-size: 11px;
+    color: var(--ink-dim);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>

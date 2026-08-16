@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import DataConverter from '../../components/react/converter/DataConverter.jsx'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+
+const title = 'JSON ⇄ CSV ⇄ YAML Data Format Converter — 100% Client-Side | Rocking Tools'
+const description = 'Convert structured data seamlessly between JSON, CSV, and YAML in real-time. Zero network uploads, fast formatting, error highlighting, and one-click file export.'
+const keywords = 'json to csv, csv to json, yaml to json, json to yaml, online data converter, free json csv converter, private data converter'
+
+const faqItems = [
+  { q: 'Is my data stored or sent to a server during conversion?', a: 'No. All JSON, CSV, and YAML conversions take place 100% locally in JavaScript inside your browser window.' },
+  { q: 'Can I convert complex nested JSON to CSV?', a: 'Nested JSON objects are flattened into dot-notation column headers for seamless CSV table formatting.' },
+  { q: 'What delimiters are supported for CSV conversion?', a: 'Standard comma-separated (CSV) formatting with automated header detection and quoting.' }
+]
+---
+
+<BaseLayout title={title} description={description} path="/data-converter" keywords={keywords}>
+  <SoftwareApplicationSchema slot="head" name="JSON ⇄ CSV ⇄ YAML Data Format Converter" description={description} path="/data-converter" />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Data Converter' }]} />
+
+  <div class="tool-hero">
+    <h1>JSON ⇄ CSV ⇄ YAML Data Format Converter</h1>
+    <p>Bi-directional data format conversion with zero server latency or data leaks.</p>
+    <img
+      src="/og/data-converter.png"
+      alt="JSON CSV YAML Data Format Converter preview"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <DataConverter client:load />
+
+  <article class="tool-guide">
+    <h2>Client-Side Data Conversion Features</h2>
+    <p>Transform structured data between popular web development, configuration, and spreadsheet formats effortlessly.</p>
+
+    <h3>Supported Data Formats</h3>
+    <ul>
+      <li><strong>JSON (JavaScript Object Notation):</strong> Universal data interchange format for REST APIs and databases.</li>
+      <li><strong>CSV (Comma-Separated Values):</strong> Standard tabular spreadsheet format for Excel, Google Sheets, and data analytics.</li>
+      <li><strong>YAML (YAML Ain't Markup Language):</strong> Human-friendly data serialization format for Kubernetes, Docker, and CI/CD pipelines.</li>
+    </ul>
+
+    <h3>Dedicated Format Converters & Encoders</h3>
+    <p>Jump directly to our dedicated, single-purpose data conversion tools:</p>
+    <div class="data-subtools-grid">
+      <a href="/data-converter/json-to-csv" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">🔄</span><strong>JSON to CSV</strong><span class="data-tag">Spreadsheet</span></div>
+        <p>Convert API JSON payloads and arrays into clean CSV spreadsheets for Excel.</p>
+      </a>
+      <a href="/data-converter/csv-to-json" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">📊</span><strong>CSV to JSON</strong><span class="data-tag">Parser</span></div>
+        <p>Transform spreadsheet rows into structured JSON arrays with automatic type detection.</p>
+      </a>
+      <a href="/data-converter/json-to-yaml" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">☸️</span><strong>JSON to YAML</strong><span class="data-tag">DevOps</span></div>
+        <p>Convert JSON configs into clean YAML for Kubernetes manifests and Docker Compose.</p>
+      </a>
+      <a href="/data-converter/yaml-to-json" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">📋</span><strong>YAML to JSON</strong><span class="data-tag">Config</span></div>
+        <p>Parse and validate YAML files into standard JSON data objects.</p>
+      </a>
+      <a href="/data-converter/base64-encode" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">🔐</span><strong>Base64 Encode</strong><span class="data-tag">Binary</span></div>
+        <p>Encode plain text, basic auth headers, and strings into standard Base64 format.</p>
+      </a>
+      <a href="/data-converter/base64-decode" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">🔓</span><strong>Base64 Decode</strong><span class="data-tag">Decoder</span></div>
+        <p>Decode Base64 encoded strings back into clean UTF-8 text and JSON.</p>
+      </a>
+      <a href="/data-converter/jwt-decoder" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">🛡️</span><strong>JWT Token Decoder</strong><span class="data-tag">Auth</span></div>
+        <p>Inspect JSON Web Token headers, claims, scopes, and expiration dates 100% privately.</p>
+      </a>
+      <a href="/data-converter/hex-to-text" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">🔢</span><strong>Hex to Text</strong><span class="data-tag">ASCII</span></div>
+        <p>Convert hexadecimal byte dumps into readable ASCII and UTF-8 strings.</p>
+      </a>
+      <a href="/data-converter/text-to-binary" class="data-subtool-card">
+        <div class="data-card-header"><span class="data-card-icon">💻</span><strong>Text to Binary</strong><span class="data-tag">0101</span></div>
+        <p>Translate English words and letters into 8-bit binary code representation.</p>
+      </a>
+    </div>
+
+    <PrivacyComparisonTable toolName="Data Format Conversion" competitorLabel="Other Online Converters" />
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <RelatedTools currentSlug="/data-converter" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 900px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+
+  .data-subtools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin: 20px 0 32px;
+  }
+  .data-subtool-card {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 150ms ease;
+  }
+  .data-subtool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  .data-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .data-card-icon { font-size: 18px; }
+  .data-card-header strong {
+    font-size: 14px;
+    color: var(--ink);
+    flex: 1;
+  }
+  .data-tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 2px 6px;
+    border-radius: 6px;
+  }
+  .data-subtool-card p {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin: 0;
+  }
+</style>

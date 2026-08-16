@@ -38,13 +38,17 @@ const SEPARATOR_OPTIONS = [
   { value: '#', label: 'Hash  (word#word)' },
 ]
 
-export default function PasswordChecker() {
-  const [password, setPassword] = useState('')
+export default function PasswordChecker({
+  initialGenType = 'random',
+  initialGenLength = 16,
+  initialPassword = '',
+} = {}) {
+  const [password, setPassword] = useState(initialPassword || '')
   const [visible, setVisible] = useState(false)
 
   // Generator state
-  const [genType, setGenType] = useState('random') // 'random' | 'passphrase' | 'pin'
-  const [genLength, setGenLength] = useState(16)
+  const [genType, setGenType] = useState(initialGenType || 'random') // 'random' | 'passphrase' | 'pin'
+  const [genLength, setGenLength] = useState(initialGenLength || 16)
   const [genLower, setGenLower] = useState(true)
   const [genUpper, setGenUpper] = useState(true)
   const [genDigits, setGenDigits] = useState(true)
@@ -53,7 +57,7 @@ export default function PasswordChecker() {
   const [wordCount, setWordCount] = useState(4)
   const [separator, setSeparator] = useState('-')
   const [capitalize, setCapitalize] = useState(false)
-  const [pinLength, setPinLength] = useState(6)
+  const [pinLength, setPinLength] = useState(initialGenType === 'pin' ? (initialGenLength || 6) : 6)
 
   const [generated, setGenerated] = useState('')
   const [copied, setCopied] = useState(false)

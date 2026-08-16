@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import AspectRatioCalculator from '../../components/react/aspect/AspectRatioCalculator.jsx'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+
+const title = 'Aspect Ratio & Crop Calculator — Free Online Tool | Rocking Tools'
+const description = 'Calculate matching dimensions for any aspect ratio (1:1, 4:5, 9:16, 16:9, and more), or find the center-crop size and offset to fit your image to a target ratio.'
+const keywords = 'aspect ratio calculator, 16:9 ratio calculator, image crop calculator, video aspect ratio, resolution calculator, 4:3 9:16 aspect ratio'
+
+const faqItems = [
+  { q: 'What is an aspect ratio?', a: 'Aspect ratio is the proportional relationship between an image or display screen’s width and height, written as width:height (e.g., 16:9).' },
+  { q: 'What aspect ratio is used for Instagram and TikTok videos?', a: 'TikTok, Instagram Reels, and YouTube Shorts use 9:16 vertical ratio (1080x1920px), while Instagram posts use 1:1 square or 4:5 vertical.' },
+  { q: 'How do I calculate missing dimension from aspect ratio?', a: 'Multiply or divide your known width/height by the ratio fraction. For 16:9, height = width * (9 / 16).' }
+]
+---
+
+<BaseLayout title={title} description={description} path="/aspect-ratio-calculator" keywords={keywords}>
+  <SoftwareApplicationSchema slot="head" name="Aspect Ratio & Crop Calculator" description={description} path="/aspect-ratio-calculator" />
+  <FaqSchema slot="head" items={faqItems} />
+
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Aspect Ratio Calculator' }]} />
+
+  <div class="tool-hero">
+    <h1>Aspect Ratio & Crop Calculator</h1>
+    <p>Find matching dimensions for a target aspect ratio, or calculate the largest center-crop of a given ratio that fits your image.</p>
+    <img
+      src="/og/aspect-ratio-calculator.png"
+      alt="Aspect Ratio and Crop Calculator showing standard resolution ratios"
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <AspectRatioCalculator client:load />
+
+  <article class="tool-guide">
+    <h2>Standard Video & Screen Aspect Ratios</h2>
+    <p>Aspect ratios determine how visuals scale across different displays, social platforms, and broadcast standards without distortion.</p>
+    
+    <h3>Popular Aspect Ratio Calculators</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 24px;">
+      <a href="/aspect-ratio/9-16" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📱 9:16 Video Calculator (TikTok, Reels)</a>
+      <a href="/aspect-ratio/16-9" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📺 16:9 Widescreen Calculator (YouTube)</a>
+      <a href="/aspect-ratio/4-5" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🖼️ 4:5 Instagram Portrait Calculator</a>
+      <a href="/aspect-ratio/1-1" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🔲 1:1 Square Post & Avatar Calculator</a>
+      <a href="/aspect-ratio/3-2" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📷 3:2 Photo & DSLR Calculator</a>
+      <a href="/aspect-ratio/21-9" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">🎬 21:9 Ultrawide & Cinema Calculator</a>
+      <a href="/aspect-ratio/4-3" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">💻 4:3 Display & iPad Calculator</a>
+      <a href="/aspect-ratio/2-3" style="padding: 12px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--panel-border); border-radius: 10px; color: var(--ink); text-decoration: none; font-size: 13.5px; font-weight: 600;">📌 2:3 Pinterest Pin Calculator</a>
+    </div>
+
+    <PrivacyComparisonTable toolName="Aspect Ratio Calculation" competitorLabel="Other Aspect Ratio Tools" />
+
+    <h3>Frequently Asked Questions</h3>
+    {faqItems.map((faq) => (
+      <div class="faq-item">
+        <h4>{faq.q}</h4>
+        <p>{faq.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <RelatedTools currentSlug="/aspect-ratio-calculator" />
+</BaseLayout>
+
+<style>
+  .tool-hero { max-width: 780px; margin: 0 auto; padding: 32px 20px 0; }
+  .tool-hero h1 { font-size: clamp(24px, 4vw, 34px); font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+  .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
+  .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
+</style>
