@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
+import { CONVERSIONS_DATA } from './src/data/conversionsData.js'
 
 const siteUrl = process.env.PUBLIC_SITE_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://www.rockingtools.com')
@@ -17,6 +18,13 @@ const EXCLUDED_SLUGS = [
   '/404',
 ]
 
+// Build a set of /unit-converter/{slug} paths that are duplicate conversion pair
+// pages (the standalone /{slug} version is the canonical). Category index pages
+// like /unit-converter/weight are NOT excluded — they have unique content.
+const DUPLICATE_CONVERTER_PATHS = new Set(
+  CONVERSIONS_DATA.map((conv) => `/unit-converter/${conv.slug}`)
+)
+
 export default defineConfig({
   site: siteUrl,
   output: 'static',
@@ -24,7 +32,14 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !EXCLUDED_SLUGS.some((slug) => new URL(page).pathname === slug || new URL(page).pathname === slug + '/'),
+      filter: (page) => {
+        const pathname = new URL(page).pathname.replace(/\/$/, '') || '/'
+        // Exclude noindex pages
+        if (EXCLUDED_SLUGS.some((slug) => pathname === slug)) return false
+        // Exclude duplicate /unit-converter/{conversion} pages
+        if (DUPLICATE_CONVERTER_PATHS.has(pathname)) return false
+        return true
+      },
       serialize: (item) => ({
         ...item,
         // Normalize trailing slashes for cleaner URLs in sitemap
