@@ -100,6 +100,63 @@ export const PREGNANCY_CLUSTER_DATA = [
     ],
     relatedSlugs: ['due-date-calculator', 'pregnancy-week-calculator', 'ovulation-calculator', 'conception-date-calculator'],
   },
+  {
+    slug: 'trimester-calculator',
+    name: 'Pregnancy Trimester Schedule',
+    title: 'Pregnancy Trimester Calculator — Exact Week & Month Dates | Rocking Tools',
+    description: 'Calculate exact calendar transition dates for your 1st, 2nd, and 3rd pregnancy trimesters based on your last period or estimated due date.',
+    keywords: 'trimester calculator, pregnancy trimester dates, when does second trimester start, third trimester calculator, trimester weeks',
+    intro: 'Calculate exact calendar start and end dates for your first, second, and third trimesters to plan appointments, maternity leave, and milestones.',
+    formulaName: 'ACOG Gestational Trimester Boundaries',
+    formulaMath: '• 1st Trimester: Conception to Week 12 (Days 1 to 84)\n• 2nd Trimester: Week 13 to Week 27 (Days 85 to 189)\n• 3rd Trimester: Week 28 to Delivery (Days 190 to 280+)',
+    formulaExplanation: 'The American College of Obstetricians and Gynecologists (ACOG) standardizes pregnancy milestones into three equal developmental phases.',
+    references: [
+      { citation: 'American College of Obstetricians and Gynecologists (ACOG) (2017). "Methods for Estimating the Due Date." Committee Opinion No. 700.', link: '#' },
+    ],
+    limitations: 'Trimester calculations are structured guidelines. Baby development occurs on a continuous continuum.',
+    faqs: [
+      { q: 'When does the second trimester begin?', a: 'The second trimester starts on Week 13 (Day 85 from LMP), often bringing renewed energy and relief from early morning sickness.' },
+    ],
+    relatedSlugs: ['due-date-calculator', 'pregnancy-week-calculator', 'ovulation-calculator', 'conception-date-calculator'],
+  },
+  {
+    slug: 'implantation-calculator',
+    name: 'Implantation Date & Window',
+    title: 'Implantation Calculator — Estimated Implantation Bleeding Window | Rocking Tools',
+    description: 'Calculate your estimated embryo implantation dates (6 to 12 days post-ovulation) and when to take a reliable home pregnancy test.',
+    keywords: 'implantation calculator, when does implantation occur, implantation bleeding dates, days past ovulation implantation, dpo implantation',
+    intro: 'Determine your most likely embryo implantation window (typically 6 to 12 days after ovulation) and optimal dates to test for hCG pregnancy hormones.',
+    formulaName: 'Post-Ovulation Implantation Window Model',
+    formulaMath: 'Estimated Ovulation = LMP + (Cycle Length - 14 Days)\nImplantation Window = Ovulation Date + 6 to 12 Days (Peak on Day 8-9 DPO)',
+    formulaExplanation: 'Clinical studies by Wilcox et al. established that 84% of successful implantations occur between days 8 and 10 following ovulation.',
+    references: [
+      { citation: 'Wilcox, A. J., et al. (1999). "Time of implantation of the conceptus and loss of pregnancy." New England Journal of Medicine, 340(23), 1796-1799.', link: '#' },
+    ],
+    limitations: 'Individual hormonal timing varies. A negative pregnancy test before a missed period is not conclusive.',
+    faqs: [
+      { q: 'How many days after ovulation does implantation occur?', a: 'Embryo implantation most commonly occurs 8 to 10 days post-ovulation (DPO), though a normal window spans 6 to 12 DPO.' },
+    ],
+    relatedSlugs: ['ovulation-calculator', 'due-date-calculator', 'conception-date-calculator', 'pregnancy-week-calculator'],
+  },
+  {
+    slug: 'ivf-due-date-calculator',
+    name: 'IVF Due Date & Embryo Transfer',
+    title: 'IVF Due Date Calculator — 3-Day & 5-Day Blastocyst Transfer | Rocking Tools',
+    description: 'Calculate your exact estimated delivery date for IVF pregnancies based on Egg Retrieval date or 3-Day / 5-Day frozen embryo transfer (FET).',
+    keywords: 'ivf due date calculator, fet due date calculator, 5 day blastocyst due date, embryo transfer due date, ivf pregnancy calculator',
+    intro: 'Calculate exact estimated due dates and gestational progress for IVF treatments using Egg Retrieval or 3-Day/5-Day Embryo Transfer (FET) dates.',
+    formulaName: 'SART Clinical IVF Dating Protocol',
+    formulaMath: '• 5-Day Transfer (FET): Due Date = Transfer Date + 266 Days - 5 Days\n• 3-Day Transfer: Due Date = Transfer Date + 266 Days - 3 Days\n• Egg Retrieval: Due Date = Retrieval Date + 266 Days',
+    formulaExplanation: 'Because the exact fertilization and embryo transfer dates are precisely known in IVF, gestational dating is more accurate than natural LMP methods.',
+    references: [
+      { citation: 'Society for Assisted Reproductive Technology (SART) (2020). "Clinical Guidelines for Assisted Reproductive Technologies."', link: '#' },
+    ],
+    limitations: 'Full-term singletons and twin IVF pregnancies may deliver before 40 weeks as advised by your reproductive endocrinologist.',
+    faqs: [
+      { q: 'How is an IVF due date calculated for a 5-day transfer?', a: 'Add 261 days (266 days minus 5 days of embryo development) to the exact date of your 5-day embryo transfer.' },
+    ],
+    relatedSlugs: ['due-date-calculator', 'pregnancy-week-calculator', 'ovulation-calculator', 'trimester-calculator'],
+  },
 ]
 
 export function getPregnancyToolBySlug(slug) {

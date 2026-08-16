@@ -44,11 +44,16 @@ function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
-export default function RegexTester() {
-  const [subMode, setSubMode] = useState('match') // 'match' | 'validate'
-  const [pattern, setPattern] = useState('[\\w.+-]+@[\\w-]+\\.[a-zA-Z]{2,}')
-  const [flags, setFlags] = useState(['g', 'i'])
-  const [testString, setTestString] = useState('Contact us at hello@example.com or support@test.co.uk for help.')
+export default function RegexTester({
+  initialPattern = '[\\w.+-]+@[\\w-]+\\.[a-zA-Z]{2,}',
+  initialFlags = ['g', 'i'],
+  initialTestString = 'Contact us at hello@example.com or support@test.co.uk for help.',
+  initialSubMode = 'match',
+} = {}) {
+  const [subMode, setSubMode] = useState(initialSubMode || 'match') // 'match' | 'validate'
+  const [pattern, setPattern] = useState(initialPattern || '[\\w.+-]+@[\\w-]+\\.[a-zA-Z]{2,}')
+  const [flags, setFlags] = useState(initialFlags || ['g', 'i'])
+  const [testString, setTestString] = useState(initialTestString || 'Contact us at hello@example.com or support@test.co.uk for help.')
   const [replacePattern, setReplacePattern] = useState('[contact-email]')
   const [showReplace, setShowReplace] = useState(false)
   const [showValidationPatterns, setShowValidationPatterns] = useState(false)

@@ -22,8 +22,14 @@ import { readHandoff, clearHandoff } from '../workspace/handoff.js'
 import HandoffBanner from '../workspace/HandoffBanner.jsx'
 
 
-export default function DataConverter() {
-  const [tab, setTab] = useState('structure') // 'structure' | 'storage' | 'encoding' | 'numbers' | 'color' | 'jwt'
+export default function DataConverter({
+  initialTab = 'structure',
+  initialFromFormat = 'JSON',
+  initialToFormat = 'CSV',
+  initialEncodingMode = 'base64-enc',
+  initialInput = '',
+} = {}) {
+  const [tab, setTab] = useState(initialTab || 'structure') // 'structure' | 'storage' | 'encoding' | 'numbers' | 'color' | 'jwt'
   const [handoff, setHandoff] = useState(() => readHandoff('/data-converter'))
 
   // Pre-select tab from workspace handoff (data files map to 'structure')
@@ -33,9 +39,9 @@ export default function DataConverter() {
   }, [])
 
   // Structural Converter State
-  const [fromFormat, setFromFormat] = useState('JSON')
-  const [toFormat, setToFormat] = useState('CSV')
-  const [input, setInput] = useState(SAMPLE_JSON)
+  const [fromFormat, setFromFormat] = useState(initialFromFormat || 'JSON')
+  const [toFormat, setToFormat] = useState(initialToFormat || 'CSV')
+  const [input, setInput] = useState(initialInput || SAMPLE_JSON)
   const [copied, setCopied] = useState(false)
   const [copiedLabel, setCopiedLabel] = useState('')
 
@@ -44,7 +50,7 @@ export default function DataConverter() {
   const [storageUnit, setStorageUnit] = useState('MB')
 
   // Encoding Converter State
-  const [encodingMode, setEncodingMode] = useState('base64-enc')
+  const [encodingMode, setEncodingMode] = useState(initialEncodingMode || 'base64-enc')
   const [encInput, setEncInput] = useState('Hello World!')
 
   // Number Base Converter State

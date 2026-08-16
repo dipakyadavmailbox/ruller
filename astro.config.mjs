@@ -34,7 +34,7 @@ export default defineConfig({
         lastmod: new Date().toISOString().split('T')[0],
         changefreq: item.url === siteUrl + '/' ? 'weekly' : 'monthly',
         priority: item.url === siteUrl + '/' ? 1.0
-          : ['/ruler', '/password-checker', '/calorie-calculator', '/dpi-calculator', '/image-resizer'].some(p => item.url.includes(p)) ? 0.9
+          : ['/ruler', '/password-checker', '/calorie-calculator', '/pregnancy-calculator', '/dpi-calculator', '/image-resizer', '/conversions', '/pdf-tools', '/qr-code-generator', '/unit-converter', '/aspect-ratio-calculator', '/regex-tester', '/cron-expression-builder', '/data-converter', '/color-tools'].some(p => item.url.includes(p)) ? 0.9
             : ['/faq', '/about'].some(p => item.url.includes(p)) ? 0.7
               : 0.8,
       }),

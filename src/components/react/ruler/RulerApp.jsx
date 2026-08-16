@@ -7,13 +7,13 @@ import MeasureOverlay from './MeasureOverlay.jsx'
 import { useCalibratedPPI } from './useCalibratedPPI.js'
 import { pxPerUnit } from './units.js'
 
-export default function RulerApp() {
-  const [unit, setUnit] = useState('cm')
+export default function RulerApp({ initialUnit = 'cm', initialCalibrationOpen = false } = {}) {
+  const [unit, setUnit] = useState(initialUnit || 'cm')
   const [edges, setEdges] = useState({ top: true, bottom: false, left: true, right: false })
   const [theme, setTheme] = useState(() =>
     typeof document !== 'undefined' && document.documentElement.dataset.theme === 'light' ? 'light' : 'dark'
   )
-  const [calibrationOpen, setCalibrationOpen] = useState(false)
+  const [calibrationOpen, setCalibrationOpen] = useState(Boolean(initialCalibrationOpen))
   const [mousePos, setMousePos] = useState({ x: -1, y: -1 })
   const [showCrosshair, setShowCrosshair] = useState(false)
 

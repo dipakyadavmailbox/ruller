@@ -7,8 +7,8 @@ const TABS = [
   { id: 'palette', label: '🖌️ Palette Generator', sublabel: '5 Harmony Modes' },
 ]
 
-export default function ColorTools() {
-  const [activeTab, setActiveTab] = useState('picker')
+export default function ColorTools({ initialTab = 'picker', initialHex = '#6366F1' } = {}) {
+  const [activeTab, setActiveTab] = useState(initialTab || 'picker')
 
   return (
     <div style={{ maxWidth: '900px', margin: '24px auto 40px', padding: '0 20px' }}>
@@ -74,7 +74,7 @@ export default function ColorTools() {
           padding:      '28px',
         }}
       >
-        {activeTab === 'picker'  && <ColorPicker />}
+        {activeTab === 'picker'  && <ColorPicker initialHex={initialHex} />}
         {activeTab === 'palette' && <PaletteGenerator />}
       </div>
 

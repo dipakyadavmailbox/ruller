@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import RelatedTools from '../../components/astro/RelatedTools.astro'
+import { CONVERSIONS_DATA } from '../../data/conversionsData.js'
+import { UNIT_CATEGORIES_DATA } from '../../data/unitCategoriesData.js'
+
+const title = 'All Unit Conversions — Length, Weight, Temperature, Volume & More | Rocking Tools'
+const description = 'Browse all unit conversion calculators: length, weight, temperature, volume, speed, area, data storage, time, energy, and pressure. Instant results, 100% browser-based.'
+const keywords = 'unit conversions, conversion calculator, metric converter, imperial converter, length converter, weight converter, temperature converter'
+
+// Group conversions by categoryId
+const grouped = {}
+for (const conv of CONVERSIONS_DATA) {
+  if (!grouped[conv.categoryId]) {
+    grouped[conv.categoryId] = []
+  }
+  grouped[conv.categoryId].push(conv)
+}
+
+// Order categories by the unitCategoriesData keys
+const categoryOrder = Object.keys(UNIT_CATEGORIES_DATA)
+const orderedGroups = categoryOrder
+  .filter((catId) => grouped[catId] && grouped[catId].length > 0)
+  .map((catId) => ({
+    id: catId,
+    data: UNIT_CATEGORIES_DATA[catId],
+    conversions: grouped[catId],
+  }))
+---
+
+<BaseLayout title={title} description={description} path="/conversions" keywords={keywords}>
+  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Unit Converter', path: '/unit-converter' }, { label: 'All Conversions' }]} />
+
+  <div class="hub-hero">
+    <h1>All Unit Conversions</h1>
+    <p>Browse {CONVERSIONS_DATA.length}+ instant conversion calculators across {orderedGroups.length} categories. Every converter includes the exact formula, a lookup table, practical examples, and FAQs — all running 100% in your browser.</p>
+    <div class="hub-stats">
+      <div class="stat"><span class="stat-num">{CONVERSIONS_DATA.length}</span><span class="stat-label">Converters</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">{orderedGroups.length}</span><span class="stat-label">Categories</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">0ms</span><span class="stat-label">Server Latency</span></div>
+    </div>
+  </div>
+
+  {orderedGroups.map((group) => (
+    <section class="category-section" id={group.id}>
+      <div class="category-header">
+        <span class="cat-icon">{group.data.icon}</span>
+        <h2>{group.data.name}</h2>
+        <span class="cat-count">{group.conversions.length} converters</span>
+      </div>
+      <div class="conversion-grid">
+        {group.conversions.map((conv) => (
+          <a href={`/${conv.slug}`} class="conversion-link">
+            <span class="conv-arrow">⇄</span>
+            <span class="conv-name">{conv.fromLabel} → {conv.toLabel}</span>
+            <span class="conv-symbols">{conv.fromSymbol} → {conv.toSymbol}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <RelatedTools currentSlug="/unit-converter" />
+</BaseLayout>
+
+<style>
+  .hub-hero {
+    max-width: 860px; margin: 0 auto; padding: 40px 20px 32px; text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .hub-hero h1 {
+    font-size: clamp(28px, 5vw, 42px); font-weight: 900; color: var(--ink);
+    line-height: 1.15; margin: 0 0 12px 0;
+  }
+  .hub-hero p {
+    font-size: clamp(14px, 2vw, 16px); color: var(--ink-dim); line-height: 1.6;
+    max-width: 640px; margin: 0 0 28px 0;
+  }
+  .hub-stats {
+    display: flex; align-items: center; justify-content: center; gap: 28px;
+    padding: 14px 28px; border-radius: 14px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border);
+    backdrop-filter: var(--glass-backdrop);
+  }
+  .stat { display: flex; flex-direction: column; align-items: center; }
+  .stat-num { font-size: 20px; font-weight: 900; color: var(--ink); font-family: var(--font-mono); }
+  .stat-label { font-size: 11px; font-weight: 700; color: var(--ink-faint); letter-spacing: 0.5px; }
+  .stat-divider { width: 1px; height: 24px; background: var(--panel-border); flex-shrink: 0; }
+
+  .category-section {
+    max-width: 860px; margin: 0 auto 28px; padding: 0 20px;
+  }
+  .category-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 14px 0; border-bottom: 2px solid var(--panel-border); margin-bottom: 14px;
+  }
+  .cat-icon { font-size: 22px; }
+  .category-header h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin: 0; flex: 1; }
+  .cat-count {
+    font-size: 11px; font-weight: 700; color: var(--accent);
+    background: var(--accent-light); padding: 4px 10px; border-radius: 8px;
+  }
+
+  .conversion-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px;
+  }
+  .conversion-link {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+    background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 10px;
+    color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 500;
+    transition: border-color 150ms ease, color 150ms ease, transform 150ms ease;
+  }
+  .conversion-link:hover {
+    border-color: var(--accent); color: var(--accent); transform: translateY(-1px);
+  }
+  .conv-arrow { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+  .conv-name { flex: 1; }
+  .conv-symbols {
+    font-size: 11px; font-weight: 700; color: var(--ink-faint);
+    font-family: var(--font-mono); white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    .hub-stats { gap: 14px; padding: 12px 16px; }
+    .stat-num { font-size: 16px; }
+    .conversion-grid { grid-template-columns: 1fr; }
+  }
+</style>

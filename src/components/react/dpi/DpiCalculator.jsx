@@ -9,16 +9,24 @@ const AFFILIATE_ITEMS = [
   { name: 'Printful / Shutterfly', blurb: 'Send your file out for large-format prints, canvases, or posters.', href: '#', cta: 'Order prints →' },
 ]
 
-export default function DpiCalculator() {
-  const [mode, setMode] = useState('size-from-pixels') // 'size-from-pixels' | 'pixels-from-size' | 'dpi-from-both' | 'distance'
-  const [unit, setUnit] = useState('in') // 'in' | 'cm'
+export default function DpiCalculator({
+  initialMode = 'size-from-pixels',
+  initialDpi = 300,
+  initialPixelWidth = 3000,
+  initialPixelHeight = 2000,
+  initialPrintWidth = 10,
+  initialPrintHeight = 8,
+  initialUnit = 'in',
+} = {}) {
+  const [mode, setMode] = useState(initialMode || 'size-from-pixels') // 'size-from-pixels' | 'pixels-from-size' | 'dpi-from-both' | 'distance'
+  const [unit, setUnit] = useState(initialUnit || 'in') // 'in' | 'cm'
 
-  const [pixelWidth, setPixelWidth] = useState(3000)
-  const [pixelHeight, setPixelHeight] = useState(2000)
-  const [dpi, setDpi] = useState(300)
+  const [pixelWidth, setPixelWidth] = useState(initialPixelWidth || 3000)
+  const [pixelHeight, setPixelHeight] = useState(initialPixelHeight || 2000)
+  const [dpi, setDpi] = useState(initialDpi || 300)
 
-  const [printWidth, setPrintWidth] = useState(10)
-  const [printHeight, setPrintHeight] = useState(8)
+  const [printWidth, setPrintWidth] = useState(initialPrintWidth || 10)
+  const [printHeight, setPrintHeight] = useState(initialPrintHeight || 8)
 
   const [viewDistanceFeet, setViewDistanceFeet] = useState(2) // 2 feet
 
