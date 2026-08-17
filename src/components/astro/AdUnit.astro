@@ -1,0 +1,97 @@
+---
+/**
+ * AdUnit.astro — Google AdSense display unit
+ *
+ * Props:
+ *   format  - 'auto' (responsive banner) | 'fluid' (in-article native) | 'rectangle' (300x250)
+ *   label   - accessible label for the ad region
+ *   class   - additional CSS classes for the wrapper
+ */
+
+interface Props {
+  format?: 'auto' | 'fluid' | 'rectangle'
+  label?: string
+  class?: string
+}
+
+const {
+  format = 'auto',
+  label = 'Advertisement',
+  class: extraClass = '',
+} = Astro.props
+
+const isFluid = format === 'fluid'
+const isRectangle = format === 'rectangle'
+---
+
+<div
+  class:list={['ad-unit-wrapper', extraClass, { 'ad-fluid': isFluid, 'ad-rectangle': isRectangle }]}
+  role="complementary"
+  aria-label={label}
+>
+  <span class="ad-label">Advertisement</span>
+  <ins
+    class="adsbygoogle"
+    style={isFluid
+      ? 'display:block; text-align:center;'
+      : isRectangle
+        ? 'display:inline-block; width:300px; height:250px;'
+        : 'display:block;'}
+    data-ad-client="ca-pub-1415591576482669"
+    data-ad-slot="auto"
+    data-ad-format={isFluid ? 'fluid' : 'auto'}
+    data-full-width-responsive={isFluid ? undefined : 'true'}
+    data-ad-layout={isFluid ? 'in-article' : undefined}
+  ></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<style>
+  .ad-unit-wrapper {
+    width: 100%;
+    text-align: center;
+    margin: 32px auto;
+    padding: 12px 0;
+    border-top: 1px solid var(--panel-border);
+    border-bottom: 1px solid var(--panel-border);
+    background: transparent;
+    max-width: 900px;
+    min-height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ad-unit-wrapper.ad-fluid {
+    border: none;
+    margin: 24px auto;
+    padding: 0;
+    min-height: 120px;
+    max-width: 760px;
+  }
+
+  .ad-unit-wrapper.ad-rectangle {
+    border: none;
+    padding: 0;
+    min-height: 250px;
+    width: 300px;
+    margin: 24px auto;
+  }
+
+  .ad-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    opacity: 0.6;
+    display: block;
+  }
+
+  @media (max-width: 600px) {
+    .ad-unit-wrapper {
+      margin: 20px auto;
+    }
+  }
+</style>

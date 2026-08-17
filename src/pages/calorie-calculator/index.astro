@@ -7,6 +7,7 @@ import CalorieCalculator from '../../components/react/calorie/CalorieCalculator.
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import MedicalDisclaimer from '../../components/astro/MedicalDisclaimer.astro'
 import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'Calorie Calculator (TDEE & BMR) — Free Online Tool | Rocking Tools'
 const description = 'Free TDEE & BMR calorie calculator using the Mifflin-St Jeor equation. Calculate daily calorie needs for weight loss, muscle gain, or maintenance. Includes macro split and food log. 100% private, no signup.'
@@ -44,6 +45,8 @@ const faqItems = [
   </div>
 
   <CalorieCalculator client:load />
+
+  <AdUnit format="fluid" label="Advertisement — Calorie Calculator" />
 
   <MedicalDisclaimer topic="Calorie & Nutrition" />
 
@@ -120,6 +123,8 @@ const faqItems = [
       </div>
     ))}
   </article>
+
+  <AdUnit label="Advertisement" />
 
   <RelatedTools currentSlug="/calorie-calculator" />
 </BaseLayout>

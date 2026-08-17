@@ -6,6 +6,7 @@ import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicatio
 import DataConverter from '../../components/react/converter/DataConverter.jsx'
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'JSON ⇄ CSV ⇄ YAML Data Format Converter — 100% Client-Side | Rocking Tools'
 const description = 'Convert structured data seamlessly between JSON, CSV, and YAML in real-time. Zero network uploads, fast formatting, error highlighting, and one-click file export.'
@@ -39,6 +40,8 @@ const faqItems = [
   </div>
 
   <DataConverter client:load />
+
+  <AdUnit format="fluid" label="Advertisement — Data Converter" />
 
   <article class="tool-guide">
     <h2>Client-Side Data Conversion Features</h2>
@@ -102,6 +105,8 @@ const faqItems = [
       </div>
     ))}
   </article>
+
+  <AdUnit label="Advertisement" />
 
   <RelatedTools currentSlug="/data-converter" />
 </BaseLayout>

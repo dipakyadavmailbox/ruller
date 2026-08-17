@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import ToolGrid from '../components/react/home/ToolGrid.jsx'
 import { SITE_CONFIG } from '../siteConfig.js'
+import AdUnit from '../components/astro/AdUnit.astro'
 
 const title = 'Rocking Tools — Free, Private Online Tools & Utilities'
 const description = 'Studio-grade browser utilities for image processing, PDF editing, developer formatting, calculations, and security. 100% private, client-side, zero signup.'
@@ -120,6 +121,8 @@ const itemListSchema = {
   </div>
 
   <ToolGrid client:load />
+
+  <AdUnit label="Advertisement" />
 
   {/* Comprehensive static tool directory for search engines and user discovery */}
   <section aria-label="All Tools & Utilities Directory" class="seo-tool-directory">

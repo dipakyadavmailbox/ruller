@@ -6,6 +6,7 @@ import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicatio
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
 import ColorTools from '../../components/react/colortools/ColorTools.jsx'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'Color Picker & Palette Generator — HEX, RGB, HSL, HSV | Rocking Tools'
 const description =
@@ -67,6 +68,8 @@ const faqItems = [
   </div>
 
   <ColorTools client:load />
+
+  <AdUnit format="fluid" label="Advertisement — Color Tools" />
 
   <article class="tool-guide">
     <h2>Professional Color Tools for Designers & Developers</h2>
