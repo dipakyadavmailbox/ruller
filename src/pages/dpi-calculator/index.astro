@@ -6,6 +6,7 @@ import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicatio
 import DpiCalculator from '../../components/react/dpi/DpiCalculator.jsx'
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'DPI / PPI Print Size Calculator — Free Online Tool | Rocking Tools'
 const description = 'Free DPI & PPI print size calculator. Find the maximum print size your image supports at 300 DPI, or calculate how many pixels you need for a target print size. Works for photos, posters, canvas prints, and business cards.'
@@ -42,6 +43,8 @@ const faqItems = [
   </div>
 
   <DpiCalculator client:load />
+
+  <AdUnit format="fluid" label="Advertisement — DPI Calculator" />
 
   <article class="tool-guide">
     <h2>Understanding DPI, PPI, and Print Resolution</h2>
@@ -100,6 +103,8 @@ const faqItems = [
       </div>
     ))}
   </article>
+
+  <AdUnit label="Advertisement — Related Tools" />
 
   <RelatedTools currentSlug="/dpi-calculator" />
 </BaseLayout>

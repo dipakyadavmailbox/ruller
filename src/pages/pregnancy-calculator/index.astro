@@ -7,6 +7,7 @@ import PregnancyCalculator from '../../components/react/pregnancy/PregnancyCalcu
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import MedicalDisclaimer from '../../components/astro/MedicalDisclaimer.astro'
 import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'Pregnancy Due Date & Ovulation Calculator — Free | Rocking Tools'
 const description = 'Calculate your estimated due date, pregnancy progress by week/trimester, and fertile ovulation window based on your last menstrual period (LMP).'
@@ -40,6 +41,8 @@ const faqItems = [
   </div>
 
   <PregnancyCalculator client:load />
+
+  <AdUnit format="fluid" label="Advertisement" />
 
   <MedicalDisclaimer topic="Pregnancy & Obstetrics" />
 
@@ -101,6 +104,8 @@ const faqItems = [
       </div>
     ))}
   </article>
+  <AdUnit label="Advertisement" />
+
 
   <RelatedTools currentSlug="/pregnancy-calculator" />
 </BaseLayout>
@@ -111,3 +116,4 @@ const faqItems = [
   .tool-hero p { color: var(--ink-dim); font-size: 14px; line-height: 1.6; margin-bottom: 16px; }
   .tool-preview-img { width: 100%; height: auto; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 24px; display: block; object-fit: cover; }
 </style>
+

@@ -6,6 +6,7 @@ import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicatio
 import PasswordChecker from '../../components/react/password/PasswordChecker.jsx'
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'Password Strength Checker & Generator — Free, Private | Rocking Tools'
 const description = 'Instantly check your password strength, entropy, and estimated crack time — 100% in your browser, nothing sent to any server. Includes a free cryptographically secure random password generator.'
@@ -42,6 +43,8 @@ const faqItems = [
   </div>
 
   <PasswordChecker client:load />
+
+  <AdUnit format="fluid" label="Advertisement" />
 
   <article class="tool-guide">
     <h2>Password Security, Entropy & Crack Time Analysis</h2>
@@ -93,6 +96,8 @@ const faqItems = [
       </div>
     ))}
   </article>
+  <AdUnit label="Advertisement" />
+
 
   <RelatedTools currentSlug="/password-checker" />
 </BaseLayout>
@@ -166,3 +171,4 @@ const faqItems = [
     margin: 0;
   }
 </style>
+

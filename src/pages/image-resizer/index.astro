@@ -6,6 +6,7 @@ import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicatio
 import ImageResizer from '../../components/react/imagetool/ImageResizer.jsx'
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import PrivacyComparisonTable from '../../components/astro/PrivacyComparisonTable.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'Batch Image Resizer & WebP Compressor — Free, Private | Rocking Tools'
 const description = 'Resize, crop, and compress images (PNG, JPEG, WebP, SVG) in bulk — 100% in your browser using HTML5 Canvas. Zero upload, maximum privacy, zero quality loss.'
@@ -41,6 +42,8 @@ const faqItems = [
   </div>
 
   <ImageResizer client:load />
+
+  <AdUnit format="fluid" label="Advertisement — Image Tools" />
 
   <article class="tool-guide">
     <h2>Complete Guide to Client-Side Image Optimization</h2>
@@ -100,6 +103,8 @@ const faqItems = [
       </div>
     ))}
   </article>
+
+  <AdUnit label="Advertisement" />
 
   <RelatedTools currentSlug="/image-resizer" />
 </BaseLayout>

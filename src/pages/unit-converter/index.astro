@@ -5,6 +5,7 @@ import RelatedTools from '../../components/astro/RelatedTools.astro'
 import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import UnitConverter from '../../components/react/unitconverter/UnitConverter.jsx'
+import AdUnit from '../../components/astro/AdUnit.astro'
 
 const title = 'Unit Converter — Length, Weight, Temperature & 7 More | Rocking Tools'
 const description =
@@ -66,6 +67,8 @@ const faqItems = [
   </div>
 
   <UnitConverter client:load />
+
+  <AdUnit format="fluid" label="Advertisement — Unit Converter" />
 
   <article class="tool-guide">
     <h2>Precision Unit Conversion for Every Use Case</h2>
@@ -142,6 +145,8 @@ const faqItems = [
       </div>
     ))}
   </article>
+
+  <AdUnit label="Advertisement" />
 
   <RelatedTools currentSlug="/unit-converter" />
 </BaseLayout>
