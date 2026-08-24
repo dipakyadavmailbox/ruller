@@ -1,3 +1,5 @@
+import { formatDate, activeLocale } from '../../../i18n/format.js'
+
 // ─── Workspace localStorage Storage Helpers ───────────────────────────────────
 // All keys prefixed `rkt:` to avoid collisions with other site localStorage usage.
 // No file content is EVER stored — only metadata.
@@ -80,7 +82,7 @@ export function relativeTime(timestamp) {
   const d = Math.floor(h / 24)
   if (d === 1)  return 'Yesterday'
   if (d < 7)    return `${d}d ago`
-  return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  return formatDate(new Date(timestamp), activeLocale(), { month: 'short', day: 'numeric' })
 }
 
 // ─── Onboarding ───────────────────────────────────────────────────────────────

@@ -1,0 +1,170 @@
+---
+/**
+ * LanguageSwitcher.astro — the visible, crawlable language menu.
+ *
+ * Rendered as real <a> links rather than a JS dropdown so that Googlebot
+ * follows them and discovers the translated URLs even before the sitemap
+ * is fetched. On a page with no translations it still links to each
+ * locale's home page, so the languages are never a dead end.
+ */
+
+import { LOCALES, DEFAULT_LOCALE, getLocale } from '../../i18n/config.js'
+import { localizePath, normalizePath } from '../../i18n/routing.js'
+import { isCorePath } from '../../i18n/pages.js'
+import { t } from '../../i18n/ui.js'
+
+interface Props {
+  lang?: string
+  path: string
+}
+
+const { lang = DEFAULT_LOCALE, path } = Astro.props
+const current = getLocale(lang)
+const cleanPath = normalizePath(path)
+
+// On an untranslated long-tail page, switching language keeps the visitor
+// on the site by sending them to that language's home page instead of a 404.
+const translated = isCorePath(cleanPath)
+const targetPath = translated ? cleanPath : '/'
+
+const links = LOCALES.map((locale) => ({
+  ...locale,
+  href: localizePath(targetPath, locale.code),
+  isCurrent: locale.code === current.code,
+}))
+---
+
+<div class="lang-switcher">
+  <button
+    class="lang-trigger"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-label={t(lang, 'nav.chooseLanguage')}
+  >
+    <span aria-hidden="true">{current.flag}</span>
+    <span class="lang-code">{current.code.toUpperCase()}</span>
+    <span class="arrow" aria-hidden="true">▾</span>
+  </button>
+  <div class="lang-menu glass-panel" role="menu" aria-label={t(lang, 'nav.language')}>
+    {links.map((locale) => (
+      <a
+        href={locale.href}
+        hreflang={locale.hreflang}
+        lang={locale.code}
+        role="menuitem"
+        class={locale.isCurrent ? 'lang-item active' : 'lang-item'}
+        aria-current={locale.isCurrent ? 'true' : undefined}
+      >
+        <span aria-hidden="true">{locale.flag}</span>
+        <span>{locale.nativeLabel}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .lang-switcher {
+    position: relative;
+  }
+  .lang-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--panel-border);
+    background: var(--btn-idle-bg);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: border-color 150ms ease;
+  }
+  .lang-trigger:hover,
+  .lang-switcher:focus-within .lang-trigger {
+    border-color: var(--accent);
+  }
+  .lang-code {
+    letter-spacing: 0.5px;
+  }
+  .arrow {
+    font-size: 10px;
+    opacity: 0.6;
+  }
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 190px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 130;
+  }
+  .lang-switcher:hover .lang-menu,
+  .lang-switcher:focus-within .lang-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    min-height: 38px;
+  }
+  .lang-item:hover {
+    background: var(--btn-idle-bg);
+  }
+  .lang-item.active {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+
+  @media (max-width: 860px) {
+    .lang-switcher {
+      width: 100%;
+    }
+    .lang-trigger {
+      width: 100%;
+      justify-content: space-between;
+      padding: 12px 16px;
+      font-size: 14px;
+      border-radius: 10px;
+    }
+    /* No hover on touch, so the menu is always open in the mobile drawer. */
+    .lang-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      padding: 6px 0 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
+    .lang-item {
+      border: 1px solid var(--panel-border);
+      background: var(--panel-bg);
+    }
+  }
+</style>

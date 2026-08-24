@@ -1,15 +1,32 @@
 User-agent: *
 Allow: /
 
-# Save crawl budget — noindex pages should also be disallowed from crawling
-# Note: Do NOT disallow /sitemap as it blocks /sitemap.xml and /sitemap-index.xml
-Disallow: /privacy
-Disallow: /terms
-Disallow: /dmca
-Disallow: /accessibility
-Disallow: /donate
-Disallow: /contact
+# NOTE: the legal and contact pages are deliberately NOT disallowed.
+#
+# They were previously blocked here to save crawl budget, which broke two
+# things at once:
+#   1. AdSense review requires the privacy policy, terms, and a contact
+#      route to be reachable by its crawler. Blocking them is a common
+#      cause of "site does not comply with policies" rejections.
+#   2. A page that is Disallowed can never have its noindex tag read,
+#      because the crawler is not allowed to fetch the page to see it.
+#      Blocking and noindexing the same URL is self-defeating.
+#
+# The pages that should stay out of the index carry a robots meta tag
+# instead, which is the mechanism that actually works.
+
 Disallow: /404
+
+# Google AdSense crawler — needs to read every page it may serve ads on,
+# including the localized routes, in order to match ads to page content.
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
 
 # AI retrieval/citation crawlers — explicitly allowed so ChatGPT, Claude,
 # and Perplexity can cite these tools in their answers.

@@ -1,0 +1,163 @@
+---
+/**
+ * LocaleSuggestion.astro — offers, but never forces, a language switch.
+ *
+ * Google explicitly advises against automatically redirecting visitors by
+ * Accept-Language: it stops Googlebot (which crawls from the US with an
+ * en-US header) from ever seeing the translated pages, and it traps users
+ * who deliberately chose another language. A dismissible banner is the
+ * recommended pattern, so that is what this is.
+ *
+ * Renders nothing on pages that have no translations.
+ */
+
+import { LOCALES, DEFAULT_LOCALE } from '../../i18n/config.js'
+import { localizePath, normalizePath } from '../../i18n/routing.js'
+import { isCorePath } from '../../i18n/pages.js'
+import { t } from '../../i18n/ui.js'
+
+interface Props {
+  path: string
+  lang?: string
+}
+
+const { path, lang = DEFAULT_LOCALE } = Astro.props
+const cleanPath = normalizePath(path)
+const translated = isCorePath(cleanPath)
+
+// locale code -> { url, label, message, switch, dismiss }
+// The strings are baked per locale so the banner speaks the language it is
+// offering, not the language the visitor is currently failing to read.
+const options = LOCALES.reduce((acc, locale) => {
+  acc[locale.code] = {
+    url: localizePath(cleanPath, locale.code),
+    label: locale.nativeLabel,
+    flag: locale.flag,
+    message: t(locale.code, 'banner.suggest', { language: locale.nativeLabel }),
+    accept: t(locale.code, 'banner.switch'),
+    dismiss: t(locale.code, 'banner.dismiss'),
+  }
+  return acc
+}, {})
+
+const optionsJson = JSON.stringify(options)
+---
+
+{translated && (
+  <div id="locale-suggestion" class="locale-suggestion" hidden>
+    <span class="ls-flag" id="ls-flag" aria-hidden="true"></span>
+    <span class="ls-message" id="ls-message"></span>
+    <a class="ls-accept" id="ls-accept" href="#"></a>
+    <button class="ls-dismiss" id="ls-dismiss" type="button"></button>
+  </div>
+)}
+
+{translated && (
+  <script is:inline define:vars={{ optionsJson, currentLang: lang }}>
+    ;(function () {
+      var STORAGE_KEY = 'toolkit:locale-banner-dismissed'
+      var el = document.getElementById('locale-suggestion')
+      if (!el) return
+
+      try {
+        if (localStorage.getItem(STORAGE_KEY) === '1') return
+      } catch (e) {
+        // Storage blocked; showing the banner once per page is acceptable.
+      }
+
+      var options = JSON.parse(optionsJson)
+
+      // Match the browser's preferred languages against what we publish.
+      // Exact tag first (pt-BR), then the bare subtag (pt -> pt-BR), so a
+      // Portuguese speaker in Portugal still gets offered Portuguese.
+      function pickLocale() {
+        var preferred = navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language]
+        var codes = Object.keys(options)
+        for (var i = 0; i < preferred.length; i++) {
+          var tag = String(preferred[i] || '')
+          for (var j = 0; j < codes.length; j++) {
+            if (codes[j].toLowerCase() === tag.toLowerCase()) return codes[j]
+          }
+          var base = tag.split('-')[0].toLowerCase()
+          for (var k = 0; k < codes.length; k++) {
+            if (codes[k].split('-')[0].toLowerCase() === base) return codes[k]
+          }
+        }
+        return null
+      }
+
+      var match = pickLocale()
+      if (!match || match === currentLang) return
+
+      var option = options[match]
+      document.getElementById('ls-flag').textContent = option.flag
+      document.getElementById('ls-message').textContent = option.message
+
+      var accept = document.getElementById('ls-accept')
+      accept.textContent = option.accept
+      accept.setAttribute('href', option.url)
+      accept.setAttribute('lang', match)
+
+      var dismiss = document.getElementById('ls-dismiss')
+      dismiss.textContent = option.dismiss
+      dismiss.setAttribute('lang', match)
+
+      el.setAttribute('lang', match)
+      el.hidden = false
+
+      dismiss.addEventListener('click', function () {
+        el.hidden = true
+        try {
+          localStorage.setItem(STORAGE_KEY, '1')
+        } catch (e) {
+          // Nothing to do; the banner simply reappears next visit.
+        }
+      })
+    })()
+  </script>
+)}
+
+<style>
+  .locale-suggestion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 18px;
+    font-size: 13px;
+    background: var(--accent-light);
+    border-bottom: 1px solid var(--panel-border);
+    color: var(--ink);
+  }
+  .locale-suggestion[hidden] {
+    display: none;
+  }
+  .ls-flag {
+    font-size: 15px;
+  }
+  .ls-message {
+    font-weight: 600;
+  }
+  .ls-accept {
+    font-weight: 800;
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .ls-dismiss {
+    border: none;
+    background: transparent;
+    color: var(--ink-dim);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 2px 6px;
+  }
+  .ls-dismiss:hover {
+    color: var(--ink);
+  }
+</style>

@@ -1,0 +1,210 @@
+---
+/**
+ * Localized home page: /es, /fr, /de, /pt-br, /hi, /id, /ja
+ *
+ * The English home page stays at src/pages/index.astro. This route builds
+ * the same page in each other locale from the translated copy, with a
+ * hand-built tool grid so that every card carries a translated label and a
+ * locale-prefixed link.
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+
+import { PREFIXED_LOCALES, getLocale, LOCALES } from '../../i18n/config.js'
+import { getContent } from '../../i18n/content/index.js'
+import { localizePath } from '../../i18n/routing.js'
+import { categoryLabel, toolLabel } from '../../i18n/toolKeys.js'
+import { t } from '../../i18n/ui.js'
+import { CATEGORIES } from '../../data/tools.js'
+import { SITE_CONFIG } from '../../siteConfig.js'
+
+export function getStaticPaths() {
+  return PREFIXED_LOCALES.map((locale) => ({
+    params: { lang: locale.path },
+    props: { localeCode: locale.code },
+  }))
+}
+
+const { localeCode } = Astro.props
+const locale = getLocale(localeCode)
+const copy = getContent(localeCode, 'home')
+
+const origin = SITE_CONFIG.domain.replace(/\/$/, '')
+const title = `${copy.title} | ${SITE_CONFIG.siteName}`
+const href = (target) => localizePath(target, localeCode)
+
+// A locale-specific WebSite node, so each language version is described in
+// its own language rather than inheriting the English description.
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_CONFIG.siteName,
+  url: origin + href('/'),
+  description: copy.description,
+  inLanguage: locale.code,
+  availableLanguage: LOCALES.map((l) => l.code),
+}
+---
+
+<BaseLayout
+  title={title}
+  description={copy.description}
+  path="/"
+  lang={locale.code}
+  keywords={copy.keywords}
+  ogImage="/og/home.png"
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(websiteSchema)} />
+  <FaqSchema slot="head" items={copy.faq} />
+
+  <section class="home-hero">
+    <h1>{copy.h1}</h1>
+    <p class="hero-intro">{copy.intro}</p>
+    <ul class="hero-points">
+      {copy.bullets.map((bullet) => <li>{bullet}</li>)}
+    </ul>
+  </section>
+
+  {CATEGORIES.map((cat) => (
+    <section class="tool-section">
+      <h2>{categoryLabel(cat.heading, locale.code)}</h2>
+      <div class="tool-cards">
+        {cat.tools.map((tool) => (
+          <a class="tool-card" href={href(tool.slug)}>
+            <span class="card-icon" aria-hidden="true">{tool.icon}</span>
+            <span class="card-name">{toolLabel(tool.slug, tool.navLabel, locale.code)}</span>
+            <span class="card-cta">{t(locale.code, 'common.openTool')} →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <AdUnit placement="inArticle" lang={locale.code} />
+
+  <article class="home-guide">
+    <h2>{copy.bodyHeading}</h2>
+    <p>{copy.body}</p>
+
+    <h2>{t(locale.code, 'common.faqHeading')}</h2>
+    {copy.faq.map((item) => (
+      <div class="faq-item">
+        <h3>{item.q}</h3>
+        <p>{item.a}</p>
+      </div>
+    ))}
+  </article>
+
+  <AdUnit placement="belowTool" lang={locale.code} />
+</BaseLayout>
+
+<style>
+  .home-hero {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 20px 8px;
+    text-align: center;
+  }
+  .home-hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .hero-intro {
+    color: var(--ink-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto 20px;
+  }
+  .hero-points {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .hero-points li {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-dim);
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    padding: 7px 14px;
+  }
+
+  .tool-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px 0;
+  }
+  .tool-section h2 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .tool-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--panel-border);
+    background: var(--panel-bg);
+    text-decoration: none;
+    transition: border-color 150ms ease, transform 150ms ease;
+  }
+  .tool-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .card-icon {
+    font-size: 22px;
+  }
+  .card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .card-cta {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .home-guide {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 8px 20px 0;
+  }
+  .home-guide h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 28px 0 10px;
+  }
+  .home-guide p {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .faq-item h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 18px 0 6px;
+  }
+</style>

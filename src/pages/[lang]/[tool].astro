@@ -1,0 +1,207 @@
+---
+/**
+ * Localized tool + prose pages: /es/ruler, /ja/pdf-tools, /de/faq, …
+ *
+ * One template renders every translated page rather than duplicating
+ * seventeen page files across seven locales. Copy comes from
+ * src/i18n/content/{locale}.js and the interactive island is looked up from
+ * the CORE_PAGES registry.
+ *
+ * The screen ruler is excluded here — it needs the full-bleed MinimalLayout
+ * and has its own route at ./ruler.astro. Home is likewise ./index.astro.
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Breadcrumb from '../../components/astro/Breadcrumb.astro'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import AdUnit from '../../components/astro/AdUnit.astro'
+
+import AspectRatioCalculator from '../../components/react/aspect/AspectRatioCalculator.jsx'
+import DpiCalculator from '../../components/react/dpi/DpiCalculator.jsx'
+import ImageResizer from '../../components/react/imagetool/ImageResizer.jsx'
+import ColorTools from '../../components/react/colortools/ColorTools.jsx'
+import PasswordChecker from '../../components/react/password/PasswordChecker.jsx'
+import CalorieCalculator from '../../components/react/calorie/CalorieCalculator.jsx'
+import PregnancyCalculator from '../../components/react/pregnancy/PregnancyCalculator.jsx'
+import RegexTester from '../../components/react/regex/RegexTester.jsx'
+import CronBuilder from '../../components/react/regex/CronBuilder.jsx'
+import DataConverter from '../../components/react/converter/DataConverter.jsx'
+import QrCodeGenerator from '../../components/react/qr/QrCodeGenerator.jsx'
+import PdfTools from '../../components/react/pdf/PdfTools.jsx'
+import UnitConverter from '../../components/react/unitconverter/UnitConverter.jsx'
+
+import { PREFIXED_LOCALES, getLocale } from '../../i18n/config.js'
+import { CORE_PAGES, coreSlug } from '../../i18n/pages.js'
+import { getContent } from '../../i18n/content/index.js'
+import { localizePath } from '../../i18n/routing.js'
+import { t } from '../../i18n/ui.js'
+import { SITE_CONFIG } from '../../siteConfig.js'
+
+export function getStaticPaths() {
+  // Home and the ruler have dedicated routes; everything else is generated
+  // here, once per non-default locale.
+  const pages = CORE_PAGES.filter((page) => page.key !== 'home' && page.key !== 'ruler')
+
+  return PREFIXED_LOCALES.flatMap((locale) =>
+    pages.map((page) => ({
+      params: { lang: locale.path, tool: coreSlug(page) },
+      props: { localeCode: locale.code, pageKey: page.key },
+    }))
+  )
+}
+
+const { localeCode, pageKey } = Astro.props
+const locale = getLocale(localeCode)
+const page = CORE_PAGES.find((p) => p.key === pageKey)
+const copy = getContent(localeCode, pageKey)
+
+// Astro needs a statically analyzable component reference to emit a
+// hydration script, so the island is chosen by an explicit branch below
+// rather than looked up from a map. `island` here only records whether
+// this page has one at all, for the schema and layout decisions.
+const hasIsland = Boolean(page.island)
+const island = page.island
+const title = `${copy.title} | ${SITE_CONFIG.siteName}`
+const ogImage = `/og/${page.og}.png`
+
+const homeHref = localizePath('/', localeCode)
+---
+
+<BaseLayout
+  title={title}
+  description={copy.description}
+  path={page.path}
+  lang={locale.code}
+  keywords={copy.keywords}
+  ogImage={ogImage}
+>
+  {hasIsland && (
+    <SoftwareApplicationSchema
+      slot="head"
+      name={copy.h1}
+      description={copy.description}
+      path={localizePath(page.path, locale.code)}
+    />
+  )}
+  <FaqSchema slot="head" items={copy.faq} />
+
+  <Breadcrumb
+    items={[
+      { label: t(locale.code, 'common.home'), path: homeHref },
+      { label: copy.h1 },
+    ]}
+  />
+
+  <div class="tool-hero">
+    <h1>{copy.h1}</h1>
+    <p>{copy.intro}</p>
+    <img
+      src={ogImage}
+      alt={copy.h1}
+      class="tool-preview-img"
+      width="1200"
+      height="630"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  {island === 'AspectRatioCalculator' && <AspectRatioCalculator client:load />}
+  {island === 'DpiCalculator' && <DpiCalculator client:load lang={locale.code} />}
+  {island === 'ImageResizer' && <ImageResizer client:load />}
+  {island === 'ColorTools' && <ColorTools client:load />}
+  {island === 'PasswordChecker' && <PasswordChecker client:load />}
+  {island === 'CalorieCalculator' && <CalorieCalculator client:load lang={locale.code} />}
+  {island === 'PregnancyCalculator' && <PregnancyCalculator client:load lang={locale.code} />}
+  {island === 'RegexTester' && <RegexTester client:load />}
+  {island === 'CronBuilder' && <CronBuilder client:load lang={locale.code} />}
+  {island === 'DataConverter' && <DataConverter client:load lang={locale.code} />}
+  {island === 'QrCodeGenerator' && <QrCodeGenerator client:load />}
+  {island === 'PdfTools' && <PdfTools client:load />}
+  {island === 'UnitConverter' && <UnitConverter client:load />}
+
+  <AdUnit placement="inArticle" lang={locale.code} />
+
+  <article class="tool-guide">
+    <h2>{t(locale.code, 'common.whyThisTool')}</h2>
+    <ul class="value-list">
+      {copy.bullets.map((bullet) => <li>{bullet}</li>)}
+    </ul>
+
+    <h2>{copy.bodyHeading}</h2>
+    <p>{copy.body}</p>
+
+    <h2>{t(locale.code, 'common.faqHeading')}</h2>
+    {copy.faq.map((item) => (
+      <div class="faq-item">
+        <h3>{item.q}</h3>
+        <p>{item.a}</p>
+      </div>
+    ))}
+
+    <p class="english-note">
+      <a href={page.path} hreflang="en" lang="en">
+        {t(locale.code, 'common.moreInEnglish')} →
+      </a>
+    </p>
+  </article>
+
+  <AdUnit placement="belowTool" lang={locale.code} />
+</BaseLayout>
+
+<style>
+  .tool-hero {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 32px 20px 0;
+  }
+  .tool-hero h1 {
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .tool-hero p {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .tool-preview-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 24px;
+    display: block;
+    object-fit: cover;
+  }
+  .value-list {
+    margin: 0 0 24px;
+    padding-left: 20px;
+    display: grid;
+    gap: 8px;
+  }
+  .value-list li {
+    color: var(--ink-dim);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .faq-item h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .english-note {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--panel-border);
+    font-size: 13px;
+  }
+  .english-note a {
+    color: var(--accent);
+    font-weight: 700;
+  }
+</style>

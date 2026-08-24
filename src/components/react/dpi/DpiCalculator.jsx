@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { QUALITY_PRESETS, STANDARD_PRINT_SIZES, printSizeFromPixels, pixelsNeededForPrint, dpiFromPixelsAndSize, optimalDpiForDistance, inToCm, cmToIn } from './dpiMath.js'
 import AffiliateCard from '../shared/AffiliateCard.jsx'
 import { Field, ResultCard, inputStyle, selectStyle, segBtn } from '../shared/FormKit.jsx'
+import { makeFormatters } from '../shared/useLocale.js'
 
 const AFFILIATE_ITEMS = [
   { name: 'Photo printer', blurb: 'Print at true photo-lab quality from home for any size below.', href: '#', cta: 'Shop →' },
@@ -10,6 +11,7 @@ const AFFILIATE_ITEMS = [
 ]
 
 export default function DpiCalculator({
+  lang = 'en',
   initialMode = 'size-from-pixels',
   initialDpi = 300,
   initialPixelWidth = 3000,
@@ -18,8 +20,10 @@ export default function DpiCalculator({
   initialPrintHeight = 8,
   initialUnit = 'in',
 } = {}) {
+  const fmt = useMemo(() => makeFormatters(lang), [lang])
   const [mode, setMode] = useState(initialMode || 'size-from-pixels') // 'size-from-pixels' | 'pixels-from-size' | 'dpi-from-both' | 'distance'
-  const [unit, setUnit] = useState(initialUnit || 'in') // 'in' | 'cm'
+  // An explicit initialUnit from a preset page wins; otherwise follow the locale.
+  const [unit, setUnit] = useState(initialUnit || (fmt.units === 'metric' ? 'cm' : 'in'))
 
   const [pixelWidth, setPixelWidth] = useState(initialPixelWidth || 3000)
   const [pixelHeight, setPixelHeight] = useState(initialPixelHeight || 2000)
@@ -153,7 +157,7 @@ export default function DpiCalculator({
         {mode === 'pixels-from-size' && (
           <ResultCard
             label="Required Pixel Resolution"
-            value={`${pixelsResult.widthPx.toLocaleString()} × ${pixelsResult.heightPx.toLocaleString()} px`}
+            value={`${fmt.integer(pixelsResult.widthPx)} × ${fmt.integer(pixelsResult.heightPx)} px`}
             sub={`For ${printWidth} × ${printHeight} ${unit} at ${dpi} DPI`}
             highlight
           />

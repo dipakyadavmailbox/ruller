@@ -1,0 +1,237 @@
+---
+/**
+ * HeadMeta.astro — everything inside <head> that both layouts share.
+ *
+ * BaseLayout and MinimalLayout previously carried near-identical copies of
+ * this block, which is how MinimalLayout ended up without the AdSense
+ * loader while BaseLayout had it. Centralising it means hreflang, canonical
+ * URLs, consent mode, and the ad script can only ever be wrong in one place.
+ *
+ * `path` is the LOCALE-FREE canonical path ('/ruler', not '/es/ruler').
+ * The locale prefix is applied here so the canonical and the alternates
+ * always agree.
+ */
+
+import ConsentMode from './ConsentMode.astro'
+import { SITE_CONFIG } from '../../siteConfig.js'
+import { ADS_CONFIG, ADSENSE_SCRIPT_URL, shouldLoadAdsScript } from '../../adsConfig.js'
+import { DEFAULT_LOCALE, LOCALES, getLocale } from '../../i18n/config.js'
+import { localizePath, normalizePath } from '../../i18n/routing.js'
+import { isCorePath } from '../../i18n/pages.js'
+
+interface Props {
+  title: string
+  description: string
+  path: string
+  lang?: string
+  keywords?: string
+  ogImage?: string
+  type?: string
+  noindex?: boolean
+}
+
+const {
+  title,
+  description,
+  path,
+  lang = DEFAULT_LOCALE,
+  keywords,
+  ogImage: customOgImage,
+  type = 'website',
+  noindex = false,
+} = Astro.props
+
+const locale = getLocale(lang)
+const origin = SITE_CONFIG.domain.replace(/\/$/, '')
+const cleanPath = normalizePath(path)
+
+// Self-referencing canonical, built from the declared path rather than
+// Astro.url so that a trailing slash or an .html suffix cannot produce two
+// competing canonicals for the same page.
+const canonicalUrl = origin + localizePath(cleanPath, locale.code)
+
+// Only the core pages exist in every language. Emitting hreflang for a
+// long-tail page that has no translations would point Google at URLs that
+// 404, which is worse than having no hreflang at all.
+const translated = isCorePath(cleanPath)
+const alternates = translated
+  ? [
+      ...LOCALES.map((l) => ({
+        hreflang: l.hreflang,
+        href: origin + localizePath(cleanPath, l.code),
+      })),
+      { hreflang: 'x-default', href: origin + localizePath(cleanPath, DEFAULT_LOCALE) },
+    ]
+  : []
+
+const toolSlug = cleanPath.replace(/^\//, '').split('/')[0] || 'home'
+
+const TOOLS_WITH_FAVICONS = new Set([
+  'aspect-ratio-calculator',
+  'calorie-calculator',
+  'color-tools',
+  'cron-expression-builder',
+  'data-converter',
+  'dpi-calculator',
+  'image-resizer',
+  'password-checker',
+  'pdf-tools',
+  'pregnancy-calculator',
+  'qr-code-generator',
+  'regex-tester',
+  'ruler',
+  'unit-converter',
+  'workspace',
+])
+
+const OG_SLUGS = new Set([
+  'about', 'aspect-ratio-calculator', 'calorie-calculator', 'color-tools',
+  'cron-expression-builder', 'data-converter', 'donate', 'dpi-calculator',
+  'faq', 'home', 'image-resizer', 'password-checker', 'pdf-tools',
+  'pregnancy-calculator', 'qr-code-generator', 'regex-tester', 'ruler',
+  'unit-converter', 'workspace', 'contact', 'privacy', 'terms',
+  'accessibility', 'dmca', 'sitemap',
+])
+
+const hasToolFavicon = TOOLS_WITH_FAVICONS.has(toolSlug)
+const defaultToolOg = OG_SLUGS.has(toolSlug) ? `/og/${toolSlug}.png` : '/og-image.png'
+const rawOgImage = customOgImage || defaultToolOg
+const ogImage = rawOgImage.startsWith('http')
+  ? rawOgImage
+  : origin + (rawOgImage.startsWith('/') ? '' : '/') + rawOgImage
+
+const defaultKeywords =
+  'free online tools, browser tools, developer utilities, screen ruler, dpi calculator, calorie calculator, privacy focused tools'
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_CONFIG.siteName,
+  url: origin,
+  logo: `${origin}/logo.svg`,
+  image: `${origin}/og-image.png`,
+  email: SITE_CONFIG.contactEmail,
+  foundingDate: '2024',
+  sameAs: [origin],
+}
+
+const webPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: canonicalUrl,
+  inLanguage: locale.code,
+  primaryImageOfPage: { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 },
+  image: { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 },
+  isPartOf: {
+    '@type': 'WebSite',
+    name: SITE_CONFIG.siteName,
+    url: origin,
+    inLanguage: LOCALES.map((l) => l.code),
+  },
+  dateModified: new Date().toISOString().split('T')[0],
+}
+---
+
+<!-- Consent defaults must precede every tag that reads them. -->
+<ConsentMode />
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F1VTCGJSZG"></script>
+<script is:inline>
+  gtag('js', new Date())
+  gtag('config', 'G-F1VTCGJSZG', { anonymize_ip: true })
+</script>
+
+{shouldLoadAdsScript() && (
+  <script async src={ADSENSE_SCRIPT_URL} crossorigin="anonymous"></script>
+)}
+{shouldLoadAdsScript() && ADS_CONFIG.autoAds && (
+  <script is:inline define:vars={{ client: ADS_CONFIG.publisherId }}>
+    (window.adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: client,
+      enable_page_level_ads: true,
+    })
+  </script>
+)}
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords || defaultKeywords} />
+<meta name="author" content={SITE_CONFIG.siteName} />
+<meta
+  name="robots"
+  content={noindex
+    ? 'noindex, nofollow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+/>
+<meta name="theme-color" content="#090d16" />
+
+<link rel="canonical" href={canonicalUrl} />
+<link rel="manifest" href="/site.webmanifest" />
+
+{!noindex && alternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />
+))}
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+<meta property="og:site_name" content={SITE_CONFIG.siteName} />
+<meta property="og:locale" content={locale.ogLocale} />
+{translated &&
+  LOCALES.filter((l) => l.code !== locale.code).map((l) => (
+    <meta property="og:locale:alternate" content={l.ogLocale} />
+  ))}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@RockingTools" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={title} />
+
+<!-- Favicons & Icons (Google Search compliant order) -->
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+{hasToolFavicon && (
+  <link rel="icon" type="image/png" sizes="96x96" href={`/favicons/${toolSlug}.png`} />
+)}
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="icon" type="image/svg+xml" href="/logo.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+{!noindex && <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />}
+
+<!-- Sets the theme before first paint to avoid a flash of the wrong theme -->
+<script is:inline>
+  ;(function () {
+    try {
+      var stored = localStorage.getItem('toolkit:theme')
+      document.documentElement.dataset.theme = stored === 'light' ? 'light' : 'dark'
+    } catch (e) {
+      document.documentElement.dataset.theme = 'dark'
+    }
+  })()
+</script>

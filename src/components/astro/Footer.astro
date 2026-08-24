@@ -1,6 +1,31 @@
 ---
+/**
+ * Footer.astro — sitewide footer.
+ *
+ * Column headings and legal links come from the UI dictionary. The popular
+ * long-tail links stay in English on purpose: those destination pages are
+ * English-only, so translating the anchor text would promise a translation
+ * that does not exist.
+ *
+ * The legal pages (privacy, terms, DMCA, accessibility) are linked without
+ * a locale prefix and are reachable from every page in every language.
+ * AdSense review requires them to be reachable and crawlable, so they must
+ * never be dropped from this footer.
+ */
 import { SITE_CONFIG } from '../../siteConfig.js'
 import { CATEGORIES } from '../../data/tools.js'
+import { DEFAULT_LOCALE } from '../../i18n/config.js'
+import { localizePath } from '../../i18n/routing.js'
+import { categoryLabel, toolLabel } from '../../i18n/toolKeys.js'
+import { t } from '../../i18n/ui.js'
+import { formatDate } from '../../i18n/format.js'
+
+interface Props {
+  lang?: string
+}
+
+const { lang = DEFAULT_LOCALE } = Astro.props
+const href = (target) => localizePath(target, lang)
 
 const POPULAR_PRESETS = [
   { label: 'Passport Photo Resizer', slug: '/image-resizer/passport-photo' },
@@ -19,7 +44,7 @@ const POPULAR_CONVERSIONS_HEALTH = [
   { label: 'All 98+ Unit Conversions', slug: '/conversions' },
   { label: 'Kilograms to Pounds (kg to lbs)', slug: '/kg-to-lbs' },
   { label: 'Centimeters to Inches (cm to in)', slug: '/cm-to-inches' },
-  { label: 'Celsius to Fahrenheit (°C to °F)', slug: '/celsius-to-fahrenheit' },
+  { label: 'Celsius to Fahrenheit (C to F)', slug: '/celsius-to-fahrenheit' },
   { label: 'Grams to Ounces (g to oz)', slug: '/g-to-oz' },
   { label: 'Meters to Feet (m to ft)', slug: '/meters-to-feet' },
   { label: 'BMR & TDEE Calculator', slug: '/bmr-calculator' },
@@ -27,6 +52,27 @@ const POPULAR_CONVERSIONS_HEALTH = [
   { label: 'Pregnancy Due Date Calculator', slug: '/due-date-calculator' },
   { label: 'Ovulation & Fertility Window', slug: '/ovulation-calculator' },
 ]
+
+const HUB_BADGES = [
+  { slug: '/conversions', icon: '🔄', label: 'Conversions' },
+  { slug: '/pdf-tools', icon: '📄', key: 'tool.pdf' },
+  { slug: '/image-resizer', icon: '🖼️', key: 'tool.imageResizer' },
+  { slug: '/data-converter', icon: '📊', key: 'tool.dataConverter' },
+  { slug: '/password-checker', icon: '🔒', key: 'tool.password' },
+  { slug: '/regex-tester', icon: '⚡', key: 'tool.regex' },
+  { slug: '/cron-expression-builder', icon: '🕐', key: 'tool.cron' },
+  { slug: '/dpi-calculator', icon: '🖨️', key: 'tool.dpi' },
+  { slug: '/ruler', icon: '📏', key: 'tool.ruler' },
+  { slug: '/color-tools', icon: '🎨', key: 'tool.colorTools' },
+  { slug: '/qr-code-generator', icon: '📱', key: 'tool.qr' },
+  { slug: '/calorie-calculator', icon: '🥗', key: 'tool.calorie' },
+  { slug: '/pregnancy-calculator', icon: '👶', key: 'tool.pregnancy' },
+]
+
+// Rendered with the calendar formatting of the locale rather than a bare
+// four-digit year, which keeps the footer consistent with every other date
+// on the site.
+const currentYear = formatDate(new Date(), lang, { year: 'numeric' })
 ---
 
 <footer class="site-footer">
@@ -36,91 +82,127 @@ const POPULAR_CONVERSIONS_HEALTH = [
         <span class="logo-spark">✨</span>
         <span class="logo-title">Rocking Tools</span>
       </div>
-      <p class="footer-tagline">
-        Studio-grade browser utilities, programmatic format converters, and scientific calculators. 100% private, instantaneous, and client-side.
-      </p>
-      <div class="privacy-badge">
-        🔒 100% Private — Zero Data Leaves Your Machine
-      </div>
+      <p class="footer-tagline">{t(lang, 'footer.tagline')}</p>
+      <div class="privacy-badge">🔒 {t(lang, 'footer.privacyBadge')}</div>
 
       <div class="footer-hubs-block">
-        <span class="hubs-title">TOOL SUITES:</span>
+        <span class="hubs-title">{t(lang, 'footer.toolSuites')}:</span>
         <div class="hubs-badges">
-          <a href="/conversions">🔄 Conversions</a>
-          <a href="/pdf-tools">📄 PDF Tools</a>
-          <a href="/image-resizer">🖼️ Image Resizer</a>
-          <a href="/data-converter">📊 Data Tools</a>
-          <a href="/password-checker">🔒 Security</a>
-          <a href="/regex-tester">⚡ Regex</a>
-          <a href="/cron-expression-builder">🕐 Cron</a>
-          <a href="/dpi-calculator">🖨️ DPI</a>
-          <a href="/ruler">📏 Screen Ruler</a>
-          <a href="/color-tools">🎨 Color</a>
-          <a href="/qr-code-generator">📱 QR Codes</a>
-          <a href="/calorie-calculator">🥗 Fitness</a>
-          <a href="/pregnancy-calculator">👶 Pregnancy</a>
+          {HUB_BADGES.map((hub) => (
+            <a href={href(hub.slug)}>{hub.icon} {hub.key ? t(lang, hub.key) : hub.label}</a>
+          ))}
         </div>
       </div>
     </div>
 
     <div class="footer-nav-grid">
       <div class="footer-col">
-        <div class="col-title">Popular Tools</div>
+        <div class="col-title">{t(lang, 'footer.popularTools')}</div>
         <ul class="col-list">
           {POPULAR_PRESETS.map((item) => (
-            <li><a href={item.slug}>{item.label}</a></li>
+            <li><a href={item.slug} hreflang="en">{item.label}</a></li>
           ))}
         </ul>
       </div>
 
       <div class="footer-col">
-        <div class="col-title">Conversions &amp; Health</div>
+        <div class="col-title">{t(lang, 'footer.conversions')}</div>
         <ul class="col-list">
           {POPULAR_CONVERSIONS_HEALTH.map((item) => (
-            <li><a href={item.slug}>{item.label}</a></li>
+            <li><a href={item.slug} hreflang="en">{item.label}</a></li>
           ))}
         </ul>
       </div>
 
       {CATEGORIES.slice(0, 2).map((cat) => (
         <div class="footer-col">
-          <div class="col-title">{cat.heading}</div>
+          <div class="col-title">{categoryLabel(cat.heading, lang)}</div>
           <ul class="col-list">
             {cat.tools.map((tool) => (
-              <li><a href={tool.slug}>{tool.navLabel}</a></li>
+              <li><a href={href(tool.slug)}>{toolLabel(tool.slug, tool.navLabel, lang)}</a></li>
             ))}
           </ul>
         </div>
       ))}
 
       <div class="footer-col">
-        <div class="col-title">Platform &amp; Legal</div>
+        <div class="col-title">{t(lang, 'footer.platformLegal')}</div>
         <ul class="col-list">
-          <li><a href="/about">About Us</a></li>
-          <li><a href="/faq">FAQ</a></li>
-          <li><a href="/sitemap">HTML Sitemap</a></li>
-          <li><a href="/contact">Contact Support</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/terms">Terms of Service</a></li>
-          <li><a href="/accessibility">Accessibility</a></li>
-          <li><a href="/dmca">DMCA</a></li>
-          <li><a href="/donate">💛 Support</a></li>
+          <li><a href={href('/about')}>{t(lang, 'footer.aboutUs')}</a></li>
+          <li><a href={href('/faq')}>{t(lang, 'nav.faq')}</a></li>
+          <li><a href="/sitemap" hreflang="en">{t(lang, 'footer.sitemap')}</a></li>
+          <li><a href="/contact" hreflang="en">{t(lang, 'footer.contactSupport')}</a></li>
+          <li><a href="/privacy" hreflang="en">{t(lang, 'footer.privacy')}</a></li>
+          <li><a href="/terms" hreflang="en">{t(lang, 'footer.terms')}</a></li>
+          <li><a href="/accessibility" hreflang="en">{t(lang, 'footer.accessibility')}</a></li>
+          <li><a href="/dmca" hreflang="en">{t(lang, 'footer.dmca')}</a></li>
+          <li>
+            <button id="cookie-settings" class="cookie-settings-btn" type="button" hidden>
+              {t(lang, 'footer.cookieSettings')}
+            </button>
+          </li>
+          <li><a href="/donate" hreflang="en">💛 {t(lang, 'nav.support')}</a></li>
         </ul>
       </div>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <div>© {new Date().getFullYear()} {SITE_CONFIG.siteName}. All calculations processed locally.</div>
+    <div>© {currentYear} {SITE_CONFIG.siteName}. {t(lang, 'footer.rights')}</div>
     <div class="footer-bottom-links">
-      <span>Fast Static Astro Architecture</span>
+      <span>{t(lang, 'footer.englishOnly')}</span>
       <span>•</span>
-      <a href="/sitemap">Directory</a>
+      <a href="/sitemap">{t(lang, 'footer.directory')}</a>
       <span>•</span>
-      <a href="/sitemap-index.xml">XML Index</a>
+      <a href="/sitemap-index.xml">{t(lang, 'footer.xmlIndex')}</a>
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  // Re-opens the consent message so visitors can change or withdraw their
+  // choice, which GDPR requires to be as easy as giving it. googlefc is
+  // published by the certified Google CMP; until that CMP is enabled in the
+  // AdSense console there is nothing to open, so the control stays hidden.
+  ;(function () {
+    var btn = document.getElementById('cookie-settings')
+    if (!btn) return
+
+    window.googlefc = window.googlefc || {}
+    window.googlefc.callbackQueue = window.googlefc.callbackQueue || []
+
+    // The CMP loads asynchronously, so reveal the control from its callback
+    // rather than testing for it once at parse time.
+    window.googlefc.callbackQueue.push({
+      CONSENT_DATA_READY: function () {
+        btn.hidden = false
+      },
+    })
+
+    btn.addEventListener('click', function () {
+      if (window.googlefc && window.googlefc.showRevocationMessage) {
+        window.googlefc.showRevocationMessage()
+      } else {
+        btn.hidden = true
+      }
+    })
+  })()
+</script>
+
+<style>
+  .cookie-settings-btn {
+    border: none;
+    background: transparent;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+  .cookie-settings-btn[hidden] {
+    display: none;
+  }
+</style>
 
 <style>
   .site-footer {

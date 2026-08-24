@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect } from 'react'
+import { makeFormatters } from '../shared/useLocale.js'
 import {
   convert,
   FORMATS,
@@ -23,12 +24,14 @@ import HandoffBanner from '../workspace/HandoffBanner.jsx'
 
 
 export default function DataConverter({
+  lang = 'en',
   initialTab = 'structure',
   initialFromFormat = 'JSON',
   initialToFormat = 'CSV',
   initialEncodingMode = 'base64-enc',
   initialInput = '',
 } = {}) {
+  const fmt = useMemo(() => makeFormatters(lang), [lang])
   const [tab, setTab] = useState(initialTab || 'structure') // 'structure' | 'storage' | 'encoding' | 'numbers' | 'color' | 'jwt'
   const [handoff, setHandoff] = useState(() => readHandoff('/data-converter'))
 
@@ -477,7 +480,7 @@ export default function DataConverter({
                         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13 }}>
                           <span style={{ color: 'var(--ink-dim)' }}>Issued at (iat)</span>
                           <span style={{ fontWeight: 700, color: 'var(--ink)', fontFamily: 'var(--font-mono)' }}>
-                            {new Date(jwtResult.payload.iat * 1000).toLocaleString()}
+                            {fmt.dateTime(new Date(jwtResult.payload.iat * 1000))}
                           </span>
                         </div>
                       )}
@@ -488,7 +491,7 @@ export default function DataConverter({
                             fontWeight: 700, fontFamily: 'var(--font-mono)',
                             color: new Date(jwtResult.payload.exp * 1000) < new Date() ? '#e04b3f' : '#3fae6f',
                           }}>
-                            {new Date(jwtResult.payload.exp * 1000).toLocaleString()}
+                            {fmt.dateTime(new Date(jwtResult.payload.exp * 1000))}
                             {new Date(jwtResult.payload.exp * 1000) < new Date() ? ' (EXPIRED)' : ' (Valid)'}
                           </span>
                         </div>

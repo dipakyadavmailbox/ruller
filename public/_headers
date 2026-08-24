@@ -1,5 +1,21 @@
-# HTTP Headers Configuration for Web Server / CDN
-# Sends X-Robots-Tag: noindex, nofollow to prevent web crawlers from indexing preview deployment URLs
+# Netlify / Cloudflare Pages header rules.
+#
+# Vercel ignores this file and reads vercel.json instead, so on the current
+# deploy target it is inert. It is kept and corrected rather than deleted
+# because it is a live landmine: it previously sent a robots header on /*
+# that told crawlers not to index, follow, archive, or snippet ANY page.
+# That would deindex the entire site the moment it was deployed to a host
+# honouring this format. The old comment claimed it was for preview URLs,
+# but the rule was not scoped to previews in any way.
+#
+# Preview deployments should be excluded from indexing by the host's own
+# preview-protection setting (Vercel: Deployment Protection), not by a
+# blanket header that also ships to production.
 
 /*
-  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

@@ -1,80 +1,106 @@
 ---
 /**
- * AdUnit.astro — Google AdSense display unit
+ * AdUnit.astro — one Google AdSense display unit.
  *
- * Props:
- *   format  - 'auto' (responsive banner) | 'fluid' (in-article native) | 'rectangle' (300x250)
- *   label   - accessible label for the ad region
- *   class   - additional CSS classes for the wrapper
+ * Usage:  <AdUnit placement="inArticle" lang={locale} />
+ *
+ * Placements, slot ids, and formats all come from src/adsConfig.js. A
+ * placement with no slot id renders nothing, so the page never issues an
+ * ad request that AdSense will reject.
+ *
+ * Two bugs in the previous version are fixed here:
+ *
+ *   1. data-ad-slot="auto" is not a valid slot id. Every unit on the site
+ *      was making a malformed request.
+ *
+ *   2. The push({}) call lived in a plain <script>, which Astro bundles and
+ *      deduplicates. On a page with two or more units, the module ran once,
+ *      so only the first <ins> was ever filled. It is now `is:inline`, which
+ *      Astro emits verbatim once per unit.
  */
 
+import { ADS_CONFIG, getPlacement, isPlacementLive } from '../../adsConfig.js'
+import { t } from '../../i18n/ui.js'
+import { DEFAULT_LOCALE } from '../../i18n/config.js'
+
 interface Props {
-  format?: 'auto' | 'fluid' | 'rectangle'
-  label?: string
+  placement: string
+  lang?: string
   class?: string
 }
 
-const {
-  format = 'auto',
-  label = 'Advertisement',
-  class: extraClass = '',
-} = Astro.props
+const { placement: placementName, lang = DEFAULT_LOCALE, class: extraClass = '' } = Astro.props
 
-const isFluid = format === 'fluid'
-const isRectangle = format === 'rectangle'
+const live = isPlacementLive(placementName)
+const placement = getPlacement(placementName)
+
+const label = t(lang, 'common.advertisement')
+
+const isFluid = placement?.format === 'fluid'
+const isRectangle = placement?.format === 'rectangle'
+
+// Reserve the height before the ad arrives so the content below does not
+// jump when it does. This is the single biggest CLS lever on an ad page.
+const reservedHeight = placement?.minHeight ?? 100
+
+const insStyle = isRectangle
+  ? 'display:inline-block; width:300px; height:250px;'
+  : 'display:block; text-align:center;'
 ---
 
-<div
-  class:list={['ad-unit-wrapper', extraClass, { 'ad-fluid': isFluid, 'ad-rectangle': isRectangle }]}
-  role="complementary"
-  aria-label={label}
->
-  <span class="ad-label">Advertisement</span>
-  <ins
-    class="adsbygoogle"
-    style={isFluid
-      ? 'display:block; text-align:center;'
-      : isRectangle
-        ? 'display:inline-block; width:300px; height:250px;'
-        : 'display:block;'}
-    data-ad-client="ca-pub-1415591576482669"
-    data-ad-slot="auto"
-    data-ad-format={isFluid ? 'fluid' : 'auto'}
-    data-full-width-responsive={isFluid ? undefined : 'true'}
-    data-ad-layout={isFluid ? 'in-article' : undefined}
-  ></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
+{live && (
+  <aside
+    class:list={['ad-unit', extraClass, { 'ad-fluid': isFluid, 'ad-rectangle': isRectangle }]}
+    style={`--ad-reserved-height:${reservedHeight}px`}
+    role="complementary"
+    aria-label={label}
+  >
+    <span class="ad-label">{label}</span>
+    <ins
+      class="adsbygoogle"
+      style={insStyle}
+      data-ad-client={ADS_CONFIG.publisherId}
+      data-ad-slot={placement.slot}
+      data-ad-format={isFluid ? 'fluid' : 'auto'}
+      data-full-width-responsive={isFluid ? undefined : 'true'}
+      data-ad-layout={isFluid ? 'in-article' : undefined}
+    ></ins>
+    <script is:inline>
+      (window.adsbygoogle = window.adsbygoogle || []).push({})
+    </script>
+  </aside>
+)}
 
 <style>
-  .ad-unit-wrapper {
+  .ad-unit {
     width: 100%;
-    text-align: center;
+    max-width: 900px;
     margin: 32px auto;
     padding: 12px 0;
-    border-top: 1px solid var(--panel-border);
-    border-bottom: 1px solid var(--panel-border);
-    background: transparent;
-    max-width: 900px;
-    min-height: 90px;
+    /* Height is reserved up front; the ad fills into it rather than
+       pushing the article down when it loads. */
+    min-height: var(--ad-reserved-height, 100px);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
+    text-align: center;
+    border-top: 1px solid var(--panel-border);
+    border-bottom: 1px solid var(--panel-border);
+    background: transparent;
+    contain: layout;
   }
 
-  .ad-unit-wrapper.ad-fluid {
+  .ad-unit.ad-fluid {
     border: none;
     margin: 24px auto;
     padding: 0;
-    min-height: 120px;
     max-width: 760px;
   }
 
-  .ad-unit-wrapper.ad-rectangle {
+  .ad-unit.ad-rectangle {
     border: none;
     padding: 0;
-    min-height: 250px;
     width: 300px;
     margin: 24px auto;
   }
@@ -89,8 +115,16 @@ const isRectangle = format === 'rectangle'
     display: block;
   }
 
+  .adsbygoogle {
+    width: 100%;
+  }
+
+  .ad-unit.ad-rectangle .adsbygoogle {
+    width: 300px;
+  }
+
   @media (max-width: 600px) {
-    .ad-unit-wrapper {
+    .ad-unit {
       margin: 20px auto;
     }
   }

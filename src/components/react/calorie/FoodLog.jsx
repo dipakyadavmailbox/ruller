@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { searchFoods, FOODS } from './foodDatabase.js'
 import { Field, ResultCard, inputStyle, selectStyle, secondaryBtn } from '../shared/FormKit.jsx'
+import { makeFormatters } from '../shared/useLocale.js'
 
 const MEAL_OPTIONS = ['Breakfast', 'Lunch', 'Dinner', 'Snack']
 
@@ -46,7 +47,8 @@ function scaleNutrient(perHundredG, grams) {
   return (perHundredG * grams) / 100
 }
 
-export default function FoodLog({ targetCalories, targetMacros }) {
+export default function FoodLog({ targetCalories, targetMacros, lang = 'en' }) {
+  const fmt = useMemo(() => makeFormatters(lang), [lang])
   const [log, setLog] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -165,9 +167,9 @@ export default function FoodLog({ targetCalories, targetMacros }) {
     if (log.length === 0) return list
 
     if (remaining < -50) {
-      list.push(`⚠️ You're ${Math.round(overBy).toLocaleString()} kcal over target today — balance with lighter meals.`)
+      list.push(`⚠️ You're ${fmt.integer(Math.round(overBy))} kcal over target today — balance with lighter meals.`)
     } else if (remaining > 300) {
-      list.push(`👍 You have ${Math.round(leftOver).toLocaleString()} kcal left today — room for a healthy protein meal.`)
+      list.push(`👍 You have ${fmt.integer(Math.round(leftOver))} kcal left today — room for a healthy protein meal.`)
     } else {
       list.push(`🎯 Great job! You are right on track with your target calories today.`)
     }
@@ -309,11 +311,11 @@ export default function FoodLog({ targetCalories, targetMacros }) {
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 16 }}>
-            <ResultCard label="Total Consumed Today" value={`${Math.round(totals.kcal).toLocaleString()} kcal`} sub={`P: ${Math.round(totals.protein)}g · C: ${Math.round(totals.carbs)}g · F: ${Math.round(totals.fat)}g`} />
+            <ResultCard label="Total Consumed Today" value={`${fmt.integer(Math.round(totals.kcal))} kcal`} sub={`P: ${Math.round(totals.protein)}g · C: ${Math.round(totals.carbs)}g · F: ${Math.round(totals.fat)}g`} />
             <ResultCard
               label={remaining >= 0 ? 'Remaining Target' : 'Exceeded Target'}
-              value={`${Math.round(Math.abs(remaining)).toLocaleString()} kcal`}
-              sub={`Goal: ${targetCalories.toLocaleString()} kcal`}
+              value={`${fmt.integer(Math.round(Math.abs(remaining)))} kcal`}
+              sub={`Goal: ${fmt.integer(targetCalories)} kcal`}
               highlight
             />
           </div>

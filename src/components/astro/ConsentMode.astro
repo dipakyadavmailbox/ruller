@@ -1,0 +1,74 @@
+---
+/**
+ * ConsentMode.astro — Google Consent Mode v2 defaults.
+ *
+ * MUST be rendered before gtag.js and before the AdSense loader, because
+ * consent defaults only apply to tags that load after them.
+ *
+ * WHAT THIS DOES AND DOES NOT DO
+ *
+ * This sets the *default* consent state: denied for the EEA, the UK and
+ * Switzerland, granted elsewhere. It is not itself a consent banner and it
+ * is not a CMP. Google requires a certified CMP to serve ads to EEA/UK
+ * traffic, and a homegrown banner does not qualify.
+ *
+ * The intended pairing is Google's own certified CMP, which is free and is
+ * switched on in the AdSense console under Privacy & messaging → GDPR (and
+ * → CCPA for US state privacy laws). Once enabled it loads on every page,
+ * shows the message, and calls gtag('consent', 'update', …) itself. These
+ * defaults are exactly what it expects to find already in place.
+ *
+ * Until that CMP is enabled, EEA visitors see no ads at all — which is the
+ * correct and compliant failure mode, not a bug to work around.
+ */
+
+// EEA member states, plus the UK and Switzerland, which apply equivalent
+// rules. Google matches these against the visitor's inferred region.
+const CONSENT_REGIONS = [
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR',
+  'HU', 'IS', 'IE', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL',
+  'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'CH',
+]
+
+const regionsJson = JSON.stringify(CONSENT_REGIONS)
+---
+
+<script is:inline define:vars={{ regions: regionsJson }}>
+  window.dataLayer = window.dataLayer || []
+  function gtag() {
+    dataLayer.push(arguments)
+  }
+  window.gtag = gtag
+
+  var restrictedRegions = JSON.parse(regions)
+
+  // Denied by default in regions that require prior consent. wait_for_update
+  // gives the CMP 500ms to report the visitor's real choice before any tag
+  // acts on the default.
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    region: restrictedRegions,
+    wait_for_update: 500,
+  })
+
+  // Everywhere else, storage is granted by default. Visitors in US states
+  // with opt-out rights are handled by the CMP's own US privacy message.
+  gtag('consent', 'default', {
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+  })
+
+  // Strips ad identifiers from requests made while consent is denied, and
+  // keeps campaign attribution working through the URL instead of a cookie.
+  gtag('set', 'ads_data_redaction', true)
+  gtag('set', 'url_passthrough', true)
+</script>

@@ -6,9 +6,12 @@ import { SITE_CONFIG } from '../../siteConfig.js'
 const title = `Privacy Policy — ${SITE_CONFIG.siteName}`
 const description = `Privacy Policy for ${SITE_CONFIG.siteName} — what data we do and don't collect, and your rights under CCPA/CPRA and other US state privacy laws.`
 const privacyEmail = SITE_CONFIG.legal.privacyEmail || SITE_CONFIG.contactEmail
+
+// This page is deliberately indexable. AdSense review looks for a public,
+// reachable privacy policy, and hiding it from search reads as evasion.
 ---
 
-<BaseLayout title={title} description={description} path="/privacy" noindex={true}>
+<BaseLayout title={title} description={description} path="/privacy">
   <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'Privacy' }]} />
 
   <div class="page">
@@ -16,23 +19,27 @@ const privacyEmail = SITE_CONFIG.legal.privacyEmail || SITE_CONFIG.contactEmail
     <p class="subtitle">Last updated: {SITE_CONFIG.legal.lastUpdated}</p>
 
     <div class="notice">
-      This is a general-purpose template describing what this codebase
-      actually does as of the date above, written with US visitors and
-      US state privacy laws in mind. If you add analytics, ads, a
-      backend, or user accounts later, update this page to match — have
-      a lawyer review it too, especially before relying on the CCPA
-      section below for an actual California user base.
+      This describes what the site actually does as of the date above,
+      written for a general audience including visitors in the US, the EEA,
+      and the UK. It is not legal advice — have a lawyer review it before
+      relying on the CCPA and GDPR sections for a real user base.
     </div>
 
     <section>
       <h2>Summary</h2>
       <p>
-        Every tool on this site runs entirely in your browser. We do not
-        operate a server-side database, do not require accounts, and do
-        not sell or share personal information — because we don't
-        collect any to begin with. The sections below explain exactly
-        what limited data touches your device, and your rights under
-        applicable US law.
+        Every tool on this site runs entirely in your browser. Your files,
+        passwords, images, and calculator inputs are never uploaded to us,
+        and we operate no user accounts and no server-side database of
+        visitor data.
+      </p>
+      <p>
+        The site is free because it carries advertising. Google AdSense and
+        Google Analytics both run on every page, and both set cookies and
+        process data — including your IP address — under their own policies.
+        That is the one meaningful exception to everything else on this page,
+        and the sections below set out exactly what it involves and how to
+        control it.
       </p>
     </section>
 
@@ -54,17 +61,45 @@ const privacyEmail = SITE_CONFIG.legal.privacyEmail || SITE_CONFIG.contactEmail
 
     <section>
       <h2>Cookies and tracking technologies</h2>
-      <p>We don't set our own tracking or advertising cookies, and we don't use browser fingerprinting. If we later add analytics or advertising, this section — and the CCPA "Do Not Sell or Share" section below — will be updated before that change goes live, with an opt-out mechanism where required.</p>
+      <p>We set no first-party tracking cookies of our own and we do not use browser fingerprinting. Two Google services that we embed do use cookies and similar technologies:</p>
+      <ul>
+        <li><strong>Google AdSense</strong> serves the advertising that funds the site. Google and its advertising partners may set cookies to measure ad performance and, where you have consented, to personalise the ads you see.</li>
+        <li><strong>Google Analytics 4</strong> gives us aggregate counts of page visits. IP anonymisation is enabled and we do not attempt to identify individual visitors.</li>
+      </ul>
+      <p>Both load under Google Consent Mode v2. In the EEA, the UK, and Switzerland, advertising and analytics storage default to <em>denied</em> until you make a choice, and no personalised advertising cookie is set before then.</p>
+    </section>
+
+    <section>
+      <h2>Advertising and how to control it</h2>
+      <p>Third-party vendors, including Google, use cookies to serve ads based on your prior visits to this and other websites.</p>
+      <ul>
+        <li>Google's use of advertising cookies enables it and its partners to serve ads to you based on your visits to this site and other sites on the internet.</li>
+        <li>You can opt out of personalised advertising by Google at <a href="https://www.google.com/settings/ads" rel="noopener nofollow" target="_blank" class="accent-link">Google Ads Settings</a>.</li>
+        <li>You can opt out of personalised advertising from many other vendors at <a href="https://www.aboutads.info/choices/" rel="noopener nofollow" target="_blank" class="accent-link">aboutads.info/choices</a> or <a href="https://www.youronlinechoices.eu/" rel="noopener nofollow" target="_blank" class="accent-link">youronlinechoices.eu</a>.</li>
+        <li>Where a consent message was shown to you, the <strong>Cookie Settings</strong> link in the footer reopens it so you can change or withdraw your choice at any time.</li>
+      </ul>
+      <p>Google's handling of data from sites that use its services is described in <a href="https://policies.google.com/technologies/partner-sites" rel="noopener nofollow" target="_blank" class="accent-link">How Google uses information from sites or apps that use our services</a>.</p>
+    </section>
+
+    <section>
+      <h2>Visitors in the EEA, the UK, and Switzerland (GDPR)</h2>
+      <p>If you are in the European Economic Area, the United Kingdom, or Switzerland, advertising and analytics cookies are set only after you consent through the message shown on your first visit. Consent is the legal basis for that processing, and you may withdraw it at any time through the <strong>Cookie Settings</strong> link in the footer — withdrawing is as easy as giving it.</p>
+      <p>You have the right to access, correct, delete, restrict, and port your personal data, and to object to its processing. Because we hold no visitor records ourselves, requests concerning advertising or analytics data are best directed to Google, which acts as the controller for that data. You also have the right to lodge a complaint with your national supervisory authority.</p>
+      <p>Data processed by Google may be transferred to and stored in the United States under Google's own transfer safeguards.</p>
     </section>
 
     <section>
       <h2>California residents: your CCPA/CPRA rights</h2>
       <p>Under the California Consumer Privacy Act, as amended by the California Privacy Rights Act (CCPA/CPRA), California residents have the right to know what personal information a business collects, request deletion of it, correct inaccuracies, opt out of its sale or sharing, and not be discriminated against for exercising these rights.</p>
       <p>
-        <strong>Our position:</strong> we don't collect personal information
-        on our servers in the first place (see above), so there is
-        nothing to sell, share, or hand over in response to a request —
-        but you're still welcome to submit one at <a href={`mailto:${privacyEmail}`} class="accent-link">{privacyEmail}</a> and we'll confirm this in writing.
+        <strong>Our position:</strong> we hold no personal information about
+        you on our own servers, so we have nothing of our own to sell or hand
+        over. However, letting a third-party advertising network use cookies
+        for personalised advertising can itself amount to "sharing" under the
+        CPRA. To opt out, use the <strong>Cookie Settings</strong> link in the
+        footer, or opt out of personalised ads directly at
+        <a href="https://www.google.com/settings/ads" rel="noopener nofollow" target="_blank" class="accent-link">Google Ads Settings</a>.
+        You may also email <a href={`mailto:${privacyEmail}`} class="accent-link">{privacyEmail}</a> and we will confirm our position in writing.
       </p>
     </section>
 
@@ -80,7 +115,7 @@ const privacyEmail = SITE_CONFIG.legal.privacyEmail || SITE_CONFIG.contactEmail
 
     <section>
       <h2>"Do Not Track" signals</h2>
-      <p>Some browsers send a "Do Not Track" signal. Because we don't track visitors across sites or set tracking cookies, there's currently nothing for this signal to opt you out of — but we honor its spirit by design.</p>
+      <p>Some browsers send a "Do Not Track" signal, which has no agreed industry meaning and which the advertising services embedded here do not act on. Global Privacy Control (GPC) is the signal that carries legal weight in several US states; where it applies, treat it alongside the <strong>Cookie Settings</strong> control in the footer as the way to opt out of personalised advertising.</p>
     </section>
 
     <section>
@@ -90,7 +125,18 @@ const privacyEmail = SITE_CONFIG.legal.privacyEmail || SITE_CONFIG.contactEmail
 
     <section>
       <h2>Third-party services</h2>
-      <p>Fonts are loaded from Google Fonts, which may log basic request data (like IP address) per Google's own policies. No other third-party scripts run on this site as of the date above.</p>
+      <p>These are the only third parties whose code runs on this site:</p>
+      <ul>
+        <li><strong>Google AdSense</strong> — advertising. See Google's <a href="https://policies.google.com/privacy" rel="noopener nofollow" target="_blank" class="accent-link">privacy policy</a>.</li>
+        <li><strong>Google Analytics 4</strong> — aggregate traffic measurement, with IP anonymisation enabled.</li>
+        <li><strong>Google Fonts</strong> — typography. May log basic request data such as your IP address.</li>
+      </ul>
+      <p>We run no other third-party script, tag, or pixel. There is no social media tracking and no data broker integration.</p>
+    </section>
+
+    <section>
+      <h2>Languages</h2>
+      <p>This policy is published in English only. The translated pages elsewhere on the site are covered by this same policy.</p>
     </section>
 
     <section>

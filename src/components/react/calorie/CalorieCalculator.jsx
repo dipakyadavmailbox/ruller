@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { ACTIVITY_LEVELS, GOALS, calcResult, ftInToCm, lbToKg } from './calorieMath.js'
 import AffiliateCard from '../shared/AffiliateCard.jsx'
 import FoodLog from './FoodLog.jsx'
+import { makeFormatters } from '../shared/useLocale.js'
 
 const AFFILIATE_ITEMS = [
   { name: 'Meal prep containers', blurb: 'Portion-controlled sets that make hitting your target calories easier.', href: '#', cta: 'Shop →' },
@@ -9,8 +10,9 @@ const AFFILIATE_ITEMS = [
   { name: 'Whey / plant protein powder', blurb: 'A fast way to hit your daily protein target from the macros below.', href: '#', cta: 'Shop →' },
 ]
 
-export default function CalorieCalculator({ initialGoal }) {
-  const [units, setUnits] = useState('metric') // 'metric' | 'imperial'
+export default function CalorieCalculator({ initialGoal, lang = 'en' }) {
+  const fmt = useMemo(() => makeFormatters(lang), [lang])
+  const [units, setUnits] = useState(fmt.units) // 'metric' | 'imperial', defaulted from the locale
   const [sex, setSex] = useState('male')
   const [age, setAge] = useState(28)
 
@@ -133,11 +135,11 @@ export default function CalorieCalculator({ initialGoal }) {
 
       {/* results */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 24 }}>
-        <ResultCard label="BMR" value={`${result.bmr.toLocaleString()} kcal`} sub="Calories at total rest" />
-        <ResultCard label="Maintenance (TDEE)" value={`${result.tdee.toLocaleString()} kcal`} sub="Calories to stay the same weight" />
+        <ResultCard label="BMR" value={`${fmt.integer(result.bmr)} kcal`} sub="Calories at total rest" />
+        <ResultCard label="Maintenance (TDEE)" value={`${fmt.integer(result.tdee)} kcal`} sub="Calories to stay the same weight" />
         <ResultCard
           label="Your target"
-          value={`${result.targetCalories.toLocaleString()} kcal/day`}
+          value={`${fmt.integer(result.targetCalories)} kcal/day`}
           sub="Adjusted for your goal"
           highlight
         />
@@ -157,7 +159,7 @@ export default function CalorieCalculator({ initialGoal }) {
         registered dietitian before making major dietary changes.
       </p>
 
-      <FoodLog targetCalories={result.targetCalories} targetMacros={result.macros} />
+      <FoodLog targetCalories={result.targetCalories} targetMacros={result.macros} lang={lang} />
 
       <AffiliateCard heading="TOOLS THAT MAKE HITTING YOUR TARGET EASIER" items={AFFILIATE_ITEMS} />
     </div>

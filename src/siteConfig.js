@@ -24,6 +24,11 @@ export const SITE_CONFIG = {
   },
 
   donation: {
+    // ISO 4217 code the amounts below are denominated in. The donate page
+    // formats them with Intl, so changing this changes the symbol and the
+    // decimal handling everywhere at once.
+    currency: 'USD',
+
     // Manually update these two numbers whenever you check your accounts —
     // there's no backend here to pull them automatically.
     monthlyGoal: 200,

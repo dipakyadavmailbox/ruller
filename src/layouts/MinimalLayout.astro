@@ -1,185 +1,55 @@
 ---
+/**
+ * MinimalLayout — full-bleed viewport shell with no nav or footer chrome.
+ * Used by the screen ruler, which needs the whole viewport to render a
+ * physically accurate scale.
+ *
+ * It now shares HeadMeta with BaseLayout, so it picks up hreflang, consent
+ * mode, and the AdSense loader that it was previously missing.
+ */
+import HeadMeta from '../components/astro/HeadMeta.astro'
 import '../styles/global.css'
-import { SITE_CONFIG } from '../siteConfig.js'
+import { DEFAULT_LOCALE, getLocale } from '../i18n/config.js'
 
 interface Props {
   title: string
   description: string
+  /** Locale-free canonical path, e.g. '/ruler'. Never include the prefix. */
   path: string
+  lang?: string
   keywords?: string
   ogImage?: string
   type?: string
   noindex?: boolean
 }
+
 const {
   title,
   description,
   path,
-  keywords = 'free online tools, browser tools, developer utilities, screen ruler, dpi calculator, calorie calculator, privacy focused tools',
-  ogImage: customOgImage,
+  lang = DEFAULT_LOCALE,
+  keywords,
+  ogImage,
   type = 'website',
   noindex = false,
 } = Astro.props
 
-const rawPathname = Astro.url.pathname
-const currentPath = rawPathname.replace(/\/$/, '').replace(/\.html$/, '') || '/'
-
-// Self-referencing canonical URL
-const canonicalUrl = `${SITE_CONFIG.domain}${currentPath === '/' ? '' : currentPath}`
-
-const toolSlug = path.replace(/^\//, '').replace(/\.html$/, '').split('/')[0] || 'home'
-
-const TOOLS_WITH_FAVICONS = new Set([
-  'aspect-ratio-calculator',
-  'calorie-calculator',
-  'color-tools',
-  'cron-expression-builder',
-  'data-converter',
-  'dpi-calculator',
-  'image-resizer',
-  'password-checker',
-  'pdf-tools',
-  'pregnancy-calculator',
-  'qr-code-generator',
-  'regex-tester',
-  'ruler',
-  'unit-converter',
-  'workspace',
-])
-
-const OG_SLUGS = new Set([
-  'about',
-  'aspect-ratio-calculator',
-  'calorie-calculator',
-  'color-tools',
-  'cron-expression-builder',
-  'data-converter',
-  'donate',
-  'dpi-calculator',
-  'faq',
-  'home',
-  'image-resizer',
-  'password-checker',
-  'pdf-tools',
-  'pregnancy-calculator',
-  'qr-code-generator',
-  'regex-tester',
-  'ruler',
-  'unit-converter',
-  'workspace',
-  'contact',
-  'privacy',
-  'terms',
-  'accessibility',
-  'dmca',
-  'sitemap',
-])
-
-const hasToolFavicon = TOOLS_WITH_FAVICONS.has(toolSlug)
-const defaultToolOg = OG_SLUGS.has(toolSlug) ? `/og/${toolSlug}.png` : '/og-image.png'
-const rawOgImage = customOgImage || defaultToolOg
-const ogImage = rawOgImage.startsWith('http')
-  ? rawOgImage
-  : `${SITE_CONFIG.domain}${rawOgImage.startsWith('/') ? '' : '/'}${rawOgImage}`
-
-const webPageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  name: title,
-  description: description,
-  url: canonicalUrl,
-  primaryImageOfPage: {
-    '@type': 'ImageObject',
-    url: ogImage,
-    width: 1200,
-    height: 630,
-  },
-  image: {
-    '@type': 'ImageObject',
-    url: ogImage,
-    width: 1200,
-    height: 630,
-  },
-  isPartOf: {
-    '@type': 'WebSite',
-    name: SITE_CONFIG.siteName,
-    url: SITE_CONFIG.domain,
-  },
-  dateModified: new Date().toISOString().split('T')[0],
-}
+const locale = getLocale(lang)
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale.code} dir={locale.dir}>
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F1VTCGJSZG"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-F1VTCGJSZG');
-    </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords} />
-    <meta name="author" content={SITE_CONFIG.siteName} />
-    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />
-    <meta name="theme-color" content="#090d16" />
-
-    <link rel="canonical" href={canonicalUrl} />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <meta property="og:type" content={type} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={title} />
-    <meta property="og:site_name" content={SITE_CONFIG.siteName} />
-    <meta property="og:locale" content="en_US" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@RockingTools" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={title} />
-
-    <!-- Favicons & Icons (Google Search Compliant Order) -->
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-    {hasToolFavicon && (
-      <link rel="icon" type="image/png" sizes="96x96" href={`/favicons/${toolSlug}.png`} />
-    )}
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />}
-
-    <script is:inline>
-      (function () {
-        try {
-          var stored = localStorage.getItem('toolkit:theme')
-          document.documentElement.dataset.theme = stored === 'light' ? 'light' : 'dark'
-        } catch (e) {
-          document.documentElement.dataset.theme = 'dark'
-        }
-      })()
-    </script>
-
+    <HeadMeta
+      title={title}
+      description={description}
+      path={path}
+      lang={locale.code}
+      keywords={keywords}
+      ogImage={ogImage}
+      type={type}
+      noindex={noindex}
+    />
     <slot name="head" />
   </head>
   <body style="margin:0; overflow:hidden;">
