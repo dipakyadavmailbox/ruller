@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import AffiliateCard from '../shared/AffiliateCard.jsx'
 import { ResultCard, inputStyle, segBtn, secondaryBtn } from '../shared/FormKit.jsx'
+import { makeFormatters } from '../shared/useLocale.js'
 
 const AFFILIATE_ITEMS = [
   { name: 'JetBrains All Products Pack', blurb: 'IDEs with built-in cron task debugging and scheduled job management.', href: '#', cta: 'Try free →' },
@@ -151,7 +152,8 @@ export function validateCron(cronStr) {
   return { valid: true, message: 'Valid 5-part cron syntax' }
 }
 
-export default function CronBuilder({ initialExpression = '0 9 * * 1', initialMode = 'builder' } = {}) {
+export default function CronBuilder({ initialExpression = '0 9 * * 1', initialMode = 'builder', lang = 'en' } = {}) {
+  const fmt = useMemo(() => makeFormatters(lang), [lang])
   const [cron, setCron] = useState(initialExpression || '0 9 * * 1')
   const [copied, setCopied] = useState(false)
   const [mode, setMode] = useState(initialMode || 'builder') // 'builder' | 'validator'
@@ -325,7 +327,7 @@ export default function CronBuilder({ initialExpression = '0 9 * * 1', initialMo
             {nextRuns.map((date, idx) => (
               <div key={idx} style={{ fontSize: 13, color: 'var(--ink)', fontFamily: 'var(--font-mono)' }}>
                 <span style={{ color: 'var(--accent)', fontWeight: 700, marginRight: 10 }}>#{idx + 1}</span>
-                {date.toLocaleString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                {fmt.time(date, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
               </div>
             ))}
           </div>

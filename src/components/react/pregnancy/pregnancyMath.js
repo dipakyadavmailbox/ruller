@@ -1,3 +1,5 @@
+import { formatDate as intlFormatDate } from '../../../i18n/format.js'
+
 const DAY_MS = 24 * 60 * 60 * 1000
 
 function addDays(date, days) {
@@ -68,9 +70,12 @@ export function calcOvulation(lastPeriodStart, cycleLength = 28) {
   return { ovulationDate, fertileWindowStart, fertileWindowEnd, nextPeriod }
 }
 
-export function formatDate(date) {
+// `locale` is threaded in from the page rather than defaulting to the
+// browser locale, so a page served at /de/ shows German dates even in an
+// English browser, and the server and client renders agree.
+export function formatDate(date, locale = 'en') {
   if (!date || isNaN(date.getTime())) return '—'
-  return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+  return intlFormatDate(date, locale)
 }
 
 // Week-by-week development data

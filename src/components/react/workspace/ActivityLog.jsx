@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { formatTime } from '../../../i18n/format.js'
+import { activeLocale } from '../../../i18n/format.js'
 
 // ─── ActivityLog — ephemeral session log (cleared on page reload) ─────────────
 // Uses component state only — intentionally NOT persisted to localStorage.
@@ -59,7 +61,7 @@ export default function ActivityLog({ entries }) {
               <div key={entry.id} style={styles.entry}>
                 <span style={styles.entryIcon}>{TYPE_ICONS[entry.type] || '•'}</span>
                 <span style={styles.entryTime}>
-                  {new Date(entry.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                  {formatTime(new Date(entry.timestamp), activeLocale(), { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
                 </span>
                 <span style={styles.entryMsg}>{entry.message}</span>
               </div>

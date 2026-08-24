@@ -15,6 +15,7 @@ import {
 } from './pregnancyMath.js'
 import AffiliateCard from '../shared/AffiliateCard.jsx'
 import { Field, ResultCard, inputStyle, selectStyle, segBtn } from '../shared/FormKit.jsx'
+import { makeFormatters } from '../shared/useLocale.js'
 
 const AFFILIATE_ITEMS = [
   { name: 'Prenatal vitamins', blurb: 'Doctor-recommended folic acid, iron, and DHA support for early pregnancy.', href: '#', cta: 'Shop →' },
@@ -29,7 +30,10 @@ function toDateInput(date) {
   return date.toISOString().slice(0, 10)
 }
 
-export default function PregnancyCalculator({ initialMode = 'due-date', initialBasis = 'lmp' }) {
+export default function PregnancyCalculator({ initialMode = 'due-date', initialBasis = 'lmp', lang = 'en' }) {
+  const fmt = useMemo(() => makeFormatters(lang), [lang])
+  // Local alias so every date in this component renders in the page language.
+  const fmtDate = (date) => formatDate(date, lang)
   const [mode, setMode] = useState(initialMode) // 'due-date' | 'ovulation'
   const [dateBasis, setDateBasis] = useState(initialBasis)
 
@@ -42,7 +46,7 @@ export default function PregnancyCalculator({ initialMode = 'due-date', initialB
   // Weight gain section
   const [preWeight, setPreWeight] = useState('')
   const [preHeight, setPreHeight] = useState('')
-  const [weightUnits, setWeightUnits] = useState('metric') // metric | imperial
+  const [weightUnits, setWeightUnits] = useState(fmt.units) // metric | imperial, defaulted from the locale
 
   const result = useMemo(() => {
     const date = new Date(inputDate + 'T00:00:00')
@@ -156,7 +160,7 @@ export default function PregnancyCalculator({ initialMode = 'due-date', initialB
         <>
           {/* Key stats */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 20 }}>
-            <ResultCard label="Estimated Due Date" value={formatDate(result.dueDate)} highlight />
+            <ResultCard label="Estimated Due Date" value={fmtDate(result.dueDate)} highlight />
             <ResultCard
               label="Current Progress"
               value={`${result.gestational.weeks}w ${result.gestational.days}d`}
@@ -260,7 +264,7 @@ export default function PregnancyCalculator({ initialMode = 'due-date', initialB
                         </div>
                       </div>
                     </div>
-                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', flexShrink: 0 }}>{formatDate(m.date)}</span>
+                    <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--accent)', flexShrink: 0 }}>{fmtDate(m.date)}</span>
                   </div>
                 )
               })}
@@ -272,13 +276,13 @@ export default function PregnancyCalculator({ initialMode = 'due-date', initialB
       {/* Ovulation results */}
       {result && mode === 'ovulation' && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 24 }}>
-          <ResultCard label="Estimated Ovulation Date" value={formatDate(result.ovulationDate)} highlight />
+          <ResultCard label="Estimated Ovulation Date" value={fmtDate(result.ovulationDate)} highlight />
           <ResultCard
             label="Most Fertile Window"
-            value={`${formatDate(result.fertileWindowStart)}`}
-            sub={`to ${formatDate(result.fertileWindowEnd)} — best time for conception`}
+            value={`${fmtDate(result.fertileWindowStart)}`}
+            sub={`to ${fmtDate(result.fertileWindowEnd)} — best time for conception`}
           />
-          <ResultCard label="Next Expected Period" value={formatDate(result.nextPeriod)} />
+          <ResultCard label="Next Expected Period" value={fmtDate(result.nextPeriod)} />
         </div>
       )}
 

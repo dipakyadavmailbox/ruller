@@ -2,13 +2,28 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import FaqSchema from '../../components/astro/FaqSchema.astro'
 import { SITE_CONFIG } from '../../siteConfig.js'
+import { formatCurrency } from '../../i18n/format.js'
+import { DEFAULT_LOCALE } from '../../i18n/config.js'
 
 const title = `Support Us — ${SITE_CONFIG.siteName}`
 const description = `Help keep ${SITE_CONFIG.siteName} free forever. See exactly where donations go and pick a way to support the project.`
 
 const { monthlyGoal, currentRaised, expenses, methods } = SITE_CONFIG.donation
+const donationCurrency = SITE_CONFIG.donation.currency || 'USD'
 const monthlyExpenses = expenses.reduce((sum, e) => sum + e.amount, 0)
 const progressPercent = Math.min(100, Math.round((currentRaised / monthlyGoal) * 100))
+
+// The figures in siteConfig are US dollars. Formatting them through Intl
+// rather than prefixing a bare '$' means the thousands separator and symbol
+// placement follow the reader's language while the currency stays USD —
+// showing a euro sign on a dollar amount would be worse than not localising
+// at all.
+const money = (amount) =>
+  formatCurrency(amount, DEFAULT_LOCALE, donationCurrency, {
+    // Whole-dollar figures read better without trailing zeroes; anything
+    // with cents keeps them.
+    maximumFractionDigits: Number.isInteger(amount) ? 0 : 2,
+  })
 
 const METHOD_META = {
   upi: { icon: '📱', blurb: 'Instant, no fees, works with any UPI app.' },
@@ -34,13 +49,13 @@ const FAQ = [
     <div class="hero">
       <div class="hero-icon" aria-hidden="true">💛</div>
       <h1>Help keep these tools free — forever</h1>
-      <p>{SITE_CONFIG.siteName} runs on no ads by default and no paywalls. Donations cover the real, ongoing cost of hosting and building new tools.</p>
+      <p>{SITE_CONFIG.siteName} has no paywalls and no required signup. Advertising covers most of the running costs; donations cover the rest and fund time spent building new tools.</p>
     </div>
 
     <div class="progress-card">
       <div class="progress-row">
-        <span>${currentRaised} raised this month</span>
-        <span class="faint">Goal: ${monthlyGoal}</span>
+        <span>{money(currentRaised)} raised this month</span>
+        <span class="faint">Goal: {money(monthlyGoal)}</span>
       </div>
       <div class="progress-track">
         <div class="progress-fill" style={`width: ${progressPercent}%`}></div>
@@ -76,12 +91,12 @@ const FAQ = [
       {expenses.map((e) => (
         <div class="expense-row">
           <span class="faint">{e.label}</span>
-          <span class="expense-amount">${e.amount}/mo</span>
+          <span class="expense-amount">{money(e.amount)}/mo</span>
         </div>
       ))}
       <div class="expense-row expense-total">
         <span>Total monthly cost</span>
-        <span>${monthlyExpenses}/mo</span>
+        <span>{money(monthlyExpenses)}/mo</span>
       </div>
     </div>
 

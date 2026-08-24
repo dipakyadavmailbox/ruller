@@ -1,0 +1,146 @@
+---
+/**
+ * Localized screen ruler: /es/ruler, /ja/ruler, …
+ *
+ * Separate from [tool].astro because the ruler needs MinimalLayout — a
+ * full-bleed viewport with no nav or footer, so the on-screen rulers can be
+ * pinned to the real edges of the display. Astro matches this static
+ * segment before the [tool] dynamic one, and [tool].astro filters 'ruler'
+ * out of its own paths so the two never collide.
+ */
+
+import MinimalLayout from '../../layouts/MinimalLayout.astro'
+import RulerApp from '../../components/react/ruler/RulerApp.jsx'
+import SoftwareApplicationSchema from '../../components/astro/SoftwareApplicationSchema.astro'
+import FaqSchema from '../../components/astro/FaqSchema.astro'
+
+import { PREFIXED_LOCALES, getLocale, LOCALES } from '../../i18n/config.js'
+import { getContent } from '../../i18n/content/index.js'
+import { localizePath } from '../../i18n/routing.js'
+import { t } from '../../i18n/ui.js'
+import { SITE_CONFIG } from '../../siteConfig.js'
+
+export function getStaticPaths() {
+  return PREFIXED_LOCALES.map((locale) => ({
+    params: { lang: locale.path },
+    props: { localeCode: locale.code },
+  }))
+}
+
+const { localeCode } = Astro.props
+const locale = getLocale(localeCode)
+const copy = getContent(localeCode, 'ruler')
+
+const title = `${copy.title} | ${SITE_CONFIG.siteName}`
+const rulerPath = localizePath('/ruler', localeCode)
+---
+
+<MinimalLayout
+  title={title}
+  description={copy.description}
+  path="/ruler"
+  lang={locale.code}
+  keywords={copy.keywords}
+  ogImage="/og/ruler.png"
+>
+  <SoftwareApplicationSchema
+    slot="head"
+    name={copy.h1}
+    description={copy.description}
+    path={rulerPath}
+  />
+  <FaqSchema slot="head" items={copy.faq} />
+
+  <div class="hero">
+    <div id="scale-badge" class="scale-badge">UNCALIBRATED SCALE · 96 DPI</div>
+    <h1>{copy.h1}</h1>
+    <p>{copy.intro}</p>
+  </div>
+
+  <RulerApp client:load />
+
+  <!--
+    MinimalLayout has no footer, so this block carries the crawlable text
+    content and the language links that every other page gets from the site
+    chrome. It is visually hidden but fully present in the DOM, which is
+    what both Googlebot and the AdSense reviewer read.
+  -->
+  <div class="sr-only">
+    <img src="/og/ruler.png" alt={copy.h1} width="1200" height="630" loading="eager" />
+
+    <h2>{copy.bodyHeading}</h2>
+    <p>{copy.body}</p>
+
+    <ul>
+      {copy.bullets.map((bullet) => <li>{bullet}</li>)}
+    </ul>
+
+    <h2>{t(locale.code, 'common.faqHeading')}</h2>
+    {copy.faq.map((item) => (
+      <div>
+        <h3>{item.q}</h3>
+        <p>{item.a}</p>
+      </div>
+    ))}
+
+    <nav aria-label={t(locale.code, 'nav.language')}>
+      {LOCALES.map((l) => (
+        <a href={localizePath('/ruler', l.code)} hreflang={l.hreflang} lang={l.code}>
+          {l.nativeLabel}
+        </a>
+      ))}
+    </nav>
+
+    <a href={localizePath('/', locale.code)}>{t(locale.code, 'common.home')}</a>
+    <a href="/privacy" hreflang="en">{t(locale.code, 'footer.privacy')}</a>
+    <a href="/terms" hreflang="en">{t(locale.code, 'footer.terms')}</a>
+    <a href="/contact" hreflang="en">{t(locale.code, 'footer.contactSupport')}</a>
+  </div>
+</MinimalLayout>
+
+<style>
+  .hero {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 48px;
+    pointer-events: none;
+  }
+  .scale-badge {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 56px);
+    line-height: 1.15;
+    font-weight: 800;
+    color: var(--ink);
+    margin: 0;
+    max-width: 900px;
+  }
+  .hero p {
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--ink-dim);
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+</style>
