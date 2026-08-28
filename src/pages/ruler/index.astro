@@ -27,19 +27,23 @@ const faqItems = [
   />
   <FaqSchema items={faqItems} slot="head" />
 
-  <div class="hero">
+  <section class="hero">
     <div id="scale-badge" class="scale-badge">UNCALIBRATED SCALE · 96 DPI</div>
     <h1>Measure anything<br />on your screen.</h1>
     <p>
       Rulers pinned to the edges of the viewport at true millimetre / inch
-      scale. Physically fixed even when you zoom your browser.
+      scale. Physically fixed even when you zoom your browser — calibrate once
+      with a credit card and every tick matches real life.
     </p>
-  </div>
+    <a class="scroll-cue" href="#ruler-guide">
+      How calibration works &nbsp;↓
+    </a>
+  </section>
 
   <RulerApp client:load />
 
-  <article class="ruler-guide">
-    <h2>Online Screen Ruler — Calibration Guide & Instructions</h2>
+  <article id="ruler-guide" class="ruler-guide">
+    <h2>Online Screen Ruler — Calibration Guide &amp; Instructions</h2>
     <p>
       Use our free on-screen ruler to measure real-world items directly against your computer screen,
       tablet, or mobile phone in inches, centimeters, or millimeters. Calibrate once using a standard
@@ -54,6 +58,14 @@ const faqItems = [
       calibration value is saved in your browser's local storage so you only need to do it once per device.
     </p>
 
+    <h3>Quick Start</h3>
+    <ol>
+      <li>Open the <strong>Controls</strong> panel and press <strong>Calibrate</strong>.</li>
+      <li>Hold any bank card or ID flat against the screen and drag the slider until the outline matches its edges.</li>
+      <li>Pick your unit — <strong>mm</strong>, <strong>cm</strong>, <strong>in</strong>, or <strong>px</strong> — and choose which edges show a ruler.</li>
+      <li>Click a ruler edge to drop an alignment guide, or press <strong>M</strong> to measure a distance between two points.</li>
+    </ol>
+
     <h3>Why Most Online Rulers Are Inaccurate</h3>
     <p>
       Standard web rulers assume all screens are 96 DPI — a value that was accurate for CRT monitors
@@ -62,7 +74,15 @@ const faqItems = [
       calibration, a "10 cm" ruler on screen can be off by 40–60% from real-world size.
     </p>
 
-    <h3>Dedicated Ruler Scales & Calibration Views</h3>
+    <h3>Keyboard Shortcuts</h3>
+    <ul class="shortcut-list">
+      <li><kbd>G</kbd> Toggle guides</li>
+      <li><kbd>M</kbd> Measure mode</li>
+      <li><kbd>C</kbd> Clear all guides</li>
+      <li><kbd>Esc</kbd> Cancel / exit measure mode</li>
+    </ul>
+
+    <h3>Dedicated Ruler Scales &amp; Calibration Views</h3>
     <ul>
       <li><a href="/ruler/cm-ruler"><strong>Centimeter (cm) Ruler:</strong> Actual-size metric ruler with mm subdivisions — ideal for measuring everyday objects in centimeters.</a></li>
       <li><a href="/ruler/inch-ruler"><strong>Inch (in) Ruler:</strong> 1:1 real-scale imperial ruler with 1/8 and 1/16 inch fractional subdivisions for precision work.</a></li>
@@ -79,19 +99,42 @@ const faqItems = [
         <p>{faq.a}</p>
       </div>
     ))}
+
+    <p class="back-link"><a href="/">← Back to all tools</a></p>
   </article>
 </MinimalLayout>
 
+<style is:global>
+  /*
+   * MinimalLayout locks <body> to overflow:hidden for the full-bleed app
+   * view. This page carries a visible guide article below the ruler, so it
+   * must be able to scroll to it.
+   */
+  body {
+    overflow-y: auto !important;
+  }
+  html {
+    scroll-behavior: smooth;
+    /* keep anchored headings clear of the fixed 44px top ruler */
+    scroll-padding-top: 60px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+</style>
+
 <style>
+  /* ── Hero: a full first screen, in normal flow (not an overlay) ── */
   .hero {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 48px;
+    padding: 96px 32px 72px;
     pointer-events: none;
   }
   .scale-badge {
@@ -102,7 +145,7 @@ const faqItems = [
     margin-bottom: 18px;
   }
   .hero h1 {
-    font-size: clamp(32px, 6vw, 64px);
+    font-size: clamp(30px, 5.5vw, 60px);
     line-height: 1.15;
     font-weight: 800;
     color: var(--ink);
@@ -113,40 +156,108 @@ const faqItems = [
     margin-top: 20px;
     font-size: 15px;
     color: var(--ink-dim);
-    max-width: 520px;
+    max-width: 540px;
     line-height: 1.6;
   }
+  .scroll-cue {
+    pointer-events: auto;
+    margin-top: 40px;
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 120ms ease, background 120ms ease;
+  }
+  .scroll-cue:hover {
+    transform: translateY(2px);
+    background: var(--accent-light);
+  }
 
-  /* ── Guide article below the ruler ── */
+  /* On smaller screens the control panel covers most of the top-left, so
+     drop the hero copy clear of it instead of centring under it. */
+  @media (max-width: 900px) {
+    .hero {
+      min-height: auto;
+      justify-content: flex-start;
+      padding: 620px 20px 72px;
+      text-align: center;
+    }
+    .hero h1 { font-size: clamp(28px, 8vw, 44px); }
+  }
+
+  /* ── Guide article below the ruler ──
+     Sits above the fixed control panel / rulers (z-index 100) with an opaque
+     background, so scrolling into the guide gives a clean, unobstructed read.
+     The panel stays fully usable up in the hero. */
   .ruler-guide {
-    max-width: 900px;
-    margin: 40px auto 60px;
-    padding: 32px;
-    background: var(--panel-bg);
+    position: relative;
+    z-index: 101;
+    max-width: 820px;
+    margin: 0 auto 80px;
+    padding: 40px clamp(20px, 5vw, 40px);
+    background: var(--bg);
     border: 1px solid var(--panel-border);
     border-radius: 16px;
+    box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 900px) {
+    .ruler-guide {
+      margin-left: 12px;
+      margin-right: 12px;
+    }
   }
   .ruler-guide h2 {
-    font-size: 20px; font-weight: 800; color: var(--ink);
-    margin-bottom: 12px;
+    font-size: clamp(19px, 3vw, 24px); font-weight: 800; color: var(--ink);
+    margin: 0 0 12px;
   }
   .ruler-guide h3 {
     font-size: 16px; font-weight: 700; color: var(--ink);
-    margin-top: 24px; margin-bottom: 8px;
+    margin-top: 28px; margin-bottom: 8px;
   }
   .ruler-guide p, .ruler-guide li {
-    font-size: 14px; color: var(--ink-dim); line-height: 1.65;
+    font-size: 14px; color: var(--ink-dim); line-height: 1.7;
   }
-  .ruler-guide ul {
-    padding-left: 20px; margin-bottom: 16px;
+  .ruler-guide ul, .ruler-guide ol {
+    padding-left: 22px; margin-bottom: 16px;
   }
-  .ruler-guide li { margin-bottom: 6px; }
+  .ruler-guide li { margin-bottom: 8px; }
   .ruler-guide a { color: var(--accent); text-decoration: none; }
   .ruler-guide a:hover { text-decoration: underline; }
+
+  .shortcut-list {
+    list-style: none; padding-left: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+  }
+  .shortcut-list li { margin-bottom: 0; }
+  .ruler-guide kbd {
+    display: inline-block;
+    min-width: 22px;
+    padding: 2px 7px;
+    margin-right: 8px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-align: center;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--panel-border);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+  }
+
   .faq-item { margin-bottom: 16px; }
   .faq-item h4 {
     font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px;
   }
   .faq-item p { margin: 0; }
-</style>
 
+  .back-link { margin-top: 32px; }
+  .back-link a { font-weight: 700; }
+</style>
