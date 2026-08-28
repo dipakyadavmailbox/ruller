@@ -1,55 +1,57 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro'
-import Breadcrumb from '../../components/astro/Breadcrumb.astro'
-import { SITE_CONFIG } from '../../siteConfig.js'
-import { CATEGORIES } from '../../data/tools.js'
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/astro/Breadcrumb.astro";
+import { SITE_CONFIG } from "../../siteConfig.js";
+import { CATEGORIES } from "../../data/tools.js";
 
-const title = 'About Us — Rocking Tools | Free Private Browser Utilities'
-const description = 'Learn what Rocking Tools is, why we built it, and the principles that guide every tool — zero data collection, zero signup, 100% client-side privacy.'
-const keywords = 'about rocking tools, free browser tools, private online tools, no signup tools, client side utilities, about us, who we are, browser privacy tools'
+const title = "About Us — Rocking Tools | Free Private Browser Utilities";
+const description =
+  "Learn what Rocking Tools is, why we built it, and the principles that guide every tool — zero data collection, zero signup, 100% client-side privacy.";
+const keywords =
+  "about rocking tools, free browser tools, private online tools, no signup tools, client side utilities, about us, who we are, browser privacy tools";
 
 const principles = [
   {
-    icon: '🔒',
-    title: 'Privacy by architecture',
-    body: 'We chose a design where data cannot leave your device — not as a feature toggle, but as the only way the tools work. There is no backend to send data to.',
+    icon: "🔒",
+    title: "Privacy by architecture",
+    body: "We chose a design where data cannot leave your device — not as a feature toggle, but as the only way the tools work. There is no backend to send data to.",
   },
   {
-    icon: '⚡',
-    title: 'Speed over everything',
-    body: 'No round-trips to a server means results are instant. Every tool computes locally in your browser, so the output appears as fast as your CPU can produce it.',
+    icon: "⚡",
+    title: "Speed over everything",
+    body: "No round-trips to a server means results are instant. Every tool computes locally in your browser, so the output appears as fast as your CPU can produce it.",
   },
   {
-    icon: '🎯',
-    title: 'One tool, one job',
-    body: 'Each tool in our studio does exactly one thing and does it precisely. No feature creep, no bundled upsells, no dark patterns — just the tool and its result.',
+    icon: "🎯",
+    title: "One tool, one job",
+    body: "Each tool in our studio does exactly one thing and does it precisely. No feature creep, no bundled upsells, no dark patterns — just the tool and its result.",
   },
   {
-    icon: '🌍',
-    title: 'Free for everyone',
-    body: 'There are no free tiers that hide the useful parts. Every feature of every tool is always free. Optional donations keep the lights on for everyone.',
+    icon: "🌍",
+    title: "Free for everyone",
+    body: "There are no free tiers that hide the useful parts. Every feature of every tool is always free. Optional donations keep the lights on for everyone.",
   },
-]
+];
 
 const timeline = [
   {
-    year: '2024',
-    title: 'Started with a ruler',
-    body: 'The first tool was a simple on-screen ruler — built because every existing one required Flash, an app install, or a server ping just to measure an object on a desk. We proved a browser could do it natively, at true physical scale.',
+    year: "2024",
+    title: "Started with a ruler",
+    body: "The first tool was a simple on-screen ruler — built because every existing one required Flash, an app install, or a server ping just to measure an object on a desk. We proved a browser could do it natively, at true physical scale.",
   },
   {
-    year: '2025',
-    title: 'Grew into a studio',
-    body: 'Developers, designers, and health-conscious users kept asking for more precise, private alternatives to the tools they already used. We answered with the Regex Tester, DPI Calculator, Password Checker, Calorie Calculator, and more.',
+    year: "2025",
+    title: "Grew into a studio",
+    body: "Developers, designers, and health-conscious users kept asking for more precise, private alternatives to the tools they already used. We answered with the Regex Tester, DPI Calculator, Password Checker, Calorie Calculator, and more.",
   },
   {
-    year: '2026',
-    title: 'Refined & expanding',
-    body: 'Today the studio holds nine precision tools across four disciplines. We are actively building more — always guided by the same constraint: if it needs a server to work, we will find a way to make it not need one.',
+    year: "2026",
+    title: "Refined & expanding",
+    body: "Today the studio holds nine precision tools across four disciplines. We are actively building more — always guided by the same constraint: if it needs a server to work, we will find a way to make it not need one.",
   },
-]
+];
 
-const toolCount = CATEGORIES.flatMap((c) => c.tools).length
+const toolCount = CATEGORIES.flatMap((c) => c.tools).length;
 ---
 
 <BaseLayout
@@ -58,31 +60,39 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
   path="/about"
   keywords={keywords}
 >
-  <script type="application/ld+json" set:html={JSON.stringify({
-    '@context': 'https://schema.org',
-    '@type': 'AboutPage',
-    name: title,
-    description: description,
-    url: `${SITE_CONFIG.domain}/about`,
-    publisher: {
-      '@type': 'Organization',
-      name: SITE_CONFIG.siteName,
-      url: SITE_CONFIG.domain,
-      logo: `${SITE_CONFIG.domain}/logo.svg`,
-      email: SITE_CONFIG.contactEmail,
-    },
-  })} slot="head" />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      name: title,
+      description: description,
+      url: `${SITE_CONFIG.domain}/about`,
+      publisher: {
+        "@type": "Organization",
+        name: SITE_CONFIG.siteName,
+        url: SITE_CONFIG.domain,
+        logo: `${SITE_CONFIG.domain}/logo.svg`,
+        email: SITE_CONFIG.contactEmail,
+      },
+    })}
+    slot="head"
+  />
 
-  <Breadcrumb items={[{ label: 'Home', path: '/' }, { label: 'About Us' }]} />
+  <Breadcrumb items={[{ label: "Home", path: "/" }, { label: "About Us" }]} />
 
   <!-- ── HERO ── -->
   <section class="about-hero">
     <div class="hero-inner">
       <div class="hero-label">OUR STORY</div>
-      <h1>Built for people who need<br /><span class="gradient-text">answers, not accounts.</span></h1>
+      <h1>
+        Built for people who need<br /><span class="gradient-text"
+          >answers, not accounts.</span>
+      </h1>
       <p class="hero-lead">
-        Rocking Tools is a small, independent studio of browser utilities. Every tool runs entirely on your
-        device — no servers, no sign-ups, no surveillance. Just precision, instantly.
+        Rocking Tools is a small, independent studio of browser utilities. Every
+        tool runs entirely on your device — no servers, no sign-ups, no
+        surveillance. Just precision, instantly.
       </p>
       <div class="hero-meta">
         <div class="meta-stat">
@@ -110,14 +120,17 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
       <div class="mission-copy">
         <h2>The web shouldn't ask for your email just to measure a pixel.</h2>
         <p>
-          Most "free" online tools are free in exchange for your attention, your email address, or your data.
-          We found that pattern exhausting. Rocking Tools exists because the browser is powerful enough
-          to do almost anything locally — and we wanted to prove it, one tool at a time.
+          Most "free" online tools are free in exchange for your attention, your
+          email address, or your data. We found that pattern exhausting. Rocking
+          Tools exists because the browser is powerful enough to do almost
+          anything locally — and we wanted to prove it, one tool at a time.
         </p>
         <p>
-          We write every tool as if privacy is a hard constraint, not a preference. That means every
-          calculation, every file operation, and every password check happens in your browser tab and
-          nowhere else. You can turn off your Wi-Fi after the page loads and every tool keeps working.
+          We write every tool as if privacy is a hard constraint, not a
+          preference. That means every calculation, every file operation, and
+          every password check happens in your browser tab and nowhere else. You
+          can turn off your Wi-Fi after the page loads and every tool keeps
+          working.
         </p>
         <a href="/contact" class="mission-cta">Send us a message →</a>
       </div>
@@ -147,13 +160,17 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     <div class="section-eyebrow">WHAT WE STAND FOR</div>
     <h2 class="section-heading">Four principles, no exceptions.</h2>
     <div class="principles-grid">
-      {principles.map((p) => (
-        <div class="principle-card">
-          <div class="pc-icon" aria-hidden="true">{p.icon}</div>
-          <h3 class="pc-title">{p.title}</h3>
-          <p class="pc-body">{p.body}</p>
-        </div>
-      ))}
+      {
+        principles.map((p) => (
+          <div class="principle-card">
+            <div class="pc-icon" aria-hidden="true">
+              {p.icon}
+            </div>
+            <h3 class="pc-title">{p.title}</h3>
+            <p class="pc-body">{p.body}</p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -162,18 +179,22 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     <div class="section-eyebrow">HOW WE GOT HERE</div>
     <h2 class="section-heading">A studio built one tool at a time.</h2>
     <div class="timeline">
-      {timeline.map((item, i) => (
-        <div class="timeline-item">
-          <div class="timeline-left">
-            <div class="tl-year">{item.year}</div>
-            {i < timeline.length - 1 && <div class="tl-connector" aria-hidden="true"></div>}
+      {
+        timeline.map((item, i) => (
+          <div class="timeline-item">
+            <div class="timeline-left">
+              <div class="tl-year">{item.year}</div>
+              {i < timeline.length - 1 && (
+                <div class="tl-connector" aria-hidden="true" />
+              )}
+            </div>
+            <div class="timeline-content">
+              <h3 class="tl-title">{item.title}</h3>
+              <p class="tl-body">{item.body}</p>
+            </div>
           </div>
-          <div class="timeline-content">
-            <h3 class="tl-title">{item.title}</h3>
-            <p class="tl-body">{item.body}</p>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </section>
 
@@ -182,19 +203,73 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     <div class="section-eyebrow">THE STUDIO</div>
     <h2 class="section-heading">Every tool, every category.</h2>
     <div class="tools-categories">
-      {CATEGORIES.map((cat) => (
-        <div class="tools-cat-block">
-          <div class="cat-label">{cat.heading}</div>
-          <div class="cat-tools">
-            {cat.tools.map((tool) => (
-              <a href={tool.slug} class="tool-chip">
-                <span class="chip-icon" aria-hidden="true">{tool.icon}</span>
-                <span class="chip-name">{tool.navLabel}</span>
-              </a>
-            ))}
+      {
+        CATEGORIES.map((cat) => (
+          <div class="tools-cat-block">
+            <div class="cat-label">{cat.heading}</div>
+            <div class="cat-tools">
+              {cat.tools.map((tool) => (
+                <a href={tool.slug} class="tool-chip">
+                  <span class="chip-icon" aria-hidden="true">
+                    {tool.icon}
+                  </span>
+                  <span class="chip-name">{tool.navLabel}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- ── WHO'S BEHIND THIS ── -->
+  <section class="identity-section">
+    <div class="section-eyebrow">WHO WE ARE</div>
+    <h2 class="section-heading">The person behind Rocking Tools.</h2>
+    <div class="identity-card">
+      <div class="identity-grid">
+        <div class="identity-block">
+          <div class="identity-label">Name</div>
+          <div class="identity-value">Dipak Kumar</div>
+        </div>
+        <div class="identity-block">
+          <div class="identity-label">Address</div>
+          <div class="identity-value">
+            Sector 71, Noida<br />
+            Uttar Pradesh — 201301<br />
+            India
           </div>
         </div>
-      ))}
+        <div class="identity-block">
+          <div class="identity-label">Business Type</div>
+          <div class="identity-value">Private Limited Company</div>
+        </div>
+        <div class="identity-block">
+          <div class="identity-label">Contact</div>
+          <div class="identity-value">
+            <a href={`mailto:${SITE_CONFIG.contactEmail}`} class="identity-link"
+              >{SITE_CONFIG.contactEmail}</a
+            >
+          </div>
+        </div>
+        <div class="identity-block">
+          <div class="identity-label">Website</div>
+          <div class="identity-value">
+            <a href={SITE_CONFIG.domain} class="identity-link"
+              >{SITE_CONFIG.domain.replace("https://", "")}</a
+            >
+          </div>
+        </div>
+      </div>
+      <p class="identity-desc">
+        RockingTools Pvt Ltd is an independent software company based in Noida,
+        India. We build free, browser-native utility tools used by developers,
+        designers, students, and health-conscious individuals worldwide. Every
+        tool we ship runs entirely on the user's device — no servers, no data
+        collection, no subscriptions. We are funded entirely by non-intrusive
+        Google AdSense advertising and optional voluntary donations.
+      </p>
     </div>
   </section>
 
@@ -204,7 +279,8 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
       <div class="cta-icon" aria-hidden="true">✨</div>
       <h2 class="cta-heading">Have a tool idea or found a bug?</h2>
       <p class="cta-desc">
-        We read every message. The best tools on this site started as user suggestions.
+        We read every message. The best tools on this site started as user
+        suggestions.
       </p>
       <div class="cta-actions">
         <a href="/contact" class="btn-primary">Contact us</a>
@@ -354,7 +430,9 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     border-bottom: 1px solid transparent;
     transition: border-color 150ms ease;
   }
-  .mission-cta:hover { border-color: var(--accent); }
+  .mission-cta:hover {
+    border-color: var(--accent);
+  }
 
   /* Visual diagram */
   .mission-visual {
@@ -376,17 +454,30 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     text-align: center;
     min-width: 0;
   }
-  .visual-card--dim { opacity: 0.45; }
+  .visual-card--dim {
+    opacity: 0.45;
+  }
   .vc-bar {
     height: 5px;
     border-radius: 3px;
     background: var(--accent);
     margin-bottom: 2px;
   }
-  .vc-bar--full { width: 100%; }
-  .vc-bar--mid { width: 72%; background: var(--accent-cyan); }
-  .vc-bar--short { width: 48%; background: var(--accent); opacity: 0.5; }
-  .vc-icon { font-size: 26px; }
+  .vc-bar--full {
+    width: 100%;
+  }
+  .vc-bar--mid {
+    width: 72%;
+    background: var(--accent-cyan);
+  }
+  .vc-bar--short {
+    width: 48%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+  .vc-icon {
+    font-size: 26px;
+  }
   .vc-label {
     font-size: 13px;
     font-weight: 800;
@@ -412,7 +503,7 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     position: relative;
   }
   .arrow-line::after {
-    content: '';
+    content: "";
     position: absolute;
     right: -1px;
     top: -4px;
@@ -445,13 +536,18 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     background: var(--panel-bg);
     border: 1px solid var(--panel-border);
     backdrop-filter: var(--glass-backdrop);
-    transition: border-color 200ms ease, transform 200ms ease;
+    transition:
+      border-color 200ms ease,
+      transform 200ms ease;
   }
   .principle-card:hover {
     border-color: rgba(99, 102, 241, 0.35);
     transform: translateY(-2px);
   }
-  .pc-icon { font-size: 28px; margin-bottom: 14px; }
+  .pc-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
   .pc-title {
     font-size: 16px;
     font-weight: 800;
@@ -576,13 +672,17 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     border-color: rgba(99, 102, 241, 0.35);
     transform: translateY(-1px);
   }
-  .chip-icon { font-size: 15px; }
+  .chip-icon {
+    font-size: 15px;
+  }
   .chip-name {
     font-size: 13px;
     font-weight: 700;
     color: var(--ink);
   }
-  .tool-chip:hover .chip-name { color: var(--accent); }
+  .tool-chip:hover .chip-name {
+    color: var(--accent);
+  }
 
   /* ── CTA ── */
   .cta-section {
@@ -603,7 +703,9 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
     align-items: center;
     gap: 14px;
   }
-  .cta-icon { font-size: 36px; }
+  .cta-icon {
+    font-size: 36px;
+  }
   .cta-heading {
     font-size: clamp(20px, 3vw, 28px);
     font-weight: 900;
@@ -664,23 +766,103 @@ const toolCount = CATEGORIES.flatMap((c) => c.tools).length
 
   /* ── RESPONSIVE ── */
   @media (max-width: 800px) {
-    .mission-grid { grid-template-columns: 1fr; }
-    .mission-visual { order: -1; }
-    .principles-grid { grid-template-columns: 1fr; }
+    .mission-grid {
+      grid-template-columns: 1fr;
+    }
+    .mission-visual {
+      order: -1;
+    }
+    .principles-grid {
+      grid-template-columns: 1fr;
+    }
   }
   @media (max-width: 600px) {
-    .about-hero { padding: 36px 16px 40px; }
-    .hero-meta { gap: 18px; padding: 16px 20px; }
-    .meta-val { font-size: 22px; }
+    .about-hero {
+      padding: 36px 16px 40px;
+    }
+    .hero-meta {
+      gap: 18px;
+      padding: 16px 20px;
+    }
+    .meta-val {
+      font-size: 22px;
+    }
     .mission-section,
     .principles-section,
     .story-section,
     .tools-section,
-    .cta-section { padding: 0 16px; margin-bottom: 52px; }
-    .cta-inner { padding: 36px 20px; }
-    .timeline-left { width: 52px; }
-    .mission-visual { flex-wrap: wrap; gap: 10px; }
-    .visual-arrow { flex-direction: row; }
-    .arrow-line { width: 30px; }
+    .identity-section,
+    .cta-section {
+      padding: 0 16px;
+      margin-bottom: 52px;
+    }
+    .cta-inner {
+      padding: 36px 20px;
+    }
+    .timeline-left {
+      width: 52px;
+    }
+    .mission-visual {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .visual-arrow {
+      flex-direction: row;
+    }
+    .arrow-line {
+      width: 30px;
+    }
+  }
+
+  /* ── IDENTITY ── */
+  .identity-section {
+    max-width: 1040px;
+    margin: 0 auto 72px;
+    padding: 0 20px;
+  }
+  .identity-card {
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    backdrop-filter: var(--glass-backdrop);
+  }
+  .identity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .identity-block {
+  }
+  .identity-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .identity-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .identity-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .identity-link:hover {
+    text-decoration: underline;
+  }
+  .identity-desc {
+    font-size: 14px;
+    color: var(--ink-dim);
+    line-height: 1.75;
+    margin: 0;
   }
 </style>
