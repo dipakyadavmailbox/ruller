@@ -38,32 +38,48 @@ const faqItems = [
 
   <RulerApp client:load />
 
-  <div class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">
-    <img src="/og/ruler.png" alt="Actual Size Online Screen Ruler preview" width="1200" height="630" loading="eager" />
-    <h2>Actual Size Online Screen Ruler Guide & Instructions</h2>
-    <p>Use our free on-screen ruler to measure real-world items directly against your computer screen, tablet, or mobile phone in inches, centimeters, or millimeters. Calibrate using a standard credit card for 100% true physical accuracy.</p>
-    
+  <article class="ruler-guide">
+    <h2>Online Screen Ruler — Calibration Guide & Instructions</h2>
+    <p>
+      Use our free on-screen ruler to measure real-world items directly against your computer screen,
+      tablet, or mobile phone in inches, centimeters, or millimeters. Calibrate once using a standard
+      credit card for 100% true physical accuracy — no app install or server required.
+    </p>
+
     <h3>How Screen Ruler Calibration Works</h3>
-    <p>A standard ISO 7810 ID-1 credit card is exactly 85.60 mm wide (3.370 inches). By matching the on-screen card border to a physical card in your hand, our algorithm calculates your screen exact PPI (Pixels Per Inch) and scales the digital ruler ticks to match real physical dimensions.</p>
+    <p>
+      A standard ISO 7810 ID-1 credit card is exactly 85.60 mm wide (3.370 inches). By matching the
+      on-screen card border to a physical card in your hand, our algorithm calculates your screen's
+      exact PPI (Pixels Per Inch) and scales the ruler ticks to match real physical dimensions. The
+      calibration value is saved in your browser's local storage so you only need to do it once per device.
+    </p>
+
+    <h3>Why Most Online Rulers Are Inaccurate</h3>
+    <p>
+      Standard web rulers assume all screens are 96 DPI — a value that was accurate for CRT monitors
+      in the 1990s but is wrong for virtually every modern display. Retina MacBooks run at 220+ DPI,
+      4K monitors range from 140–200 DPI, and mobile phones often exceed 400 DPI. Without manual
+      calibration, a "10 cm" ruler on screen can be off by 40–60% from real-world size.
+    </p>
 
     <h3>Dedicated Ruler Scales & Calibration Views</h3>
     <ul>
-      <li><a href="/ruler/cm-ruler"><strong>Centimeter (cm) Ruler:</strong> Actual size metric ruler with mm subdivisions for measuring objects in centimeters.</a></li>
-      <li><a href="/ruler/inch-ruler"><strong>Inch (in) Ruler:</strong> 1:1 real-scale imperial ruler with 1/8 and 1/16 inch fractional subdivisions.</a></li>
-      <li><a href="/ruler/mm-ruler"><strong>Millimeter (mm) Precision Ruler:</strong> High-precision engineering and electronics scale check.</a></li>
-      <li><a href="/ruler/credit-card-calibration"><strong>Credit Card Calibration Guide:</strong> Step-by-step calibration using any standard ISO bank card.</a></li>
+      <li><a href="/ruler/cm-ruler"><strong>Centimeter (cm) Ruler:</strong> Actual-size metric ruler with mm subdivisions — ideal for measuring everyday objects in centimeters.</a></li>
+      <li><a href="/ruler/inch-ruler"><strong>Inch (in) Ruler:</strong> 1:1 real-scale imperial ruler with 1/8 and 1/16 inch fractional subdivisions for precision work.</a></li>
+      <li><a href="/ruler/mm-ruler"><strong>Millimeter (mm) Precision Ruler:</strong> High-precision engineering and electronics measurement with fine tick marks.</a></li>
+      <li><a href="/ruler/credit-card-calibration"><strong>Credit Card Calibration Guide:</strong> Step-by-step calibration walkthrough using any standard ISO bank card or ID card.</a></li>
     </ul>
 
     <PrivacyComparisonTable toolName="Screen Ruler Calibration" competitorLabel="Other Ruler Apps" />
 
     <h3>Frequently Asked Questions</h3>
     {faqItems.map((faq) => (
-      <div>
+      <div class="faq-item">
         <h4>{faq.q}</h4>
         <p>{faq.a}</p>
       </div>
     ))}
-  </div>
+  </article>
 </MinimalLayout>
 
 <style>
@@ -100,5 +116,37 @@ const faqItems = [
     max-width: 520px;
     line-height: 1.6;
   }
+
+  /* ── Guide article below the ruler ── */
+  .ruler-guide {
+    max-width: 900px;
+    margin: 40px auto 60px;
+    padding: 32px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+  }
+  .ruler-guide h2 {
+    font-size: 20px; font-weight: 800; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .ruler-guide h3 {
+    font-size: 16px; font-weight: 700; color: var(--ink);
+    margin-top: 24px; margin-bottom: 8px;
+  }
+  .ruler-guide p, .ruler-guide li {
+    font-size: 14px; color: var(--ink-dim); line-height: 1.65;
+  }
+  .ruler-guide ul {
+    padding-left: 20px; margin-bottom: 16px;
+  }
+  .ruler-guide li { margin-bottom: 6px; }
+  .ruler-guide a { color: var(--accent); text-decoration: none; }
+  .ruler-guide a:hover { text-decoration: underline; }
+  .faq-item { margin-bottom: 16px; }
+  .faq-item h4 {
+    font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px;
+  }
+  .faq-item p { margin: 0; }
 </style>
 
